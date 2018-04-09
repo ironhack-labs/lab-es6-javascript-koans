@@ -605,9 +605,7 @@ describe('class creation', () => {
   });
 
   it('anonymous class', () => {
-    function prueba(){
 
-    }
     const classType = typeof function prueba(){
     };
     expect(classType).toBe('function');
