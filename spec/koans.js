@@ -553,9 +553,9 @@ describe('class creation', () => {
   });
 
   it('class is block scoped', () => {
-    class Inside {}
+    //class Inside {}
     { class Inside {} }
-    //expect(typeof Inside).toBe('undefined');
+    expect(typeof Inside).toBe('undefined');
   });
   
   it('special method is `constructor`', function() {
@@ -597,7 +597,7 @@ describe('class creation', () => {
   });
 
   it('anonymous class', () => {
-    const classType = typeof {};
+    const classType = typeof function(el){};
     expect(classType).toBe('function');
   });
 
