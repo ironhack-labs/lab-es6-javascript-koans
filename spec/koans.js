@@ -193,7 +193,7 @@ describe('arrow functions. ', () => {
       let anotherObj = {};
       let expected = anotherObj; //change this
       
-      //expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
     
     it('`arguments` doesnt work inside arrow functions', function() {
