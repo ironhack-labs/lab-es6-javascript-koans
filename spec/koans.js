@@ -352,14 +352,14 @@ describe('destructuring objects. ', () => {
       expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang = [null, [{env: 'browser', lang: 'ES6'}]];
+      const [none, [{env,lang}]] = [null, [{env: 'browser', lang: 'ES6'}]];
       expect(lang).toEqual('ES6');
     });
   });
   
   describe('interesting', () => {
     it('missing refs become undefined', () => {
-      const z = {x: 1, y: 2};
+      const {x,y,z} = {x: 1, y: 2};
       expect(z).toEqual(void 0);
     });
   });
@@ -369,29 +369,29 @@ describe('destructuring objects. ', () => {
 describe('destructuring can also have default values. ', () => {
 
   it('for an empty array', () => {
-    const [a] = [];
-    //expect(a).toEqual(1)
+    const [a = 1] = [];
+    expect(a).toEqual(1)
   });
 
   it('for a missing value', () => {
-    const [a,b,c] = [1,,3];
-    //expect(b).toEqual(2);
+    const [a,b = 2,c] = [1,,3];
+    expect(b).toEqual(2);
   });
 
   it('in an object', () => {
-    const [a, b] = [{a: 1}];
-    //expect(b).toEqual(2);
+    const [a, b = 2] = [{a: 1}];
+    expect(b).toEqual(2);
   });
 
   it('if the value is undefined', () => {
-    const {a, b} = {a: 1, b: void 0};
-    //expect(b).toEqual(2);
+    const {a, b = 2} = {a: 1, b: void 0};
+    expect(b).toEqual(2);
   });
 
   it('also a string works with defaults', () => {
-    const [a, b] = '1';
-    //expect(a).toEqual('1');
-    //expect(b).toEqual(2);
+    const [a, b = 2] = '1';
+    expect(a).toEqual('1');
+    expect(b).toEqual(2);
   });
 
 });
@@ -400,17 +400,17 @@ describe('destructuring function parameters. ', () => {
 
   describe('destruct parameters', () => {
     it('multiple params from object', () => {
-      const fn = () => {
-        //expect(id).toEqual(42);
-        //expect(name).toEqual('Wolfram');
+      const fn = ({name, id}) => {
+        expect(id).toEqual(42);
+        expect(name).toEqual('Wolfram');
       };
       const user = {name: 'Wolfram', id: 42};
       fn(user);
     });
     
     it('multiple params from array/object', () => {
-      const fn = ([]) => {
-        //expect(name).toEqual('Alice');
+      const fn = ([{other}, {name}]) => {
+        expect(name).toEqual('Alice');
       };
       const users = [{name: 'nobody'}, {name: 'Alice', id: 42}];
       fn(users);
@@ -419,17 +419,17 @@ describe('destructuring function parameters. ', () => {
 
   describe('default values', () => {
     it('for simple values', () => {
-      const fn = (id, name) => {
-        //expect(id).toEqual(23);
-        //expect(name).toEqual('Bob');
+      const fn = (id, name = 'Bob') => {
+        expect(id).toEqual(23);
+        expect(name).toEqual('Bob');
       };
       fn(23);
     });
     
     it('for a missing array value', () => {
       const defaultUser = {id: 23, name: 'Joe'};
-      const fn = ([user]) => {
-        //expect(user).toEqual(defaultUser);
+      const fn = ([user] = defaultUser) => {
+        expect(user).toEqual(defaultUser);
       };
       fn([]);
     });
