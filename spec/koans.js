@@ -155,13 +155,11 @@ describe('arrow functions. ', () => {
   class LexicallyBound {
   
     getFunction() {
-      return () => {
-        return new LexicallyBound() /*changes might go here*/
-      }
+      return () => this
     }
   
     getArgumentsFunction() {
-      return function() { return arguments } /*or here*/
+      return () => arguments
     } 
   }
 
@@ -178,16 +176,16 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected = bound;
       
-      //expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
     
     it('`arguments` doesnt work inside arrow functions', function() {
       let bound = new LexicallyBound();
       let fn = bound.getArgumentsFunction();
       
-      //expect(fn(1, 2).length).toEqual(0);
+      expect(fn(1, 2).length).toEqual(0);
     });
     
   });
@@ -198,19 +196,19 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a single character', function() {
     it('in a three char string', function() {
-      /* const searchString = ???? */
-      //expect('xyz'.includes(searchString)).toBe(true);
+      const searchString = "xyz";
+      expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
-      /* const expected = ????*/;
-      //expect('xyz'.includes('abc')).toBe(expected);
+      const expected = false;
+      expect('xyz'.includes('abc')).toBe(expected);
     });
   });
   
   describe('find a string', function() {
     it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+      const findSome = () => 'xyz'.includes();
+      expect(findSome('xyz')).toBe(true);
     });
   });
   
