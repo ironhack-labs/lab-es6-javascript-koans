@@ -313,8 +313,8 @@ describe('destructuring arrays makes shorter code. ', () => {
   
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
-    const [z] = all;
-    //expect(z).toEqual('zet');
+    const [z] = all[2];
+    expect(z).toEqual('zet');
   });
   
   it('extract from nested arrays', () => {
@@ -322,13 +322,13 @@ describe('destructuring arrays makes shorter code. ', () => {
     const [firstName, surname, age] = user;
     
     const expected = 'Some One = 23 years';
-    //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
     let c, d;
-    let a, b = c, d = [1, 2];
-    //expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
+    let a, b, c, d = [1, 2];
+    expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 
 });
@@ -336,13 +336,13 @@ describe('destructuring arrays makes shorter code. ', () => {
 describe('destructuring also works on strings. ', () => {
 
   it('destructure every character', () => {
-    let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
+    let [a, b, c] = ['a','b','c'];
+    expect([a, b, c]).toEqual(['a', 'b', 'c']);
   });
   
   it('missing characters are undefined', () => {
     const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    expect(c).toEqual(void 0);
   });  
 });
 
@@ -350,7 +350,7 @@ describe('destructuring objects. ', () => {
 
   it('is simple', () => {
     const x = {x: 1};
-    //expect(x).toEqual(1);
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
