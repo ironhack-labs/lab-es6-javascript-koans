@@ -200,7 +200,7 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getArgumentsFunction();
       
-      //expect(fn(1, 2).length).toEqual(0);
+      expect(fn(1, 2).length).toEqual(0);
     });
     
   });
@@ -211,19 +211,19 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a single character', function() {
     it('in a three char string', function() {
-      /* const searchString = ???? */
-      //expect('xyz'.includes(searchString)).toBe(true);
+      const searchString = 'z' 
+      expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
-      /* const expected = ????*/;
-      //expect('xyz'.includes('abc')).toBe(expected);
+      const expected = false;
+      expect('xyz'.includes('abc')).toBe(expected);
     });
   });
   
   describe('find a string', function() {
     it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+      const findSome = () => 'xyz'.includes();
+      expect(findSome('xyz')).toBe(true);
     });
   });
   
@@ -301,8 +301,8 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
-    let firstValue = [1];
-    //expect(firstValue).toEqual(1);
+    let [firstValue] = [1];
+    expect(firstValue).toEqual(1);
   });
 
   it('swap two variables, in one operation', () => {
