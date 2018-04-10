@@ -229,28 +229,28 @@ describe('`string.includes()` finds string within another string. ', () => {
   
   describe('search for an empty string, is always true', function() {
     it('in an empty string', function() {
-      /* .... */
-      //expect(''.includes(x)).toBe(true);
+      let x = ""
+      expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      /* .... */
-      //expect('abc'.includes(x)).toBe(true);
+      let x = "abc"
+      expect('abc'.includes(x)).toBe(true);
     });
   });
   
   describe('takes a position from where to start searching', function() {
     it('does not find `a` after position 1 in `abc`', function() {
-      /*....*/
-      //expect('abc'.includes('a', position)).toBe(false);
+      'abbbc'
+      expect('abc'.includes('a', position)).toBe(false);
     });
     it('even the position gets coerced', function() {
-      /*const findAtPosition = (pos) => 'xyz'.includes(?????);*/ 
-      //expect(findAtPosition('2')).toBe(true);
+      const findAtPosition = (pos) => 'xyz'.includes('z'); 
+      expect(findAtPosition('2')).toBe(true);
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(void 0)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('4');
+        expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
         /*const findAtPosition = (pos) => 'xyz'.includes(????); */
@@ -307,8 +307,8 @@ describe('destructuring arrays makes shorter code. ', () => {
 
   it('swap two variables, in one operation', () => {
     let [x, y] = ['ax', 'why'];
-    [x, y] = [x, y];
-    //expect([x, y]).toEqual(['why', 'ax']);
+    let [x, y] = ['why', 'ax'];
+    expect([x, y]).toEqual(['why', 'ax']);
   });
   
   it('leading commas', () => {
