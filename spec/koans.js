@@ -17,7 +17,7 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
     it('`let` restricts scope to inside the block', () => {
       var letX = false;
       if (true) { 
-        let letX = true; 
+        let letX = true;
       }
       expect(letX).toBe(false);
     });
