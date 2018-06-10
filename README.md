@@ -66,4 +66,18 @@ Leave the `expect` lines unchanged! :eyes:
 
 This process has to be done for each test. **Do not uncomment all the tests and launch the app. It will be more difficult for you to see if your code is passing the tests.**
 
+## Pair Programing
+
+Since the Koans includes tests about a lot of the ES6 features, you will use the same exercise for Pair Programming and Daily Exercise. 
+
+The first 46 tests corresponds to the Pair Programming, and the rest are for the Daily Exercise. Inside the `koans.js` you will find a flag to indicate where the Daily Exercise begins:
+
+```javascript
+/*********************************
+********* DAILY EXERCISE *********
+**********************************/
+```
+
+Do not worry if you don't reach the flag during the Pair Programming, you can continue later! :wink:
+
 As we said, this is an excellent way to learn things about a programming language. Good luck to all of you :)
