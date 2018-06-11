@@ -207,7 +207,7 @@ describe('`string.includes()` finds string within another string. ', () => {
   describe('find a single character', function() {
     it('in a three char string', function() {
     const searchString = "xyz";
-      expect('xyz'.includes(searchString)).toBe(true);
+      expect('xyz'.includes(searchString)).toBe(false);//==used to be true
     });
     it('reports false if character was not found', function() {
       const expected = false
@@ -229,7 +229,7 @@ describe('`string.includes()` finds string within another string. ', () => {
     });
     it('in `abc`', function() {
       let x = 'abc'
-      expect('abc'.includes(x)).toBe(true);
+      expect('abc'.includes(x)).toBe(false);//==test-- changed to false 
     });
   });
   
@@ -242,6 +242,9 @@ describe('`string.includes()` finds string within another string. ', () => {
       const findAtPosition = (pos) => 'xyz'.includes(`xyz`);
       expect(findAtPosition('2')).toBe(true);
     });
+
+    //====================== END CLASS
+    
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
         /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
