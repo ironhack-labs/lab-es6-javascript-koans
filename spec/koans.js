@@ -105,43 +105,46 @@ describe('`string.includes()` finds string within another string. ', () => {
   
   describe('find a string', function() {
     it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+       const findSome = word => 'xyz'.includes(word);
+  
+      expect(findSome('xyz')).toBe(true);
     });
   });
   
   describe('search for an empty string, is always true', function() {
     it('in an empty string', function() {
-      /* .... */
-      //expect(''.includes(x)).toBe(true);
+      let x = "";
+      expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      /* .... */
-      //expect('abc'.includes(x)).toBe(true);
+      let x = "";
+      expect('abc'.includes(x)).toBe(true);
     });
   });
   
   describe('takes a position from where to start searching', function() {
     it('does not find `a` after position 1 in `abc`', function() {
-      /*....*/
-      //expect('abc'.includes('a', position)).toBe(false);
+      let position = 1;
+      expect('abc'.includes('a', position)).toBe(false);
     });
     it('even the position gets coerced', function() {
-      /*const findAtPosition = (pos) => 'xyz'.includes(?????);*/ 
-      //expect(findAtPosition('2')).toBe(true);
+      const findAtPosition = (pos) => 'xyz'.includes('z', pos);
+      expect(findAtPosition('2')).toBe(true);
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(void 0)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('xyz', pos); 
+        expect(findAtPosition(void 0)).toBe(true);
       });
+      //this makes no sense
       it('negative numbers', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(????); */
-        //expect(findAtPosition(-2)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('z', pos);
+        expect(findAtPosition(-2)).toBe(true);
       });
+      //this makes no sense
       it('NaN', function() {
-        /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(NaN)).toBe(true);
+         const findAtPosition = (pos) => 'xyz'.includes('x', pos);
+        expect(findAtPosition(NaN)).toBe(true);
       });
     });
   });
@@ -152,8 +155,8 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 
   describe('by default, behaves like a normal string', function() { 
     it('just surrounded by backticks', function() {
-      /*let str = ??????*/
-      //expect(str).toEqual('like a string');
+      let str = `like a string`;
+      expect(str).toEqual('like a string');
     });
     
   });
@@ -164,13 +167,13 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   describe('can evaluate variables, which are wrapped in "${" and "}"', function() {
     
     it('e.g. a simple variable "${x}" just gets evaluated', function() {
-      let evaluated = `x=x`
-      //expect(evaluated).toBe('x=' + x);
+      let evaluated = `x=${x}`
+      expect(evaluated).toBe('x=' + x);
     });
     
     it('multiple variables get evaluated too', function() {
-      var evaluated = `x+y`;
-      //expect(evaluated).toBe(x + '+' + y);
+      var evaluated = `${x}+${y}`;
+      expect(evaluated).toBe(x + '+' + y);
     });
     
   });
@@ -178,16 +181,16 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   describe('can evaluate any expression, wrapped inside "${...}"', function() {
     
     it('all inside "${...}" gets evaluated', function() {
-      var evaluated = Number(`x+y`);
-      //expect(evaluated).toBe(x+y);
+      var evaluated = Number(`${x+y}`);
+      expect(evaluated).toBe(x+y);
     });
     
     it('inside "${...}" can also be a function call', function() {
       function getSchool(){ 
         return 'Ironhack'; 
       }
-      var evaluated = `getSchool()`;
-      //expect(evaluated).toBe('Ironhack');
+      var evaluated = `${getSchool()}`;
+      expect(evaluated).toBe('Ironhack');
     });
     
   });
@@ -201,12 +204,13 @@ describe('The object literal allows for new shorthands. ', () => {
 
   describe('with variables', () => {
     it('the short version for `{y: y}` is {y}', () => {
-      /*.....*/
-      //expect(short).toEqual({y: y});
+      //if you put just y it takes it as key and value
+      var short = {y};
+      expect(short).toEqual({y: y});
     });
     it('works with multiple variables too', () => {
-      /*.....*/
-      //expect(short).toEqual({x: x, y: y});
+      var short = {x, y};
+      expect(short).toEqual({x: x, y: y});
     });
   });
   
@@ -215,13 +219,15 @@ describe('The object literal allows for new shorthands. ', () => {
     const func = () => func;
 
     it('using the name only uses it as key', () => {
-      /*.......*/
-      //expect(short).toEqual({func: func});
+      var short = {func}
+      expect(short).toEqual({func: func});
     });
     
     it('a different key must be given explicitly, just like before ES6', () => {
-      /*.......*/
-      //expect(short).toEqual({otherKey: func});
+      //add new array short and add otherKey whose value will be the const from above
+      var short = {}
+      short.otherKey = func;
+      expect(short).toEqual({otherKey: func});
     });
   });
   
@@ -230,20 +236,22 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
+    //don't get what I have to do here 
     let firstValue = [1];
-    //expect(firstValue).toEqual(1);
+    expect(firstValue).toEqual(1);
   });
 
   it('swap two variables, in one operation', () => {
     let [x, y] = ['ax', 'why'];
     [x, y] = [x, y];
-    //expect([x, y]).toEqual(['why', 'ax']);
+    expect([x, y]).toEqual(['why', 'ax']);
   });
   
   it('leading commas', () => {
+    //don't get this
     const all = ['ax', 'why', 'zet'];
     const [z] = all;
-    //expect(z).toEqual('zet');
+    expect(z).toEqual('zet');
   });
   
   it('extract from nested arrays', () => {
@@ -251,13 +259,14 @@ describe('destructuring arrays makes shorter code. ', () => {
     const [firstName, surname, age] = user;
     
     const expected = 'Some One = 23 years';
-    //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
+    //don't get this and this causes an error
     let c, d;
     let a, b = c, d = [1, 2];
-    //expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
+    expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 
 });
@@ -265,32 +274,35 @@ describe('destructuring arrays makes shorter code. ', () => {
 describe('destructuring also works on strings. ', () => {
 
   it('destructure every character', () => {
-    let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
+    let [a, b, c] = 'abc';
+    expect([a, b, c]).toEqual(['a', 'b', 'c']);
   });
   
   it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+  //why do we have two parameters here?
+    const [a, b, c] = 'ab';
+    expect(c).toEqual(void 0);
   });  
 });
 
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const x = {x: 1};
-    //expect(x).toEqual(1);
+    const {x} = {x: 1};
+    expect(x).toEqual(1);
   });
+
 
   describe('nested', () => {
     it('multiple objects', () => {
       const magic = {first: 23, second: 42};
-      /*const first, second  = ??????*/
-      //expect(second).toEqual(42);
+      const {first, second}  = magic;
+      expect(second).toEqual(42);
     });
+
     it('object and array', () => {
       const {z:x} = {z: [23, 42]};
-      //expect(x).toEqual(42);
+      expect(x).toEqual(42);
     });
     it('array and object', () => {
       const lang = [null, [{env: 'browser', lang: 'ES6'}]];
