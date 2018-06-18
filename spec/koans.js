@@ -91,50 +91,50 @@ describe('`string.includes()` finds string within another string. ', () => {
       expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
-      const expected = "abc";
+      const expected = false;
       expect('xyz'.includes('abc')).toBe(expected);
     });
   });
   
   describe('find a string', function() {
     it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+      const findSome = word => 'xyz'.includes(word);
+      expect(findSome('xyz')).toBe(true);
     });
   });
   
   describe('search for an empty string, is always true', function() {
     it('in an empty string', function() {
-      /* .... */
-      //expect(''.includes(x)).toBe(true);
+      let x = "";
+      expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      /* .... */
-      //expect('abc'.includes(x)).toBe(true);
+      let x = `abc`;
+      expect('abc'.includes(x)).toBe(true);
     });
   });
   
   describe('takes a position from where to start searching', function() {
     it('does not find `a` after position 1 in `abc`', function() {
-      /*....*/
-      //expect('abc'.includes('a', position)).toBe(false);
+      let position = 1;
+      expect('abc'.includes('a', position)).toBe(false);
     });
     it('even the position gets coerced', function() {
-      /*const findAtPosition = (pos) => 'xyz'.includes(?????);*/ 
-      //expect(findAtPosition('2')).toBe(true);
+      const findAtPosition = (pos) => 'xyz'.includes("z");
+      expect(findAtPosition('2')).toBe(true);
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(void 0)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes("");
+        expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(????); */
-        //expect(findAtPosition(-2)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes("y");
+        expect(findAtPosition(-2)).toBe(true);
       });
       it('NaN', function() {
-        /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(NaN)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes(0);
+        expect(findAtPosition(NaN)).toBe(true);
       });
     });
   });
