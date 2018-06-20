@@ -301,19 +301,20 @@ describe('destructuring objects. ', () => {
     });
 
     it('object and array', () => {
-      const {z:x} = {z: [23, 42]};
+      //second element of array
+      const {z:[,x]} = {z: [23, 42]};
       expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang = [null, [{env: 'browser', lang: 'ES6'}]];
-      //expect(lang).toEqual('ES6');
+      const [,[{lang}]] = [null, [{env: 'browser', lang: 'ES6'}]];
+      expect(lang).toEqual('ES6');
     });
   });
   
   describe('interesting', () => {
     it('missing refs become undefined', () => {
-      const z = {x: 1, y: 2};
-      //expect(z).toEqual(void 0);
+      const {z} = {x: 1, y: 2};
+      expect(z).toEqual(void 0);
     });
   });
 
@@ -322,8 +323,8 @@ describe('destructuring objects. ', () => {
 describe('destructuring can also have default values. ', () => {
 
   it('for an empty array', () => {
-    const [a] = [];
-    //expect(a).toEqual(1)
+    const [a = 1] = [];
+    expect(a).toEqual(1)
   });
 
   it('for a missing value', () => {
