@@ -7,32 +7,34 @@ context = describe;
 describe('`let` restricts the scope of the variable to the current block - ', () => {
   describe('`let` vs. `var`.', () => {
     it('`var` works as usual, it does not restricts scope', () => {
+      var varX = false;
       if (true) { 
-        /*You should add your code in here*/
+        varX = true;
       }
-      //expect(varX).toBe(true);
+      expect(varX).toBe(true);
     }); 
 
     it('`let` restricts scope to inside the block', () => {
       /*var or const? letX = false*/
+      let letX = false;
       if (true) { 
-        /*var or const? letX = true*/
+        const letX = true;
       }
-      //expect(letX).toBe(false);
+      expect(letX).toBe(false);
     });
     
     it('`var` does not restricts scope to inside the block in `for` loops', () => {
-      /*var or let? counter = 100*/
-      /*for (var or let? counter = 1; counter < 50; counter++){}*/
+      var counter = 100
+      for (var counter = 1; counter < 50; counter++){}
 
-      //expect(counter).toBe(50);
+      expect(counter).toBe(50);
     });
     
     it('`let` restricts scope to inside the block also in `for` loops', () => {
-      /*var or let? counter = 100*/
-      /*for (var or let? counter = 1; counter < 50; counter++){}*/
+    let counter = 100;
+    for (let counter = 1; counter < 50; counter++){}
 
-      //expect(counter).toBe(100);
+    expect(counter).toBe(100);
     }); 
   });
 
@@ -43,38 +45,39 @@ describe('`const` is like `let` plus read-only. ', () => {
   describe('scalar values are read-only', () => {
     it('number are read-only', () => {
       const constNum = 0;
-      constNum = 1;
+      //constNum = 1;
 
-      //expect(constNum).toBe(0);
+      expect(constNum).toBe(0);
     });
 
     it('string are read-only', () => {
       const constString = "I am a const";
-      constString = "Cant change you?";
+     // constString = "Cant change you?";
 
-      //expect(constString).toBe("I am a const");
+      expect(constString).toBe("I am a const");
     });
 
   });
   
-  /*var, let or const? notChangeable = 23;*/
+  const notChangeable = 23;
 
   it('const scope leaks too', () => {
-    //expect(notChangeable).toBe(23);
+    expect(notChangeable).toBe(23);
   });
   
   describe('complex types are NOT fully read-only', () => {
 
     it('arrays is not fully read-only', () => {
       const arr = [42, 23];
-
-      //expect(arr[0]).toBe(0);
+      arr[0] = 0;
+      expect(arr[0]).toBe(0);
     });
     
     it('objects are not fully read-only', () => {
       const obj = {x: 1};
+      obj.x = 2;
 
-      //expect(obj.x).toBe(2);
+      expect(obj.x).toBe(2);
     });
     
   });
@@ -82,57 +85,56 @@ describe('`const` is like `let` plus read-only. ', () => {
 });
 
 describe('`string.includes()` finds string within another string. ', () => {
-
   describe('find a single character', function() {
     it('in a three char string', function() {
-      /* const searchString = ???? */
-      //expect('xyz'.includes(searchString)).toBe(true);
+       const searchString = "xyz"
+      expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
-      /* const expected = ????*/;
-      //expect('xyz'.includes('abc')).toBe(expected);
+      const expected = false;
+      expect('xyz'.includes('abc')).toBe(expected);
     });
   });
   
   describe('find a string', function() {
     it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+      const findSome = word => 'xyz'.includes(word);
+      expect(findSome('xyz')).toBe(true);
     });
   });
   
   describe('search for an empty string, is always true', function() {
     it('in an empty string', function() {
-      /* .... */
-      //expect(''.includes(x)).toBe(true);
+      let x = "";
+      expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      /* .... */
-      //expect('abc'.includes(x)).toBe(true);
+      let x = `abc`;
+      expect('abc'.includes(x)).toBe(true);
     });
   });
   
   describe('takes a position from where to start searching', function() {
     it('does not find `a` after position 1 in `abc`', function() {
-      /*....*/
-      //expect('abc'.includes('a', position)).toBe(false);
+      let position = 1;
+      expect('abc'.includes('a', position)).toBe(false);
     });
     it('even the position gets coerced', function() {
-      /*const findAtPosition = (pos) => 'xyz'.includes(?????);*/ 
-      //expect(findAtPosition('2')).toBe(true);
+      const findAtPosition = (pos) => 'xyz'.includes("z");
+      expect(findAtPosition('2')).toBe(true);
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(void 0)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes("");
+        expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(????); */
-        //expect(findAtPosition(-2)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes("y");
+        expect(findAtPosition(-2)).toBe(true);
       });
       it('NaN', function() {
-        /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(NaN)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes(0);
+        expect(findAtPosition(NaN)).toBe(true);
       });
     });
   });
