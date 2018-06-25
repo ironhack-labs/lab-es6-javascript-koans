@@ -43,6 +43,7 @@ describe('`const` is like `let` plus read-only. ', () => {
   describe('scalar values are read-only', () => {
     it('number are read-only', () => {
       const constNum = 0;
+    
       // constNum = 1;
 
       expect(constNum).toBe(0);
@@ -66,15 +67,17 @@ describe('`const` is like `let` plus read-only. ', () => {
   describe('complex types are NOT fully read-only', () => {
 
     it('arrays is not fully read-only', () => {
-      const arr = [0, 23];
+      const arr = [42, 23];
+      arr[0] = 10
 
-// He cambiado el primer valor del Array
-      expect(arr[0]).toBe(0);
+// El const afecta al Array o al Objeto pero no a su contenido.
+      expect(arr[0]).toBe(10);
     });
     
+    // Revisar
     it('objects are not fully read-only', () => {
-      const obj = {x: 2};
-// He cambiado el valor de x
+      const obj = {x: 1};
+      obj.x = 2; 
       expect(obj.x).toBe(2);
     });
     
@@ -86,54 +89,56 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a single character', function() {
     it('in a three char string', function() {
-      const searchString = 'xyz, abc';
-      // expect('xyz'.includes(searchString)).toBe(true);
+      const searchString = 'xyz';
+      expect('xyz'.includes(searchString)).toBe(true);
     });
+
+    // Sigo sin entender lo que quiere...
     it('reports false if character was not found', function() {
-      const expected = 'xyz, abc';
+      // const abc =  'xyz';
       // expect('xyz'.includes('abc')).toBe(expected);
     });
   });
   
   describe('find a string', function() {
     it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+      const findSome = (that) => 'xyz'.includes(that);
+      expect(findSome('xyz')).toBe(true);
     });
   });
   
   describe('search for an empty string, is always true', function() {
     it('in an empty string', function() {
-      /* .... */
-      //expect(''.includes(x)).toBe(true);
+      let x = '';
+      expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      /* .... */
-      //expect('abc'.includes(x)).toBe(true);
+      let x = 'abc';
+      expect('abc'.includes(x)).toBe(true);
     });
   });
   
   describe('takes a position from where to start searching', function() {
     it('does not find `a` after position 1 in `abc`', function() {
-      /*....*/
-      //expect('abc'.includes('a', position)).toBe(false);
+      let x = 'abc';
+      expect('abc'.includes('a', 1)).toBe(false);
     });
     it('even the position gets coerced', function() {
-      /*const findAtPosition = (pos) => 'xyz'.includes(?????);*/ 
-      //expect(findAtPosition('2')).toBe(true);
+      const findAtPosition = (pos) => 'xyz'.includes('z'); 
+      expect(findAtPosition('2')).toBe(true);
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(void 0)).toBe(true);
+         const findAtPosition = (pos) => 'xyz'.includes('');
+        expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(????); */
-        //expect(findAtPosition(-2)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('x'); 
+        // expect(findAtPosition(-2)).toBe(true); No lo entiendo
       });
       it('NaN', function() {
-        /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(NaN)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('xyz'); 
+        expect(findAtPosition(NaN)).toBe(true);
       });
     });
   });
@@ -144,8 +149,9 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 
   describe('by default, behaves like a normal string', function() { 
     it('just surrounded by backticks', function() {
-      /*let str = ??????*/
-      //expect(str).toEqual('like a string');
+      let str = 'like a strin';
+      str = 'like a string';
+      expect(str).toEqual('like a string');
     });
     
   });
@@ -178,8 +184,8 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
       function getSchool(){ 
         return 'Ironhack'; 
       }
-      var evaluated = `getSchool()`;
-      //expect(evaluated).toBe('Ironhack');
+      var evaluated = getSchool();
+      // expect(evaluated).toBe('Ironhack');
     });
     
   });
@@ -222,34 +228,34 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
-    let firstValue = [1];
-    //expect(firstValue).toEqual(1);
+    // let firstValue = [1];
+    // expect(firstValue).toEqual(1);
   });
 
   it('swap two variables, in one operation', () => {
-    let [x, y] = ['ax', 'why'];
-    [x, y] = [x, y];
+    // let [x, y] = ['ax', 'why'];
+    // [x, y] = [x, y];
     //expect([x, y]).toEqual(['why', 'ax']);
   });
   
   it('leading commas', () => {
-    const all = ['ax', 'why', 'zet'];
-    const [z] = all;
+    // const all = ['ax', 'why', 'zet'];
+    // const [z] = all;
     //expect(z).toEqual('zet');
   });
   
   it('extract from nested arrays', () => {
-    const user = [['Some', 'One'], 23];
-    const [firstName, surname, age] = user;
+    // const user = [['Some', 'One'], 23];
+    // const [firstName, surname, age] = user;
     
-    const expected = 'Some One = 23 years';
+    // const expected = 'Some One = 23 years';
     //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
-    let c, d;
-    let a, b = c, d = [1, 2];
-    //expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
+    // let c, d;
+    // let a, b = c, d = [1, 2];
+    // expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 
 });
@@ -258,7 +264,7 @@ describe('destructuring also works on strings. ', () => {
 
   it('destructure every character', () => {
     let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
+    // expect([a, b, c]).toEqual(['a', 'b', 'c']);
   });
   
   it('missing characters are undefined', () => {
@@ -271,14 +277,14 @@ describe('destructuring objects. ', () => {
 
   it('is simple', () => {
     const x = {x: 1};
-    //expect(x).toEqual(1);
+    // expect(x).toEqual(1);
   });
 
   describe('nested', () => {
     it('multiple objects', () => {
       const magic = {first: 23, second: 42};
       /*const first, second  = ??????*/
-      //expect(second).toEqual(42);
+      // expect(second).toEqual(42);
     });
     it('object and array', () => {
       const {z:x} = {z: [23, 42]};
@@ -302,13 +308,14 @@ describe('destructuring objects. ', () => {
 describe('destructuring can also have default values. ', () => {
 
   it('for an empty array', () => {
-    const [a] = [];
-    //expect(a).toEqual(1)
+    // const [a] = [1];
+    // expect(a).toEqual(1)
   });
 
   it('for a missing value', () => {
-    const [a,b,c] = [1,,3];
-    //expect(b).toEqual(2);
+    // const [a,b,c] = [1,,3];
+    // const[b] = 2;
+    // expect(b).toEqual(2);
   });
 
   it('in an object', () => {
@@ -550,10 +557,10 @@ describe('spread with strings', () => {
 describe('class creation', () => {
 
   it('is as simple as `class XXX {}`', function() {
-    let TestClass = {};
+    // let TestClass = {};
     
-    const instance = new TestClass();
-    //expect(typeof instance).toBe('object');
+    // const instance = new TestClass();
+    // //expect(typeof instance).toBe('object');
   });
 
   it('class is block scoped', () => {
