@@ -541,8 +541,8 @@ describe('spread with strings', () => {
   });
   
   it('works anywhere inside an array (must not be last)', function() {
-    const letters = ['a', 'bcd', 'e', 'f'];
-    //expect(letters.length).toEqual(6);
+    const [...letters] = ['a', 'bcd', 'e', 'f'];
+    expect(letters.length).toEqual(6);
   });
   
 });
@@ -558,7 +558,7 @@ describe('class creation', () => {
   });
 
   it('class is block scoped', () => {
-    class Inside {}
+
     { class Inside {} }
     expect(typeof Inside).toBe('undefined');
   });
