@@ -32,7 +32,7 @@ When we are coding, we have to be sure that our code is working as we expect. Mo
 
 We need to execute our tests. First of all, fork and clone this repo into your Github account. Once you are done, open the file `SpecRunner.html` with your browser.
 
-In the beginning, you will see all the tests in yellow because the tests we have to implement are commented. (except for one, that througs an error, no worries :wink:)
+In the beginning, you will see all the tests in yellow because the tests we have to implement are commented. (except for one, that throws an error, no worries :wink:)
 
 ![image](https://user-images.githubusercontent.com/23629340/36485165-c51a20fc-171b-11e8-854c-a83fb7dec036.png)
 
