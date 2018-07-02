@@ -535,13 +535,13 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [b, a] = ['ba'];
+    const [b, a] = [...'ba'];
     expect(a).toEqual('a');
     expect(b).toEqual('b');
   });
   
   it('works anywhere inside an array (must not be last)', function() {
-    const [...letters] = ['a', 'bcd', 'e', 'f'];
+    const [...letters] = ['a', ...'bcd', 'e', 'f'];
     expect(letters.length).toEqual(6);
   });
   
