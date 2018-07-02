@@ -43,38 +43,38 @@ describe('`const` is like `let` plus read-only. ', () => {
   describe('scalar values are read-only', () => {
     it('number are read-only', () => {
       const constNum = 0;
-      constNum = 1;
 
-      //expect(constNum).toBe(0);
+      expect(constNum).toBe(0);
     });
 
     it('string are read-only', () => {
       const constString = "I am a const";
-      constString = "Cant change you?";
 
-      //expect(constString).toBe("I am a const");
+      expect(constString).toBe("I am a const");
     });
 
   });
   
-  /*var, let or const? notChangeable = 23;*/
+  const notChangeable = 23;
 
   it('const scope leaks too', () => {
-    //expect(notChangeable).toBe(23);
+    expect(notChangeable).toBe(23);
   });
   
   describe('complex types are NOT fully read-only', () => {
 
     it('arrays is not fully read-only', () => {
       const arr = [42, 23];
+      arr[0] = 0;
 
-      //expect(arr[0]).toBe(0);
+      expect(arr[0]).toBe(0);
     });
     
     it('objects are not fully read-only', () => {
       const obj = {x: 1};
+      obj.x = 2;
 
-      //expect(obj.x).toBe(2);
+      expect(obj.x).toBe(2);
     });
     
   });
