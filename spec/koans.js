@@ -535,7 +535,7 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [[...b], [...a]] = ['ba'];
+    const [b, a] = ['ba'];
     expect(a).toEqual('a');
     expect(b).toEqual('b');
   });
