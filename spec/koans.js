@@ -547,7 +547,7 @@ describe('spread with strings', () => {
   });
   
   it('works anywhere inside an array (must not be last)', function() {
-    const letters = ['a', 'b', 'c', 'd', 'e', 'f'];
+    const letters = ['a', ...'bcd', 'e', 'f'];
     expect(letters.length).toEqual(6);
   });
   
