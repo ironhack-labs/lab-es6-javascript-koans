@@ -490,13 +490,13 @@ describe('assign object property values to new variables while destructuring. ',
 describe('rest with destructuring', () => {
     
   it('rest parameter must be last', () => {
-    const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([1, 2, 3, 4]);
+    const [...all] = [1, 2, 3, 4];
+    expect(all).toEqual([1, 2, 3, 4]);
   });
   
   it('assign rest of an array to a variable', () => {
-    const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([2, 3, 4]);
+    const [, ...all] = [1, 2, 3, 4];
+    expect(all).toEqual([2, 3, 4]);
   }); 
 });
 
