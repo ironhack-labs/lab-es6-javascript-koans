@@ -359,44 +359,44 @@ describe("arrow functions. ", () => {
   class LexicallyBound {
     getFunction() {
       return () => {
-        return new LexicallyBound(); /*changes might go here*/
+        return this; /*changes might go here*/
       };
     }
 
     getArgumentsFunction() {
-      return function() {
+      return () => {
         return arguments;
       }; /*or here*/
     }
   }
 
   // Struggled with this part
-  
-//   describe("arrow functions have lexical `this`, no dynamic `this`", () => {
-//     it("bound at definition time, use `=>` ", function() {
-//       let bound = new LexicallyBound();
-//       let fn = bound.getFunction();
 
-//       // expect(fn()).toBe(bound);
-//     });
+  describe("arrow functions have lexical `this`, no dynamic `this`", () => {
+    it("bound at definition time, use `=>` ", function() {
+      let bound = new LexicallyBound();
+      let fn = bound.getFunction();
 
-//     it("can NOT bind a different context", function() {
-//       let bound = new LexicallyBound();
-//       let fn = bound.getFunction();
-//       let anotherObj = {};
-//       let expected = anotherObj; //change this
+      expect(fn()).toBe(bound);
+    });
 
-//       // expect(fn.call(anotherObj)).toBe(expected);
-//     });
+    it("can NOT bind a different context", function() {
+      let bound = new LexicallyBound();
+      let fn = bound.getFunction();
+      let anotherObj = {};
+      let expected = bound; //change this
 
-//     it("`arguments` doesnt work inside arrow functions", function() {
-//       let bound = new LexicallyBound();
-//       let fn = bound.getArgumentsFunction();
+      expect(fn.call(anotherObj)).toBe(expected);
+    });
 
-//       //expect(fn(1, 2).length).toEqual(0);
-//     });
-//   });
-// });
+    it("`arguments` doesnt work inside arrow functions", function() {
+      let bound = new LexicallyBound();
+      let fn = bound.getArgumentsFunction();
+
+      expect(fn(1, 2).length).toEqual(0);
+    });
+  });
+});
 
 describe("destructuring function parameters. ", () => {
   describe("destruct parameters", () => {
