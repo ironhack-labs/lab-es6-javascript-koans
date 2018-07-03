@@ -8,31 +8,31 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
   describe('`let` vs. `var`.', () => {
     it('`var` works as usual, it does not restricts scope', () => {
       if (true) { 
-        /*You should add your code in here*/
+       var varX = true;
       }
-      //expect(varX).toBe(true);
+      expect(varX).toBe(true);
     }); 
 
     it('`let` restricts scope to inside the block', () => {
-      /*var or const? letX = false*/
+      const letX = false
       if (true) { 
-        /*var or const? letX = true*/
+        let letX = true
       }
-      //expect(letX).toBe(false);
+      expect(letX).toBe(false);
     });
     
     it('`var` does not restricts scope to inside the block in `for` loops', () => {
-      /*var or let? counter = 100*/
-      /*for (var or let? counter = 1; counter < 50; counter++){}*/
+      var counter = 100
+      for (var counter = 1; counter < 50; counter++){}
 
-      //expect(counter).toBe(50);
+      expect(counter).toBe(50);
     });
     
     it('`let` restricts scope to inside the block also in `for` loops', () => {
-      /*var or let? counter = 100*/
-      /*for (var or let? counter = 1; counter < 50; counter++){}*/
+      let counter = 100
+      for (let counter = 1; counter < 50; counter++){}
 
-      //expect(counter).toBe(100);
+      expect(counter).toBe(100);
     }); 
   });
 
@@ -45,22 +45,22 @@ describe('`const` is like `let` plus read-only. ', () => {
       const constNum = 0;
       constNum = 1;
 
-      //expect(constNum).toBe(0);
+      expect(constNum).toBe(0);
     });
 
     it('string are read-only', () => {
       const constString = "I am a const";
       constString = "Cant change you?";
 
-      //expect(constString).toBe("I am a const");
+      expect(constString).toBe("I am a const");
     });
 
   });
   
-  /*var, let or const? notChangeable = 23;*/
+     const notChangeable = 23;
 
   it('const scope leaks too', () => {
-    //expect(notChangeable).toBe(23);
+    expect(notChangeable).toBe(23);
   });
   
   describe('complex types are NOT fully read-only', () => {
@@ -68,13 +68,13 @@ describe('`const` is like `let` plus read-only. ', () => {
     it('arrays is not fully read-only', () => {
       const arr = [42, 23];
 
-      //expect(arr[0]).toBe(0);
+      expect(arr[0]).toBe(0);
     });
     
     it('objects are not fully read-only', () => {
       const obj = {x: 1};
 
-      //expect(obj.x).toBe(2);
+      expect(obj.x).toBe(2);
     });
     
   });
@@ -85,54 +85,54 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a single character', function() {
     it('in a three char string', function() {
-      /* const searchString = ???? */
-      //expect('xyz'.includes(searchString)).toBe(true);
+       const searchString = 'x';
+      expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
-      /* const expected = ????*/;
-      //expect('xyz'.includes('abc')).toBe(expected);
+      const expected = false;
+      expect('xyz'.includes('abc')).toBe(expected);
     });
   });
   
   describe('find a string', function() {
     it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+       const findSome = findMe => 'xyz'.includes(findMe);
+      expect(findSome('xyz')).toBe(true);
     });
   });
   
   describe('search for an empty string, is always true', function() {
     it('in an empty string', function() {
       /* .... */
-      //expect(''.includes(x)).toBe(true);
+      expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
       /* .... */
-      //expect('abc'.includes(x)).toBe(true);
+      expect('abc'.includes(x)).toBe(true);
     });
   });
   
   describe('takes a position from where to start searching', function() {
     it('does not find `a` after position 1 in `abc`', function() {
-      /*....*/
-      //expect('abc'.includes('a', position)).toBe(false);
+      const position = 1;
+      expect('abc'.includes('a', position)).toBe(false);
     });
     it('even the position gets coerced', function() {
-      /*const findAtPosition = (pos) => 'xyz'.includes(?????);*/ 
-      //expect(findAtPosition('2')).toBe(true);
+      const findAtPosition = (pos) => 'xyz'.includes('z',pos);
+      expect(findAtPosition('2')).toBe(true);
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(void 0)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('x',pos); 
+        expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(????); */
-        //expect(findAtPosition(-2)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('x',pos); 
+        expect(findAtPosition(-2)).toBe(true);
       });
       it('NaN', function() {
-        /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(NaN)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('x',pos); 
+        expect(findAtPosition(NaN)).toBe(true);
       });
     });
   });
@@ -192,8 +192,8 @@ describe('The object literal allows for new shorthands. ', () => {
 
   describe('with variables', () => {
     it('the short version for `{y: y}` is {y}', () => {
-      /*.....*/
-      //expect(short).toEqual({y: y});
+      const short= {y};
+      expect(short).toEqual({y: y});
     });
     it('works with multiple variables too', () => {
       /*.....*/
@@ -353,24 +353,27 @@ describe('arrow functions. ', () => {
 
   it('many params require parens', () => {
     /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    expect(func(23,42)).toEqual(23+42)
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => {iAm: 'an object'} 
-    //expect(func()).toEqual({iAm: 'an object'});
+    let func = () => {
+      return {iAm: 'an object'} 
+    expect(func()).toEqual({iAm: 'an object'});
+    }
   });
+
 
   class LexicallyBound {
   
     getFunction() {
       return () => {
-        return new LexicallyBound() /*changes might go here*/
+        return this; /*already chances this*/
       }
     }
   
     getArgumentsFunction() {
-      return function() { return arguments } /*or here*/
+      return () => arguments; /*and here*/
     } 
   }
 
@@ -380,7 +383,7 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       
-      //expect(fn()).toBe(bound);
+      expect(fn()).toBe(bound);
     });
   
     it('can NOT bind a different context', function() {
@@ -389,7 +392,7 @@ describe('arrow functions. ', () => {
       let anotherObj = {};
       let expected = anotherObj; //change this
       
-      //expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
     
     it('`arguments` doesnt work inside arrow functions', function() {
