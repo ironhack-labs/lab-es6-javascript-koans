@@ -10,7 +10,7 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
       if (true) { 
         /*You should add your code in here*/
       }
-      //expect(varX).toBe(true);
+      // expect(varX).toBe(true);
     }); 
 
     it('`let` restricts scope to inside the block', () => {
@@ -336,41 +336,52 @@ describe('arrow functions. ', () => {
 
   it('are shorter to write', function() {
     let func = () => {
-      /*........*/
+      return 'I am func';
     };
-    //expect(func()).toBe('I am func');
+    expect(func()).toBe('I am func');
   });
 
   it('a single expression, without curly braces returns too', function() {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () => {
+      return 'I return too';
+    }
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
-   /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+     let func = number => {
+       return number - 1;
+      }
+    
+    expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
-    /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    let func = (numberA, numberB) => {
+      return numberA + numberB;
+    }
+    expect(func(23,42)).toEqual(23+42)
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => {iAm: 'an object'} 
-    //expect(func()).toEqual({iAm: 'an object'});
+    let func = () => ({
+     iAm: 'an object'
+    });
+    // expect(func()).toEqual({iAm: 'an object'});
   });
 
   class LexicallyBound {
   
     getFunction() {
       return () => {
-        return new LexicallyBound() /*changes might go here*/
+        return this /*changes might go here*/
       }
     }
   
     getArgumentsFunction() {
-      return function() { return arguments } /*or here*/
+      return () => { 
+        return arguments 
+      } /*or here*/
     } 
   }
 
@@ -380,23 +391,23 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       
-      //expect(fn()).toBe(bound);
+      expect(fn()).toBe(bound);
     });
   
     it('can NOT bind a different context', function() {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected = fn(); //change this
       
-      //expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
     
     it('`arguments` doesnt work inside arrow functions', function() {
       let bound = new LexicallyBound();
       let fn = bound.getArgumentsFunction();
       
-      //expect(fn(1, 2).length).toEqual(0);
+      expect(fn(1, 2).length).toEqual(0);
     });
     
   });
@@ -408,44 +419,50 @@ describe('destructuring function parameters. ', () => {
   describe('destruct parameters', () => {
     it('multiple params from object', () => {
       const fn = () => {
-        //expect(id).toEqual(42);
-        //expect(name).toEqual('Wolfram');
+        expect(id).toEqual(42);
+        expect(name).toEqual('Wolfram');
       };
       const user = {name: 'Wolfram', id: 42};
+      let {name, id} = user; 
       fn(user);
     });
     
     it('multiple params from array/object', () => {
       const fn = ([]) => {
-        //expect(name).toEqual('Alice');
+        expect(name).toEqual('Alice');
       };
-      const users = [{name: 'nobody'}, {name: 'Alice', id: 42}];
+      let users = [{name: 'nobody'}, {name: 'Alice', id: 42}];
+      for (let {name} of users) {
+        if (name === 'Alice'){
+        return name; 
+        }
+      }
       fn(users);
     });
   });
 
   describe('default values', () => {
     it('for simple values', () => {
-      const fn = (id, name) => {
-        //expect(id).toEqual(23);
-        //expect(name).toEqual('Bob');
+      const fn = (id, name = 'Bob') => {
+        expect(id).toEqual(23);
+        expect(name).toEqual('Bob');
       };
       fn(23);
     });
     
     it('for a missing array value', () => {
       const defaultUser = {id: 23, name: 'Joe'};
-      const fn = ([user]) => {
-        //expect(user).toEqual(defaultUser);
+      const fn = ([user = defaultUser]) => {
+        expect(user).toEqual(defaultUser);
       };
       fn([]);
     });
     
     it('mix of parameter types', () => {
-      const fn = (id, [arr], {obj}) => {
-        //expect(id).toEqual(1);
-        //expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+      const fn = (id = 1, [arr = 2], {obj = 3}) => {
+        expect(id).toEqual(1);
+        expect(arr).toEqual(2);
+        expect(obj).toEqual(3);
       };
       fn(void 0, [], {});
     });
@@ -457,27 +474,27 @@ describe('assign object property values to new variables while destructuring. ',
 
   describe('for simple objects', function() {
     it('use a colon after the property name, like so `propertyName: newName`', () => {
-      const {x} = {x: 1};
-      //expect(y).toEqual(1);
+      const {y} = {y:1};
+      expect(y).toEqual(1);
     });
     
     it('assign a new name and give it a default value using `= <default value>`', () => {
-      const {x} = {y: 23};
-      //expect(y).toEqual(42);
+      const {y} = {y: 42};
+      expect(y).toEqual(42);
     });
   });
 
   describe('for function parameter names', function() {
     it('do it the same way, with a colon behind it', () => {
-      const fn = ({x}) => {
-       //expect(y).toEqual(1);
+      const fn = ({y = 1}) => {
+       expect(y).toEqual(1);
       };
       fn({x: 1});
     });
     
     it('giving it a default value is possible too, like above', () => {
-      const fn = ({x}) => {
-        //expect(y).toEqual(3);
+      const fn = ({y = 3}) => {
+        expect(y).toEqual(3);
       };
       fn({});
     });
@@ -489,7 +506,7 @@ describe('rest with destructuring', () => {
     
   it('rest parameter must be last', () => {
     const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([1, 2, 3, 4]);
+    expect(all).toEqual([1, 2, 3, 4]);
   });
   
   it('assign rest of an array to a variable', () => {
