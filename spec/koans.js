@@ -252,16 +252,16 @@ describe('destructuring also works on strings. ', () => {
   });
   
   it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    const [a, c] = ['ab'];
+    expect(c).toEqual(void 0);
   });  
 });
 
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const x = {x: 1};
-    //expect(x).toEqual(1);
+    const {x} = {x: 1};
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
