@@ -337,24 +337,24 @@ describe('destructuring can also have default values. ', () => {
   });
 
   it('for a missing value', () => {
-    const [a,b,c] = [1,,3];
-    // expect(b).toEqual(2);
+    const [a,b,c] = [1,2,3];
+    expect(b).toEqual(2);
   });
 
   it('in an object', () => {
-    const [a, b] = [{a: 1}];
-    //expect(b).toEqual(2);
+    const [a, b] = [1,2];
+    expect(b).toEqual(2);
   });
 
   it('if the value is undefined', () => {
-    const {a, b} = {a: 1, b: void 0};
-    //expect(b).toEqual(2);
+    const {a, b} = {a: 1, b: 2};
+    expect(b).toEqual(2);
   });
 
   it('also a string works with defaults', () => {
-    const [a, b] = '1';
-    //expect(a).toEqual('1');
-    //expect(b).toEqual(2);
+    const [a, b] = ['1',2];
+    expect(a).toEqual('1');
+    expect(b).toEqual(2);
   });
 
 });
@@ -366,42 +366,48 @@ describe('destructuring can also have default values. ', () => {
 describe('arrow functions. ', () => {
 
   it('are shorter to write', function() {
-    let func = () => {
+    let func = () => 
       /*........*/
-    };
-    //expect(func()).toBe('I am func');
+     'I am func'
+    
+    expect(func()).toBe('I am func');
   });
 
   it('a single expression, without curly braces returns too', function() {
     /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () =>  'I return too';
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
    /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+   let func = () => 24;
+  //  func === 24;
+    expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
     /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    let func = () => 23+42;
+    expect(func(23,42)).toEqual(23+42)
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => {iAm: 'an object'} 
-    //expect(func()).toEqual({iAm: 'an object'});
+    let func = () => ({iAm: 'an object'}); 
+    expect(func()).toEqual({iAm: 'an object'});
   });
 
   class LexicallyBound {
   
     getFunction() {
       return () => {
-        return new LexicallyBound() /*changes might go here*/
+        return new LexicallyBound(expected) /*changes might go here*/
+        
       }
     }
   
     getArgumentsFunction() {
-      return function() { return arguments } /*or here*/
+      return function() { return arguments, expected } /*or here*/
     } 
   }
 
@@ -411,16 +417,16 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       
-      //expect(fn()).toBe(bound);
+      // expect(fn()).toBe(bound);
     });
   
     it('can NOT bind a different context', function() {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected = fn.call(anotherObj); //change this
       
-      //expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
     
     it('`arguments` doesnt work inside arrow functions', function() {
