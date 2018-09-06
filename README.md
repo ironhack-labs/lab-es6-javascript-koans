@@ -34,7 +34,7 @@ We need to execute our tests. First of all, fork and clone this repo into your G
 
 In the beginning, you will see all the tests in yellow because the tests we have to implement are commented. (except for one, that throws an error, no worries :wink:)
 
-![image](http://materials.ironhack.com/s/HkAOp3cvQ)
+![image](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_f65f72c3d74cc10a06d8589219bb6f69.png)
 
 All the tests are located inside the `spec` folder. Open the `koans.js` file and uncomment the following line:
 
@@ -49,7 +49,7 @@ it('`var` works as usual, it does not restricts scope', () => {
 
 When we uncomment the line and refresh the `SpecRunner.html` page, we will see something like that:
 
-![image](http://materials.ironhack.com/s/rJoopn9PQ)
+![image](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_0a3269347ff9cf345534607ba27809d2.png)
 
 **The primary goal is not to finish all the tests. We want you to understand why each test is failing and how does JavaScript ES6 work in specific scopes.**
 
