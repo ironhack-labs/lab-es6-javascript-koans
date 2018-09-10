@@ -604,8 +604,8 @@ describe('class creation', () => {
   });
 
   it('anonymous class', () => {
-    const classType = typeof {};
-    //expect(classType).toBe('function');
+    const classType = typeof function(){};
+    expect(classType).toBe('function');
   });
 
 });
