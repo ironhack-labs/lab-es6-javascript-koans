@@ -414,7 +414,7 @@ describe('destructuring function parameters. ', () => {
       };
       const user = {name: 'Wolfram', id: 42};
       let {name, id} = user;
-      fn(user);
+      fn();
     });
 
     it('multiple params from array/object', () => {
@@ -423,7 +423,7 @@ describe('destructuring function parameters. ', () => {
       };
       const users = [{name: 'nobody'}, {name: 'Alice', id: 42}];
       let {name} = users[1]
-      fn(users);
+      fn([]);
     });
   });
 
