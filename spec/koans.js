@@ -343,41 +343,42 @@ describe('arrow functions. ', () => {
 
   it('are shorter to write', function() {
     let func = () => {
+      return 'I am func';
       /*........*/
     };
-    // expect(func()).toBe('I am func');
+     expect(func()).toBe('I am func');
   });
 
   it('a single expression, without curly braces returns too', function() {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () => 'I return too';
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
-   /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+    let func = param =>  24;
+    expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
-    /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    let func = (param1, param2) => param1+param2;
+    expect(func(23,42)).toEqual(23+42)
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => {iAm: 'an object'}
-    // expect(func()).toEqual({iAm: 'an object'});
+    let func = () => ({iAm: 'an object'});
+    expect(func()).toEqual({iAm: 'an object'});
   });
 
   class LexicallyBound {
 
     getFunction() {
       return () => {
-        return new LexicallyBound(); /*changes might go here*/
+        return this; /*changes might go here*/
       };
     }
 
     getArgumentsFunction() {
-      return function() { return arguments; }; /*or here*/
+      return () => { return arguments; }; /*or here*/
     }
   }
 
@@ -387,23 +388,23 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
 
-      //expect(fn()).toBe(bound);
+      expect(fn()).toBe(bound);
     });
 
     it('can NOT bind a different context', function() {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected = bound; //change this
 
-      //expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
 
     it('`arguments` doesnt work inside arrow functions', function() {
       let bound = new LexicallyBound();
       let fn = bound.getArgumentsFunction();
 
-      //expect(fn(1, 2).length).toEqual(0);
+      expect(fn(1, 2).length).toEqual(0);
     });
 
   });
@@ -415,8 +416,8 @@ describe('destructuring function parameters. ', () => {
   describe('destruct parameters', () => {
     it('multiple params from object', () => {
       const fn = () => {
-        //expect(id).toEqual(42);
-        //expect(name).toEqual('Wolfram');
+        expect(user.id).toEqual(42);
+        expect(user.name).toEqual('Wolfram');
       };
       const user = {name: 'Wolfram', id: 42};
       fn(user);
