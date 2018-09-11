@@ -347,41 +347,41 @@ describe('arrow functions. ', () => {
 
   it('are shorter to write', function() {
     let func = () => {
-      /*........*/
+      return 'I am func'
     };
-    // expect(func()).toBe('I am func');
+    expect(func()).toBe('I am func');
   });
 
   it('a single expression, without curly braces returns too', function() {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () => 'I return too';
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
-   /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+   let func = arg => arg -1;
+    expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
-    /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    let func = (arg1, arg2) => arg1 + arg2;
+    expect(func(23,42)).toEqual(23+42)
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => {iAm: 'an object'}
-    // expect(func()).toEqual({iAm: 'an object'});
+    let func = () => ({iAm: 'an object'})
+    expect(func()).toEqual({iAm: 'an object'});
   });
 
   class LexicallyBound {
 
     getFunction() {
       return () => {
-        return new LexicallyBound(); /*changes might go here*/
+        return new LexicallyBound(); //Este ni idea.... :(
       };
     }
 
     getArgumentsFunction() {
-      return function() { return arguments; }; /*or here*/
+      return function() { return arguments; }; 
     }
   }
 
@@ -391,7 +391,7 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
 
-      //expect(fn()).toBe(bound);
+      expect(fn()).toBe(bound);
     });
 
     it('can NOT bind a different context', function() {
@@ -418,17 +418,22 @@ describe('destructuring function parameters. ', () => {
 
   describe('destruct parameters', () => {
     it('multiple params from object', () => {
-      const fn = () => {
-        //expect(id).toEqual(42);
-        //expect(name).toEqual('Wolfram');
+      const fn = (arg) => {
+        let {
+          name,
+          id
+        } = arg
+        expect(id).toEqual(42);
+        expect(name).toEqual('Wolfram');
       };
       const user = {name: 'Wolfram', id: 42};
       fn(user);
     });
 
     it('multiple params from array/object', () => {
-      const fn = ([]) => {
-        //expect(name).toEqual('Alice');
+      const fn = ([, second]) => {
+        let {name} = second; 
+        expect(name).toEqual('Alice');
       };
       const users = [{name: 'nobody'}, {name: 'Alice', id: 42}];
       fn(users);
@@ -438,8 +443,8 @@ describe('destructuring function parameters. ', () => {
   describe('default values', () => {
     it('for simple values', () => {
       const fn = (id, name) => {
-        //expect(id).toEqual(23);
-        //expect(name).toEqual('Bob');
+        expect(id).toEqual(23);
+        expect(name).toEqual('Bob');
       };
       fn(23);
     });
