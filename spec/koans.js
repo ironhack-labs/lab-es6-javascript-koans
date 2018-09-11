@@ -145,7 +145,7 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 
   describe('by default, behaves like a normal string', function() {
     it('just surrounded by backticks', function() {
-      /*let str = ??????*/
+      let str = `like a string`;
       expect(str).toEqual('like a string');
     });
 
@@ -157,12 +157,12 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   describe('can evaluate variables, which are wrapped in "${" and "}"', function() {
 
     it('e.g. a simple variable "${x}" just gets evaluated', function() {
-      let evaluated = `x=x`
+      let evaluated = `x=${x}`;
       expect(evaluated).toBe('x=' + x);
     });
 
     it('multiple variables get evaluated too', function() {
-      var evaluated = `x+y`;
+      var evaluated = `${x}+${y}`;
       expect(evaluated).toBe(x + '+' + y);
     });
 
@@ -172,7 +172,7 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 
     it('all inside "${...}" gets evaluated', function() {
       var evaluated = Number(`x+y`);
-      //expect(evaluated).toBe(x+y);
+      expect(evaluated).toBe(x+y);
     });
 
     it('inside "${...}" can also be a function call', function() {
@@ -180,7 +180,7 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
         return 'Ironhack';
       }
       var evaluated = `getSchool()`;
-      //expect(evaluated).toBe('Ironhack');
+      expect(evaluated).toBe('Ironhack');
     });
 
   });
@@ -195,11 +195,11 @@ describe('The object literal allows for new shorthands. ', () => {
   describe('with variables', () => {
     it('the short version for `{y: y}` is {y}', () => {
       /*.....*/
-      //expect(short).toEqual({y: y});
+      expect(short).toEqual({y: y});
     });
     it('works with multiple variables too', () => {
       /*.....*/
-      //expect(short).toEqual({x: x, y: y});
+      expect(short).toEqual({x: x, y: y});
     });
   });
 
