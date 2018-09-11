@@ -335,37 +335,36 @@ describe('destructuring can also have default values. ', () => {
 describe('arrow functions. ', () => {
 
   it('are shorter to write', function() {
-    let func = () => {
-      /*........*/
+    let func = () => { return "I am func"
     };
-    // expect(func()).toBe('I am func');
+  expect(func()).toBe('I am func');
   });
 
   it('a single expression, without curly braces returns too', function() {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () => 'I return too';
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
-   /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+   let func = x => x -1;
+    expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
-    /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    let func = ( x, y) => x +y;
+    expect(func(23,42)).toEqual(23+42)
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => {iAm: 'an object'}
-    // expect(func()).toEqual({iAm: 'an object'});
+    let func = () => ({iAm: 'an object'})
+    expect(func()).toEqual({iAm: 'an object'});
   });
 
   class LexicallyBound {
 
     getFunction() {
       return () => {
-        return new LexicallyBound(); /*changes might go here*/
+        return this; /*changes might go here*/
       };
     }
 
@@ -380,7 +379,7 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
 
-      //expect(fn()).toBe(bound);
+      expect(fn()).toBe(bound);
     });
 
     it('can NOT bind a different context', function() {
@@ -408,6 +407,7 @@ describe('destructuring function parameters. ', () => {
   describe('destruct parameters', () => {
     it('multiple params from object', () => {
       const fn = () => {
+       const {id,name} =fn;
         //expect(id).toEqual(42);
         //expect(name).toEqual('Wolfram');
       };
