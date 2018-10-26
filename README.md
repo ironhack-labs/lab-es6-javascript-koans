@@ -1,4 +1,5 @@
-![Ironhack Logo](https://i.imgur.com/1QgrNNw.png)
+![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
+
 
 # JS | Koans Lab ES6
 
@@ -6,11 +7,27 @@
 
 We already did an exercise using Koans methodology on the first module. Koans are an excellent way for practice some fundamentals of the programming language we are learning. In this case, we will continue practicing Javascript, but using the **ES6** features we learned!
 
-Just to a quick reminder, let's remember a bit about Koans!
 
-![](https://i.imgur.com/9Ug9NBn.png)
+## Requirements
+
+- [Fork this repo](https://guides.github.com/activities/forking/)
+- Then clone this repo.
+
+
+## Submission
+
+- Upon completion, run the following commands
+```
+$ git add .
+$ git commit -m "done"
+$ git push origin master
+```
+- Create Pull Request so your TAs can check up your work.
+
 
 ### What are the Koans?
+
+![](https://i.imgur.com/9Ug9NBn.png)
 
 [Koans](https://en.wikipedia.org/wiki/K%C5%8Dan) (公案) originate from Zen Buddhism. They are paradoxical riddles or stories which are used to test students on their path to enlightenment. They are designed to provoke thought or doubt in the student's mind. We are here to learn to code, so... what are the Koans?
 
@@ -28,11 +45,12 @@ We are going to test the code assertions through Jasmine. Here we have introduce
 When we are coding, we have to be sure that our code is working as we expect. More than that, when we update our existing code, we have to be 100% sure that the old one is still working. As our website becomes larger, it becomes more difficult to check that all our features are working as we expect. How can we automatize this process? The answer is with **testing**.
 
 
-## Requirements
+## Instructions
 
-We need to execute our tests. First of all, fork and clone this repo into your Github account. Once you are done, open the file `SpecRunner.html` with your browser.
 
-In the beginning, you will see all the tests in yellow because the tests we have to implement are commented. (except for one, that throws an error, no worries :wink:)
+Open the file `SpecRunner.html` with your browser.
+
+In the beginning, you will see all the tests in yellow because the tests we have to implement are commented.
 
 ![image](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_f65f72c3d74cc10a06d8589219bb6f69.png)
 
@@ -47,7 +65,7 @@ it('`var` works as usual, it does not restricts scope', () => {
 });
 ```
 
-When we uncomment the line and refresh the `SpecRunner.html` page, we will see something like that:
+When we uncomment the line and refresh the `SpecRunner.html` page, we will see something like this:
 
 ![image](https://s3-eu-west-1.amazonaws.com/ih-materials/uploads/upload_0a3269347ff9cf345534607ba27809d2.png)
 
@@ -60,7 +78,7 @@ To do that, the correct workflow is the one used on Test Driven Development([TDD
 - Change the code to pass the test
 - Refresh the page to see that the test is passing
 
-:::warning
+::: warning
 Leave the `expect` lines unchanged! :eyes:
 :::
 
@@ -81,3 +99,5 @@ The first 45 tests corresponds to the Pair Programming, and the rest are for the
 Do not worry if you don't reach the flag during the Pair Programming, you can continue later! :wink:
 
 As we said, this is an excellent way to learn things about a programming language. Good luck to all of you :)
+
+Happy Coding! :heart:
