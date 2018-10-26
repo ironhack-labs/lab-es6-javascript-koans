@@ -73,8 +73,8 @@ To do that, the correct workflow is the one used on Test Driven Development([TDD
 - Change the code to pass the test
 - Refresh the page to see that the test is passing
 
-:::warning
-Leave the `expect` lines unchanged! :eyes:
+:::warning 
+Leave the expect lines unchanged! 👀 
 :::
 
 This process has to be done for each test. **Do not uncomment all the tests and launch the app. It will be more difficult for you to see if your code is passing the tests.**
