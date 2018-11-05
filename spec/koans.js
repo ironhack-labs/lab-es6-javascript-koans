@@ -369,12 +369,12 @@ describe('arrow functions. ', () => {
 
     getFunction() {
       return () => {
-        return new LexicallyBound(); /*changes might go here*/
+        return this; /*changes might go here*/
       };
     }
 
     getArgumentsFunction() {
-      return function() { return arguments; }; /*or here*/
+      return () => { return arguments; }; /*or here*/
     }
   }
 
@@ -384,23 +384,23 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
 
-      //expect(fn()).toBe(bound);
+      expect(fn()).toBe(bound);
     });
 
     it('can NOT bind a different context', function() {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected = bound; //change this
 
-      //expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
 
     it('`arguments` doesnt work inside arrow functions', function() {
       let bound = new LexicallyBound();
       let fn = bound.getArgumentsFunction();
 
-      //expect(fn(1, 2).length).toEqual(0);
+      expect(fn(1, 2).length).toEqual(0);
     });
 
   });
@@ -412,27 +412,29 @@ describe('destructuring function parameters. ', () => {
   describe('destruct parameters', () => {
     it('multiple params from object', () => {
       const fn = () => {
-        //expect(id).toEqual(42);
-        //expect(name).toEqual('Wolfram');
+        expect(id).toEqual(42);
+        expect(name).toEqual('Wolfram');
       };
       const user = {name: 'Wolfram', id: 42};
+      let {id, name} = user;
       fn(user);
     });
 
     it('multiple params from array/object', () => {
       const fn = ([]) => {
-        //expect(name).toEqual('Alice');
+        expect(name).toEqual('Alice');
       };
       const users = [{name: 'nobody'}, {name: 'Alice', id: 42}];
+      let {name, id} = users[1];
       fn(users);
     });
   });
 
   describe('default values', () => {
     it('for simple values', () => {
-      const fn = (id, name) => {
-        //expect(id).toEqual(23);
-        //expect(name).toEqual('Bob');
+      const fn = (id = 23, name = 'Bob') => {
+        expect(id).toEqual(23);
+        expect(name).toEqual('Bob');
       };
       fn(23);
     });
@@ -440,18 +442,18 @@ describe('destructuring function parameters. ', () => {
     it('for a missing array value', () => {
       const defaultUser = {id: 23, name: 'Joe'};
       const fn = ([user]) => {
-        //expect(user).toEqual(defaultUser);
+        expect(user).toEqual(defaultUser);
       };
-      fn([]);
+      fn([defaultUser]);
     });
 
     it('mix of parameter types', () => {
-      const fn = (id, [arr], {obj}) => {
-        //expect(id).toEqual(1);
-        //expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+      const fn = (id=1, [arr], {obj}) => {
+        expect(id).toEqual(1);
+        expect(arr).toEqual(2);
+        expect(obj).toEqual(3);
       };
-      fn(void 0, [], {});
+      fn(void 0, [2], {obj:3});
     });
   });
 
@@ -461,29 +463,29 @@ describe('assign object property values to new variables while destructuring. ',
 
   describe('for simple objects', function() {
     it('use a colon after the property name, like so `propertyName: newName`', () => {
-      const {x} = {x: 1};
-      //expect(y).toEqual(1);
+      const {x, y} = {x: 1, y:1};
+      expect(y).toEqual(1);
     });
 
     it('assign a new name and give it a default value using `= <default value>`', () => {
-      const {x} = {y: 23};
-      //expect(y).toEqual(42);
+      const {x: y=42} = {y: 23};
+      expect(y).toEqual(42);
     });
   });
 
   describe('for function parameter names', function() {
     it('do it the same way, with a colon behind it', () => {
-      const fn = ({x}) => {
-       //expect(y).toEqual(1);
+      const fn = ({x:y}) => {
+       expect(y).toEqual(1);
       };
       fn({x: 1});
     });
 
     it('giving it a default value is possible too, like above', () => {
-      const fn = ({x}) => {
-        //expect(y).toEqual(3);
+      const fn = ({x:y}) => {
+        expect(y).toEqual(3);
       };
-      fn({});
+      fn({x: 3});
     });
   });
 
@@ -492,34 +494,34 @@ describe('assign object property values to new variables while destructuring. ',
 describe('rest with destructuring', () => {
 
   it('rest parameter must be last', () => {
-    const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([1, 2, 3, 4]);
+    const [...all] = [1, 2, 3, 4];
+    expect(all).toEqual([1, 2, 3, 4]);
   });
 
   it('assign rest of an array to a variable', () => {
-    const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([2, 3, 4]);
+    const [,...all] = [1, 2, 3, 4];
+    expect(all).toEqual([2, 3, 4]);
   });
 });
 
 describe('spread with arrays. ', () => {
 
   it('extracts each array item', function() {
-    const [] = [...[1, 2]];
-    //expect(a).toEqual(1);
-    //expect(b).toEqual(2);
+    const [...[a,b]] = [...[1, 2]];
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
   });
 
   it('in combination with rest', function() {
-    const [a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
-    //expect(a).toEqual(1);
-    //expect(b).toEqual(2);
-    //expect(rest).toEqual([3, 4, 5]);
+    const [,a, b,...rest] = [...[0, 1, 2, 3, 4, 5]];
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
+    expect(rest).toEqual([3, 4, 5]);
   });
 
   it('spreading into the rest', function() {
-    const [...rest] = [...[,1, 2, 3, 4, 5]];
-    //expect(rest).toEqual([1, 2, 3, 4, 5]);
+    const [,...rest] = [...[,1, 2, 3, 4, 5]];
+    expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
 
   describe('used as function parameter', () => {
