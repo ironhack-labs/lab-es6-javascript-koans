@@ -122,7 +122,7 @@ describe('`string.includes()` finds string within another string. ', () => {
       expect('abc'.includes('a', position)).toBe(false);
     });
     it('even the position gets coerced', function() {
-      const findAtPosition = (pos) => 'xyz'.includes("z");
+      const findAtPosition = (pos) => 'xyz'.includes('z', pos);
       expect(findAtPosition('2')).toBe(true);
     });
     describe('invalid positions get converted to 0', function() {
