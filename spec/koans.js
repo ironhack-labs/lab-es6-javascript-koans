@@ -127,15 +127,15 @@ describe('`string.includes()` finds string within another string. ', () => {
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        const findAtPosition = (pos) => 'xyz'.includes('');
+        const findAtPosition = (pos) => 'xyz'.includes('x', pos);
         expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
-        const findAtPosition = (pos) => 'xyz'.includes('');
+        const findAtPosition = (pos) => 'xyz'.includes('x', pos);
         expect(findAtPosition(-2)).toBe(true);
       });
       it('NaN', function() {
-        const findAtPosition = (pos) => 'xyz'.includes("y");
+        const findAtPosition = (pos) => 'xyz'.includes('y', pos);
         expect(findAtPosition(NaN)).toBe(true);
       });
     });
