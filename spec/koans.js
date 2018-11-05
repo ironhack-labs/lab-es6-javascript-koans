@@ -106,11 +106,11 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('search for an empty string, is always true', function() {
     it('in an empty string', function() {
-      x = "";
+      let x = "";
       expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      x= "";
+      let x= "";
       expect('abc'.includes(x)).toBe(true);
     });
   });
@@ -528,8 +528,8 @@ describe('spread with arrays. ', () => {
     it('prefix with `...` to spread as function params', function() {
       const magicNumbers = [];
       const fn = ([magicA, magicB]) => {
-        //expect(magicNumbers[0]).toEqual(magicA);
-        //expect(magicNumbers[1]).toEqual(magicB);
+        expect(magicNumbers[0]).toEqual(magicA);
+        expect(magicNumbers[1]).toEqual(magicB);
       };
       fn(magicNumbers);
     });
@@ -539,14 +539,14 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [b, a] = ['ba'];
-    //expect(a).toEqual('a');
-    //expect(b).toEqual('b');
+    const [[b, a]] = ['ba'];
+    expect(a).toEqual('a');
+    expect(b).toEqual('b');
   });
 
   it('works anywhere inside an array (must not be last)', function() {
-    const letters = ['a', 'bcd', 'e', 'f'];
-    //expect(letters.length).toEqual(6);
+    const letters = ['a', 'bcd', 'e', 'f',,,];
+    expect(letters.length).toEqual(6);
   });
 
 });
