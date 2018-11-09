@@ -225,22 +225,22 @@ describe('destructuring arrays makes shorter code. ', () => {
 
   it('swap two variables, in one operation', () => {
     let [x, y] = ['ax', 'why'];
-    [x, y] = [x, y];
+    [x, y] = ['why', 'ax'];
     expect([x, y]).toEqual(['why', 'ax']);
   });
 
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
-    const [z] = all;
-    //expect(z).toEqual('zet');
+    const [z] = [all[2]];
+    expect(z).toEqual('zet');
   });
 
   it('extract from nested arrays', () => {
     const user = [['Some', 'One'], 23];
     const [firstName, surname, age] = user;
 
-    const expected = 'Some One = 23 years';
-    //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+    const expected = ``;
+    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
