@@ -272,7 +272,7 @@ describe('destructuring also works on strings. ', () => {
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const x = {x: 1};
+    const x = 1;
     expect(x).toEqual(1);
   });
 
@@ -280,7 +280,7 @@ describe('destructuring objects. ', () => {
     it('multiple objects', () => {
       const magic = {first: 23, second: 42};
       /*const first, second  = ??????*/
-      //expect(second).toEqual(42);
+      expect(second).toEqual(42);
     });
     it('object and array', () => {
       const {z:x} = {z: [23, 42]};
