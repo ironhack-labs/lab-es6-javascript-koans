@@ -584,9 +584,15 @@ describe('class creation', () => {
 
   it('multiple methods need no commas (opposed to object notation)', function() {
     class User {
-      wroteATest() { this.everWroteATest = true; }
+      constructor() {
+        this.everWroteATest = true;
+      }
+      wroteATest()
+       {
+      this.everWroteATest = false; 
+      }
       isLazy()     { 
-        return true;
+        return this.everWroteATest;
        }
     }
 
