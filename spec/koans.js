@@ -67,14 +67,15 @@ describe('`const` is like `let` plus read-only. ', () => {
 
     it('arrays is not fully read-only', () => {
       const arr = [42, 23];
-
-      //expect(arr[0]).toBe(0);
+      arr[0] = 0;
+      expect(arr[0]).toBe(0);
     });
 
     it('objects are not fully read-only', () => {
       const obj = {x: 1};
+      obj.x = 2;
 
-      //expect(obj.x).toBe(2);
+      expect(obj.x).toBe(2);
     });
 
   });
@@ -85,12 +86,12 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a single character', function() {
     it('in a three char string', function() {
-      /* const searchString = ???? */
-      //expect('xyz'.includes(searchString)).toBe(true);
+      const searchString = 'x';
+      expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
-      /* const expected = ????*/;
-      //expect('xyz'.includes('abc')).toBe(expected);
+      const expected = false;
+      expect('xyz'.includes('abc')).toBe(expected);
     });
   });
 
