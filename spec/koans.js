@@ -558,7 +558,7 @@ describe('class creation', () => {
   });
 
   it('class is block scoped', () => {
-    class Inside {}
+    class Outside {}
     { class Inside {} }
     expect(typeof Inside).toBe('undefined');
   });
@@ -601,7 +601,7 @@ describe('class creation', () => {
   });
 
   it('anonymous class', () => {
-    const classType = typeof {};
+    const classType = typeof class{};
     expect(classType).toBe('function');
   });
 
