@@ -220,53 +220,53 @@ context = describe;
 
 // });
 
-describe('destructuring arrays makes shorter code. ', () => {
+// describe('destructuring arrays makes shorter code. ', () => {
 
-  it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
-    let [firstValue] = [1];
-    expect(firstValue).toEqual(1);
-  });
+//   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
+//     let [firstValue] = [1];
+//     expect(firstValue).toEqual(1);
+//   });
 
-  it('swap two variables, in one operation', () => {
-    let [x, y] = ['ax', 'why'];
-    [x, y] = [y, x];
-    expect([x, y]).toEqual(['why', 'ax']);
-  });
+//   it('swap two variables, in one operation', () => {
+//     let [x, y] = ['ax', 'why'];
+//     [x, y] = [y, x];
+//     expect([x, y]).toEqual(['why', 'ax']);
+//   });
 
-  it('leading commas', () => {
-    const all = ['ax', 'why', 'zet'];
-    const [, ,z] = all;
-    expect(z).toEqual('zet');
-  });
+//   it('leading commas', () => {
+//     const all = ['ax', 'why', 'zet'];
+//     const [, ,z] = all;
+//     expect(z).toEqual('zet');
+//   });
 
-  it('extract from nested arrays', () => {
-    const user = [['Some', 'One'], 23];
-    const [[firstName, surname], age] = user;
+//   it('extract from nested arrays', () => {
+//     const user = [['Some', 'One'], 23];
+//     const [[firstName, surname], age] = user;
 
-    const expected = 'Some One = 23 years';
-    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
-  });
+//     const expected = 'Some One = 23 years';
+//     expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+//   });
 
-  it('chained assignments', () => {
-    let c, d;
-    let [a, b] = [c, d]= [1, 2];
-    expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
-  });
+//   it('chained assignments', () => {
+//     let c, d;
+//     let [a, b] = [c, d]= [1, 2];
+//     expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
+//   });
 
-});
+// });
 
-describe('destructuring also works on strings. ', () => {
+// describe('destructuring also works on strings. ', () => {
 
-  it('destructure every character', () => {
-    let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
-  });
+//   it('destructure every character', () => {
+//     let [a, b, c] = 'abc';
+//     expect([a, b, c]).toEqual(['a', 'b', 'c']);
+//   });
 
-  it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
-  });
-});
+//   it('missing characters are undefined', () => {
+//     const [a,b, c] = 'ab';
+//     expect(c).toEqual(void 0);
+//   });
+// });
 
 describe('destructuring objects. ', () => {
 
