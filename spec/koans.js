@@ -343,29 +343,29 @@ describe('arrow functions. ', () => {
 
   it('are shorter to write', function() {
     let func = () => {
-      /*........*/
+    return "I am func"
     };
-    // expect(func()).toBe('I am func');
+    expect(func()).toBe('I am func');
   });
 
   it('a single expression, without curly braces returns too', function() {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () => "I return too"
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
-   /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+    let func = a => a - 1;
+    expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
-    /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    let func = (a, b) => a + b
+    expect(func(23,42)).toEqual(23+42)
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => {iAm: 'an object'}
-    // expect(func()).toEqual({iAm: 'an object'});
+    let func = () =>  {return {iAm: 'an object'}}
+    expect(func()).toEqual({iAm: 'an object'});
   });
 
   class LexicallyBound {
@@ -385,7 +385,7 @@ describe('arrow functions. ', () => {
 
     it('bound at definition time, use `=>` ', function() {
       let bound = new LexicallyBound();
-      let fn = bound.getFunction();
+      let fn = () => bound.getFunction();
 
       //expect(fn()).toBe(bound);
     });
