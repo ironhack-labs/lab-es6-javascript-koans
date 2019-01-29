@@ -248,12 +248,9 @@ describe('destructuring arrays makes shorter code. ', () => {
   });
 
   it('chained assignments', () => {
-    let array=[1,2]
-    
-     let [a]=array
-     let [,b]=array
-     let [c]=array
-     let [,d]=array
+    let a=c=1
+    let b=d=2
+     
     expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 
@@ -262,13 +259,16 @@ describe('destructuring arrays makes shorter code. ', () => {
 describe('destructuring also works on strings. ', () => {
 
   it('destructure every character', () => {
-    let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
+    
+    let [a,,]='abc'
+    let [,b,]='abc'
+    let [,,c]='abc'
+    expect([a, b, c]).toEqual(['a', 'b', 'c']);
   });
 
   it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    const [a,b,c] = 'ab';
+    expect(c).toEqual(void 0);
   });
 });
 
@@ -276,7 +276,7 @@ describe('destructuring objects. ', () => {
 
   it('is simple', () => {
     const x = {x: 1};
-   // expect(x).toEqual(1);
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
