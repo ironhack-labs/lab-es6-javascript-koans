@@ -197,11 +197,11 @@ describe('The object literal allows for new shorthands. ', () => {
 
   describe('with variables', () => {
     it('the short version for `{y: y}` is {y}', () => {
-      `${y}`
+    const short = {y}
       expect(short).toEqual({y: y});
     });
     it('works with multiple variables too', () => {
-     `${x,y}`
+     const short = {x,y}
       expect(short).toEqual({x: x, y: y});
     });
   });
@@ -211,7 +211,7 @@ describe('The object literal allows for new shorthands. ', () => {
     const func = () => func;
 
     it('using the name only uses it as key', () => {
-      `${func}`
+     const short = {func}
       expect(short).toEqual({func: func});
     });
 
@@ -227,7 +227,8 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
-    let firstValue = [1];
+    const [firstValue ]= [1];
+
     expect(firstValue).toEqual(1);
   });
 
