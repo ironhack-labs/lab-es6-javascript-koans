@@ -554,7 +554,7 @@ describe('class creation', () => {
   it('is as simple as `class XXX {}`', function() {
     let TestClass = {};
 
-    // const instance = new TestClass();
+    //const instance = new TestClass();
     //expect(typeof instance).toBe('object');
   });
 
@@ -598,6 +598,7 @@ describe('class creation', () => {
 
   it('anonymous class', () => {
     const classType = typeof {};
+    
     //expect(classType).toBe('function');
   });
 
