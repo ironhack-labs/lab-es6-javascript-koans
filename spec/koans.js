@@ -372,12 +372,14 @@ describe('arrow functions. ', () => {
 
     getFunction() {
       return () => {
-        return new LexicallyBound(); /*changes might go here*/
+        // en lugar de devolver un nuevo objeto, se devuelve el objeto mismo con this?
+        return this;
       };
     }
 
     getArgumentsFunction() {
-      return function() { return arguments; }; /*or here*/
+      // se cambia por un arrow function, porque era una funcion normal
+      return () => { return arguments; }; 
     }
   }
 
@@ -394,7 +396,8 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      // lo esperado es el mismo objeto ligado con this?
+      let expected = bound; 
 
       expect(fn.call(anotherObj)).toBe(expected);
     });
