@@ -215,13 +215,13 @@ describe('The object literal allows for new shorthands. ', () => {
     it('the short version for `{y: y}` is {y}', () => {
       /*.....*/
       const short = {x, y}
-      //expect(short).toEqual({y: y});
+      expect(short).toEqual({y: y});
     });
     it('works with multiple variables too', () => {
       /*.....*/
 
       const short = {x, y}
-      //expect(short).toEqual({x: x, y: y});
+      expect(short).toEqual({x: x, y: y});
     });
   });
 
