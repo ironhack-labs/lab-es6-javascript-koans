@@ -370,9 +370,8 @@ describe('arrow functions. ', () => {
     constructor() {};
 
     getFunction() {
-      return () => {
-        return new LexicallyBound(); /*changes might go here*/
-      };
+      return () => this; /*changes might go here*/
+  
     }
 
     getArgumentsFunction() {
@@ -383,19 +382,19 @@ describe('arrow functions. ', () => {
   describe('arrow functions have lexical `this`, no dynamic `this`', () => {
 
     it('bound at definition time, use `=>` ', function() {
-      // let bound =  new LexicallyBound();
-      // let fn = bound.getFunction();
+      let bound =  new LexicallyBound();
+      let fn = bound.getFunction();
 
-      // expect(fn()).toBe(bound);
+      expect(fn()).toBe(bound);
     });
 
     it('can NOT bind a different context', function() {
-      // let bound = new LexicallyBound();
-      // let fn = bound.getFunction();
-      // let anotherObj = {};
-      // let expected = fn; //change this
+      let bound = new LexicallyBound();
+      let fn = bound.getFunction();
+      let anotherObj = {};
+      let expected = bound; //change this
 
-      // expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
 
     it('`arguments` doesnt work inside arrow functions', function() {
