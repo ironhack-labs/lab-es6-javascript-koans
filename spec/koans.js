@@ -207,6 +207,8 @@ describe('The object literal allows for new shorthands. ', () => {
     });
   });
 
+  // this is a test
+
   describe('with methods', () => {
 
     const func = () => func;
