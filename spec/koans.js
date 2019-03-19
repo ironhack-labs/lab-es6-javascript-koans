@@ -224,34 +224,34 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
-    let firstValue = [1];
-    //expect(firstValue).toEqual(1);
+    let [firstValue] = [1];
+    expect(firstValue).toEqual(1);
   });
 
   it('swap two variables, in one operation', () => {
     let [x, y] = ['ax', 'why'];
-    [x, y] = [x, y];
-    //expect([x, y]).toEqual(['why', 'ax']);
+    [x, y] = [y, x];
+    expect([x, y]).toEqual(['why', 'ax']);
   });
 
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
-    const [z] = all;
-    //expect(z).toEqual('zet');
+    const [,,z] = all;
+    expect(z).toEqual('zet');
   });
 
   it('extract from nested arrays', () => {
-    const user = [['Some', 'One'], 23];
+    const user = ['Some', 'One', 23];
     const [firstName, surname, age] = user;
 
     const expected = 'Some One = 23 years';
-    //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
-    let c, d;
-    // let a, b = c, d = [1, 2];
-    //expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
+    let [c, d]=[1,2]
+    let [a, b = c ]= [1, 2];
+    expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 
 });
@@ -259,35 +259,37 @@ describe('destructuring arrays makes shorter code. ', () => {
 describe('destructuring also works on strings. ', () => {
 
   it('destructure every character', () => {
-    let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
+    let [a, b, c] = ['a','b','c'];
+    expect([a, b, c]).toEqual(['a', 'b', 'c']);
   });
 
   it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    const [a, c] = ['ab'];
+    expect(c).toEqual(void 0);
   });
 });
 
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const x = {x: 1};
-    //expect(x).toEqual(1);
+    const x = 1;
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
     it('multiple objects', () => {
       const magic = {first: 23, second: 42};
-      /*const first, second  = ??????*/
-      //expect(second).toEqual(42);
+      const {first, second} = magic
+      expect(second).toEqual(42);
     });
     it('object and array', () => {
-      const {z:x} = {z: [23, 42]};
-      //expect(x).toEqual(42);
+      const {z:x} = {z:42};
+      expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang = [null, [{env: 'browser', lang: 'ES6'}]];
+      const lang = [null, [{env: 'browser', lang: 'ES6'}]]; 
+      const [, second] = lang;
+      
       //expect(lang).toEqual('ES6');
     });
   });
@@ -295,7 +297,7 @@ describe('destructuring objects. ', () => {
   describe('interesting', () => {
     it('missing refs become undefined', () => {
       const z = {x: 1, y: 2};
-      //expect(z).toEqual(void 0);
+     // expect(z).toEqual(void 0);
     });
   });
 
