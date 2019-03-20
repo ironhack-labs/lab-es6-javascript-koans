@@ -540,14 +540,14 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [b, a] = ['ba'];
-    //expect(a).toEqual('a');
-    //expect(b).toEqual('b');
+    const [b, a] = 'ba';
+    expect(a).toEqual('a');
+    expect(b).toEqual('b');
   });
 
   it('works anywhere inside an array (must not be last)', function() {
     const letters = ['a', 'bcd', 'e', 'f'];
-    //expect(letters.length).toEqual(6);
+   // expect(letters.length).toEqual(6);
   });
 
 });
@@ -558,7 +558,7 @@ describe('class creation', () => {
   it('is as simple as `class XXX {}`', function() {
     let TestClass = {};
 
-    // const instance = new TestClass();
+     //const instance = new TestClass();
     //expect(typeof instance).toBe('object');
   });
 
