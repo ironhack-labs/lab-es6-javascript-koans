@@ -521,20 +521,20 @@ describe('rest with destructuring', () => {
 describe('spread with arrays. ', () => {
 
   it('extracts each array item', function() {
-    const [] = [...[1, 2]];
+    const [a, b] = [...[1, 2]];
     expect(a).toEqual(1);
     expect(b).toEqual(2);
   });
 
   it('in combination with rest', function() {
-    const [a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
+    const [, a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
     expect(a).toEqual(1);
     expect(b).toEqual(2);
     expect(rest).toEqual([3, 4, 5]);
   });
 
   it('spreading into the rest', function() {
-    const [...rest] = [...[,1, 2, 3, 4, 5]];
+    const [,...rest] = [...[,1, 2, 3, 4, 5]];
     expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
 
@@ -553,13 +553,13 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [b, a] = ['ba'];
+    const [b, a] = [...'ba'];
     expect(a).toEqual('a');
     expect(b).toEqual('b');
   });
 
   it('works anywhere inside an array (must not be last)', function() {
-    const letters = ['a', 'bcd', 'e', 'f'];
+    const letters = ['a', ...'bcd', 'e', 'f'];
     expect(letters.length).toEqual(6);
   });
 
@@ -569,7 +569,11 @@ describe('spread with strings', () => {
 describe('class creation', () => {
 
   it('is as simple as `class XXX {}`', function() {
-    let TestClass = {};
+    class TestClass {
+      constructor() {
+
+      }
+    };
 
     const instance = new TestClass();
     expect(typeof instance).toBe('object');
@@ -584,7 +588,7 @@ describe('class creation', () => {
   it('special method is `constructor`', function() {
     class User {
       constructor(id) {
-
+        this.id = id;
       }
     }
 
@@ -594,7 +598,9 @@ describe('class creation', () => {
 
   it('defining a method is simple', function() {
     class User {
+      constructor() {}
 
+      writesTests() { return false; }
     }
 
     const notATester = new User();
@@ -604,7 +610,7 @@ describe('class creation', () => {
   it('multiple methods need no commas (opposed to object notation)', function() {
     class User {
       wroteATest() { this.everWroteATest = true; }
-      isLazy()     {  }
+      isLazy()     { return !(this.everWroteATest); }
     }
 
     const tester = new User();
@@ -614,7 +620,7 @@ describe('class creation', () => {
   });
 
   it('anonymous class', () => {
-    const classType = typeof {};
+    const classType = typeof class {};
     expect(classType).toBe('function');
   });
 
