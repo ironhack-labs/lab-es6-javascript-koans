@@ -280,9 +280,9 @@ describe('destructuring also works on strings. ', () => {
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const x = { x: 1 };
+    const { x: x } = { x: 1 };
 
-    expect(x.x).toEqual(1);
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
@@ -292,19 +292,20 @@ describe('destructuring objects. ', () => {
       expect(second).toEqual(42);
     });
     it('object and array', () => {
-      const { z: x } = { z: [23, 42] };
-      //expect(x).toEqual(42);
+      const { z: [y, x] } = { z: [23, 42] };
+      expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang = [null, [{ env: 'browser', lang: 'ES6' }]];
-      //expect(lang).toEqual('ES6');
+      const [, [{ env, lang }]] = [null, [{ env: 'browser', lang: 'ES6' }]];
+
+      expect(lang).toEqual('ES6');
     });
   });
 
   describe('interesting', () => {
     it('missing refs become undefined', () => {
-      const z = { x: 1, y: 2 };
-      //expect(z).toEqual(void 0);
+      const { a, b, z } = { x: 1, y: 2 };
+      expect(z).toEqual(void 0);
     });
   });
 
@@ -313,29 +314,29 @@ describe('destructuring objects. ', () => {
 describe('destructuring can also have default values. ', () => {
 
   it('for an empty array', () => {
-    const [a] = [];
-    //expect(a).toEqual(1)
+    const [a = 1] = [];
+    expect(a).toEqual(1)
   });
 
   it('for a missing value', () => {
-    const [a, b, c] = [1, , 3];
-    //expect(b).toEqual(2);
+    const [a, b = 2, c] = [1, , 3];
+    expect(b).toEqual(2);
   });
 
   it('in an object', () => {
-    const [a, b] = [{ a: 1 }];
-    //expect(b).toEqual(2);
+    const [a, b = 2] = [{ a: 1 }];
+    expect(b).toEqual(2);
   });
 
   it('if the value is undefined', () => {
-    const { a, b } = { a: 1, b: void 0 };
-    //expect(b).toEqual(2);
+    const { a, b = 2 } = { a: 1, b: void 0 };
+    expect(b).toEqual(2);
   });
 
   it('also a string works with defaults', () => {
-    const [a, b] = '1';
-    //expect(a).toEqual('1');
-    // expect(b).toEqual(2);
+    const [a, b = 2] = '1';
+    expect(a).toEqual('1');
+    expect(b).toEqual(2);
   });
 
 });
@@ -347,30 +348,29 @@ describe('destructuring can also have default values. ', () => {
 describe('arrow functions. ', () => {
 
   it('are shorter to write', function () {
-    let func = () => {
-      /*........*/
-    };
-    // expect(func()).toBe('I am func');
+    let func = () => `I am func`
+
+    expect(func()).toBe('I am func');
   });
 
   it('a single expression, without curly braces returns too', function () {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () => 'I return too'
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
-    /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+    let func = x => x - 1;
+    expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
-    /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    let func = (x, y) => x + y;
+    expect(func(23, 42)).toEqual(23 + 42)
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => { iAm: 'an object' }
-    // expect(func()).toEqual({iAm: 'an object'});
+    let func = () => ({ iAm: 'an object' })
+    expect(func()).toEqual({ iAm: 'an object' });
   });
 
   class LexicallyBound {
