@@ -8,8 +8,7 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
   describe('`let` vs. `var`.', () => {
     it('`var` works as usual, it does not restricts scope', () => {
       if (true) {
-        let varX = true;
-        return varX;
+        varX = true;
       }
       expect(varX).toBe(true);
     });
@@ -26,11 +25,9 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
 
     it('`var` does not restricts scope to inside the block in `for` loops', () => {
       /*var or let?*/
-      let counter = 100;
+      var counter = 100;
       /*for (var or let? counter = 1; counter < 50; counter++){}*/
-      for (let counter = 1; counter < 50; counter++){
-        return counter;
-      }
+      for (var counter = 1; counter < 50; counter++){}
 
       expect(counter).toBe(50);
     });
@@ -311,6 +308,7 @@ describe('destructuring objects. ', () => {
   describe('interesting', () => {
     it('missing refs become undefined', () => {
       const z = {x: 1, y: 2};
+      const { x, y } = z;
       expect(z).toEqual(void 0);
     });
   });
