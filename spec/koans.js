@@ -1,8 +1,8 @@
 context = describe;
 
 /*********************************
-********* PAIR PROGRAMMING *********
-**********************************/
+ ********* PAIR PROGRAMMING *********
+ **********************************/
 
 describe('`let` restricts the scope of the variable to the current block - ', () => {
   describe('`let` vs. `var`.', () => {
@@ -14,7 +14,7 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
     });
 
     it('`let` restricts scope to inside the block', () => {
-      /*var or const? letX = false*/
+      let letX = false;
       if (true) {
         var letX = false;
       }
@@ -68,7 +68,6 @@ describe('`const` is like `let` plus read-only. ', () => {
     it('arrays is not fully read-only', () => {
       const arr = [42, 23];
       arr.unshift(0);
-
       expect(arr[0]).toBe(0);
     });
 
@@ -95,10 +94,10 @@ describe('`string.includes()` finds string within another string. ', () => {
     });
   });
 
-  describe('find a string', function() {
-    it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+  describe('find a string', function () {
+    it('that matches exactly', function () {
+      const findSome = arg => 'xyz'.includes(arg);
+      expect(findSome('xyz')).toBe(true);
     });
   });
 
@@ -153,7 +152,7 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   let x = 42;
   let y = 23;
 
-  describe('can evaluate variables, which are wrapped in "${" and "}"', function() {
+  describe('can evaluate variables, which are wrapped in "${" and "}"', function () {
 
     it('e.g. a simple variable "${x}" just gets evaluated', function() {
       let evaluated = `x=${x}`
@@ -167,15 +166,15 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 
   });
 
-  describe('can evaluate any expression, wrapped inside "${...}"', function() {
+  describe('can evaluate any expression, wrapped inside "${...}"', function () {
 
     it('all inside "${...}" gets evaluated', function() {
       var evaluated = Number(`${x+y}`);
       expect(evaluated).toBe(x+y);
     });
 
-    it('inside "${...}" can also be a function call', function() {
-      function getSchool(){
+    it('inside "${...}" can also be a function call', function () {
+      function getSchool() {
         return 'Ironhack';
       }
       var evaluated = `${getSchool()}`;
@@ -262,8 +261,8 @@ describe('destructuring also works on strings. ', () => {
   });
 
   it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    const [a,b = c, c] = 'ab';
+    expect(c).toEqual(void 0);
   });
 });
 
@@ -281,18 +280,28 @@ describe('destructuring objects. ', () => {
       expect(second).toEqual(42);
     });
     it('object and array', () => {
-      const {z:x} = {z: [23, 42]};
+      const {
+        z: x
+      } = {
+        z: [23, 42]
+      };
       //expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang = [null, [{env: 'browser', lang: 'ES6'}]];
+      const lang = [null, [{
+        env: 'browser',
+        lang: 'ES6'
+      }]];
       //expect(lang).toEqual('ES6');
     });
   });
 
   describe('interesting', () => {
     it('missing refs become undefined', () => {
-      const z = {x: 1, y: 2};
+      const z = {
+        x: 1,
+        y: 2
+      };
       //expect(z).toEqual(void 0);
     });
   });
@@ -330,12 +339,12 @@ describe('destructuring can also have default values. ', () => {
 });
 
 /*********************************
-********* DAILY EXERCISE *********
-**********************************/
+ ********* DAILY EXERCISE *********
+ **********************************/
 
 describe('arrow functions. ', () => {
 
-  it('are shorter to write', function() {
+  it('are shorter to write', function () {
     let func = () => {
       return 'I am func';
     };
@@ -378,14 +387,14 @@ describe('arrow functions. ', () => {
 
   describe('arrow functions have lexical `this`, no dynamic `this`', () => {
 
-    it('bound at definition time, use `=>` ', function() {
+    it('bound at definition time, use `=>` ', function () {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
 
       expect(fn()).toBe(bound);
     });
 
-    it('can NOT bind a different context', function() {
+    it('can NOT bind a different context', function () {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
@@ -394,7 +403,7 @@ describe('arrow functions. ', () => {
       expect(fn.call(anotherObj)).toBe(expected);
     });
 
-    it('`arguments` doesnt work inside arrow functions', function() {
+    it('`arguments` doesnt work inside arrow functions', function () {
       let bound = new LexicallyBound();
       let fn = bound.getArgumentsFunction();
 
@@ -413,7 +422,10 @@ describe('destructuring function parameters. ', () => {
         expect(id).toEqual(42);
         expect(name).toEqual('Wolfram');
       };
-      const user = {name: 'Wolfram', id: 42};
+      const user = {
+        name: 'Wolfram',
+        id: 42
+      };
       fn(user);
     });
 
@@ -421,7 +433,12 @@ describe('destructuring function parameters. ', () => {
       const fn = ([, { name }]) => {
         expect(name).toEqual('Alice');
       };
-      const users = [{name: 'nobody'}, {name: 'Alice', id: 42}];
+      const users = [{
+        name: 'nobody'
+      }, {
+        name: 'Alice',
+        id: 42
+      }];
       fn(users);
     });
   });
@@ -457,7 +474,7 @@ describe('destructuring function parameters. ', () => {
 
 describe('assign object property values to new variables while destructuring. ', () => {
 
-  describe('for simple objects', function() {
+  describe('for simple objects', function () {
     it('use a colon after the property name, like so `propertyName: newName`', () => {
       const {x} = {x: 1};
       const y = x;
@@ -471,13 +488,15 @@ describe('assign object property values to new variables while destructuring. ',
     });
   });
 
-  describe('for function parameter names', function() {
+  describe('for function parameter names', function () {
     it('do it the same way, with a colon behind it', () => {
       const fn = ({x}) => {
       const y = x;
       expect(y).toEqual(1);
       };
-      fn({x: 1});
+      fn({
+        x: 1
+      });
     });
 
     it('giving it a default value is possible too, like above', () => {
@@ -525,7 +544,7 @@ describe('spread with arrays. ', () => {
   });
 
   describe('used as function parameter', () => {
-    it('prefix with `...` to spread as function params', function() {
+    it('prefix with `...` to spread as function params', function () {
       const magicNumbers = [];
       const fn = ([magicA, magicB]) => {
         expect(magicNumbers[0]).toEqual(magicA);
@@ -554,7 +573,7 @@ describe('spread with strings', () => {
 
 describe('class creation', () => {
 
-  it('is as simple as `class XXX {}`', function() {
+  it('is as simple as `class XXX {}`', function () {
     let TestClass = {};
 
     const instance = TestClass;
@@ -567,7 +586,7 @@ describe('class creation', () => {
     expect(typeof Inside).toBe('undefined');
   });
 
-  it('special method is `constructor`', function() {
+  it('special method is `constructor`', function () {
     class User {
       constructor(id) {
         this.id = id
@@ -578,7 +597,7 @@ describe('class creation', () => {
     expect(user.id).toEqual(42);
   });
 
-  it('defining a method is simple', function() {
+  it('defining a method is simple', function () {
     class User {
       writesTests() { return false }
     }
@@ -587,7 +606,7 @@ describe('class creation', () => {
     expect(notATester.writesTests()).toBe(false);
   });
 
-  it('multiple methods need no commas (opposed to object notation)', function() {
+  it('multiple methods need no commas (opposed to object notation)', function () {
     class User {
       wroteATest() { this.everWroteATest = true; }
       isLazy()     {  return !this.everWroteATest; }
