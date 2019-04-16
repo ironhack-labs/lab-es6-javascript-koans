@@ -1,5 +1,5 @@
-{  
-    "extends" : ["airbnb-base/legacy"],
+{
+    "extends" : ["airbnb-base"],
     "rules": {
         "func-names": "off",
         "no-alert": "off",
