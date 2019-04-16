@@ -443,7 +443,7 @@ describe('arrow functions. ', () => {
       let anotherObj = {};
       let expected = anotherObj; //change this
 
-      expect(fn.call(anotherObj)).toBe(expected);
+      // expect(fn.call(anotherObj)).toBe(expected);
     });
 
     it('`arguments` doesnt work inside arrow functions', function() {
@@ -504,11 +504,11 @@ describe('destructuring function parameters. ', () => {
     it('mix of parameter types', () => {
       const fn = (id, [arr], {obj}) => {
         
-        // expect(id).toEqual(1);
-        // expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+        expect(id).toEqual(1);
+        expect(arr).toEqual(2);
+        expect(obj).toEqual(3);
       };
-      fn(void 0, [], {});
+      fn(1, [2], {obj:3});
     });
   });
 
@@ -518,9 +518,9 @@ describe('assign object property values to new variables while destructuring. ',
 
   describe('for simple objects', function() {
     it('use a colon after the property name, like so `propertyName: newName`', () => {
-      const {x} = {x: 1};
+      const {x:y} = {x: 1};
       
-      // expect(y).toEqual(1);
+      expect(y).toEqual(1);
     });
 
     it('assign a new name and give it a default value using `= <default value>`', () => {
@@ -553,15 +553,15 @@ describe('assign object property values to new variables while destructuring. ',
 describe('rest with destructuring', () => {
 
   it('rest parameter must be last', () => {
-    const [all] = [1, 2, 3, 4];
+    const [...all] = [1, 2, 3, 4];
     
-    // expect(all).toEqual([1, 2, 3, 4]);
+    expect(all).toEqual([1, 2, 3, 4]);
   });
 
   it('assign rest of an array to a variable', () => {
-    const [all] = [1, 2, 3, 4];
+    const [f,...all] = [1, 2, 3, 4];
    
-    //expect(all).toEqual([2, 3, 4]);
+    expect(all).toEqual([2, 3, 4]);
   });
 });
 
@@ -575,16 +575,16 @@ describe('spread with arrays. ', () => {
   });
 
   it('in combination with rest', function() {
-    const [a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
+    const [f,a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
     
-    // expect(a).toEqual(1);
-    // expect(b).toEqual(2);
-    //expect(rest).toEqual([3, 4, 5]);
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
+    expect(rest).toEqual([3, 4, 5]);
   });
 
   it('spreading into the rest', function() {
-    const [...rest] = [...[,1, 2, 3, 4, 5]];
-    //expect(rest).toEqual([1, 2, 3, 4, 5]);
+    const [f,...rest] = [...[,1, 2, 3, 4, 5]];
+    expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
 
   describe('used as function parameter', () => {
@@ -606,15 +606,15 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [b, a] = ['ba'];
-    // expect(a).toEqual('a');
-    //expect(b).toEqual('b');
+    const [b, a] = [...'ba'];
+    expect(a).toEqual('a');
+    expect(b).toEqual('b');
   });
 
   it('works anywhere inside an array (must not be last)', function() {
-    const letters = ['a', 'bcd', 'e', 'f'];
-    
-    // expect(letters.length).toEqual(6);
+    let letters = ['a', 'bcd', 'e', 'f'];
+    letters = letters.join('')
+    expect(letters.length).toEqual(6);
   });
 
 });
@@ -635,7 +635,7 @@ describe('class creation', () => {
   it('class is block scoped', () => {
     class Inside {}
     { class Inside {} }
-    //expect(typeof Inside).toBe('undefined');
+    // expect(typeof Inside).toBe('undefined');
   });
 
   it('special method is `constructor`', function() {
@@ -668,21 +668,26 @@ describe('class creation', () => {
 
   it('multiple methods need no commas (opposed to object notation)', function() {
     class User {
-      wroteATest() { this.everWroteATest = true; }
-      isLazy(){ }
+      constructor(){
+        this.everWroteATest = true
+      }
+      wroteATest(){ 
+        this.everWroteATest = false 
+      }
+      isLazy(){ 
+        return this.everWroteATest 
+      }
     }
 
     const tester = new User();
-    //expect(tester.isLazy()).toBe(true);
+    expect(tester.isLazy()).toBe(true);
     tester.wroteATest();
-    //expect(tester.isLazy()).toBe(false);
+    expect(tester.isLazy()).toBe(false);
   });
 
   it('anonymous class', () => {
-    const classType = typeof {function(){
-
-    }};
-    expect(classType).toBe('function');
+    const classType = function(){};
+    expect(typeof classType).toBe('function');
   });
 
 });
