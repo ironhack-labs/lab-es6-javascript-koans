@@ -124,7 +124,7 @@ describe('`string.includes()` finds string within another string. ', () => {
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
         /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(undifined)).toBe(true);
+        //expect(findAtPosition(undefined)).toBe(true);
       });
       it('negative numbers', function() {
         /*const findAtPosition = (pos) => 'xyz'.includes(????); */
