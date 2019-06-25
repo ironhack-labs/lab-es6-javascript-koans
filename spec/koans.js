@@ -378,12 +378,12 @@ describe('arrow functions. ', () => {
   class LexicallyBound {
     getFunction() {
       return () => {
-        return new LexicallyBound() /*changes might go here*/
+        return this
       }
     }
 
     getArgumentsFunction() {
-      return function() { return arguments }; /*or here*/
+      return () => { return arguments }
     }
   }
 
@@ -393,16 +393,16 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
 
-      //expect(fn()).toBe(bound);
+      expect(fn()).toBe(bound);
     });
 
     it('can NOT bind a different context', function() {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected = fn(anotherObj); //change this
 
-      //expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
 
     it('`arguments` doesnt work inside arrow functions', function() {
@@ -470,27 +470,27 @@ describe('assign object property values to new variables while destructuring. ',
 
   describe('for simple objects', function() {
     it('use a colon after the property name, like so `propertyName: newName`', () => {
-      const {x} = {x: 1};
-      //expect(y).toEqual(1);
+      const {x:y} = {x: 1};
+      expect(y).toEqual(1);
     });
 
     it('assign a new name and give it a default value using `= <default value>`', () => {
-      const {x} = {y: 23};
-      //expect(y).toEqual(42);
+      const {x:y = 42} = {y: 23};
+      expect(y).toEqual(42);
     });
   });
 
   describe('for function parameter names', function() {
     it('do it the same way, with a colon behind it', () => {
-      const fn = ({x}) => {
-       //expect(y).toEqual(1);
+      const fn = ({x:y}) => {
+       expect(y).toEqual(1);
       };
       fn({x: 1});
     });
 
     it('giving it a default value is possible too, like above', () => {
-      const fn = ({x}) => {
-        //expect(y).toEqual(3);
+      const fn = ({x:y=3}) => {
+        expect(y).toEqual(3);
       };
       fn({});
     });
@@ -501,13 +501,13 @@ describe('assign object property values to new variables while destructuring. ',
 describe('rest with destructuring', () => {
 
   it('rest parameter must be last', () => {
-    const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([1, 2, 3, 4]);
+    const [...all] = [1, 2, 3, 4];
+    expect(all).toEqual([1, 2, 3, 4]);
   });
 
   it('assign rest of an array to a variable', () => {
-    const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([2, 3, 4]);
+    const [one, ...all] = [1, 2, 3, 4];
+    expect(all).toEqual([2, 3, 4]);
   });
 });
 
@@ -515,28 +515,28 @@ describe('spread with arrays. ', () => {
 
   it('extracts each array item', function() {
     const [a,b] = [...[1, 2]];
-    //expect(a).toEqual(1);
-    //expect(b).toEqual(2);
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
   });
 
   it('in combination with rest', function() {
-    const [a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
-    //expect(a).toEqual(1);
-    //expect(b).toEqual(2);
-    //expect(rest).toEqual([3, 4, 5]);
+    const [,a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
+    expect(rest).toEqual([3, 4, 5]);
   });
 
   it('spreading into the rest', function() {
-    const [...rest] = [...[,1, 2, 3, 4, 5]];
-    //expect(rest).toEqual([1, 2, 3, 4, 5]);
+    const [,...rest] = [...[,1, 2, 3, 4, 5]];
+    expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
 
   describe('used as function parameter', () => {
     it('prefix with `...` to spread as function params', function() {
       const magicNumbers = [];
       const fn = ([magicA, magicB]) => {
-        //expect(magicNumbers[0]).toEqual(magicA);
-        //expect(magicNumbers[1]).toEqual(magicB);
+        expect(magicNumbers[0]).toEqual(magicA);
+        expect(magicNumbers[1]).toEqual(magicB);
       };
       fn(magicNumbers);
     });
@@ -546,14 +546,14 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [b, a] = ['ba'];
-    //expect(a).toEqual('a');
-    //expect(b).toEqual('b');
+    const [b, a] = [...'ba'];
+    expect(a).toEqual('a');
+    expect(b).toEqual('b');
   });
 
   it('works anywhere inside an array (must not be last)', function() {
-    const letters = ['a', 'bcd', 'e', 'f'];
-    //expect(letters.length).toEqual(6);
+    const letters = ['a', ...'bcd', 'e', 'f'];
+    expect(letters.length).toEqual(6);
   });
 
 });
@@ -617,8 +617,8 @@ describe('class creation', () => {
   });
 
   it('anonymous class', () => {
-    const classType = typeof {};
-    //expect(classType).toBe('function');
+    const classType = typeof class {};
+    expect(classType).toBe('function');
   });
 
 });
