@@ -124,7 +124,7 @@ describe('`string.includes()` finds string within another string. ', () => {
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
         /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(void 0)).toBe(true);
+        //expect(findAtPosition(undefined)).toBe(true);
       });
       it('negative numbers', function() {
         /*const findAtPosition = (pos) => 'xyz'.includes(????); */
@@ -262,7 +262,7 @@ describe('destructuring also works on strings. ', () => {
 
   it('missing characters are undefined', () => {
     const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    //expect(c).toEqual(undefined);
   });
 });
 
@@ -292,7 +292,7 @@ describe('destructuring objects. ', () => {
   describe('interesting', () => {
     it('missing refs become undefined', () => {
       const z = {x: 1, y: 2};
-      //expect(z).toEqual(void 0);
+      //expect(z).toEqual(undefined);
     });
   });
 
@@ -316,7 +316,7 @@ describe('destructuring can also have default values. ', () => {
   });
 
   it('if the value is undefined', () => {
-    const {a, b} = {a: 1, b: void 0};
+    const {a, b} = {a: 1, b: undefined};
     //expect(b).toEqual(2);
   });
 
@@ -447,7 +447,7 @@ describe('destructuring function parameters. ', () => {
         //expect(arr).toEqual(2);
         //expect(obj).toEqual(3);
       };
-      fn(void 0, [], {});
+      fn(undefined, [], {});
     });
   });
 
