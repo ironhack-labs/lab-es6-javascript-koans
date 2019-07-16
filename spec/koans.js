@@ -369,11 +369,13 @@ describe('arrow functions. ', () => {
 
   class LexicallyBound {
     getFunction() {
-      return () => new LexicallyBound(); /*changes might go here*/
+      return () => {
+        return new LexicallyBound()
+      }; /*changes might go here*/
     }
 
     getArgumentsFunction() {
-      return function() {
+      return () => {
         return arguments;
       }; /*or here*/
     }
