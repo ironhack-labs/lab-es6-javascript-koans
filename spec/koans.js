@@ -275,29 +275,29 @@ describe("destructuring objects. ", () => {
 
 describe("destructuring can also have default values. ", () => {
   it("for an empty array", () => {
-    const [a] = [];
-    //expect(a).toEqual(1)
+    const [a = 1] = [];
+    expect(a).toEqual(1);
   });
 
   it("for a missing value", () => {
-    const [a, b, c] = [1, , 3];
-    //expect(b).toEqual(2);
+    const [a, b = 2, c] = [1, , 3];
+    expect(b).toEqual(2);
   });
 
   it("in an object", () => {
-    const [a, b] = [{ a: 1 }];
-    //expect(b).toEqual(2);
+    const [a, b = 2] = [{ a: 1 }];
+    expect(b).toEqual(2);
   });
 
   it("if the value is undefined", () => {
-    const { a, b } = { a: 1, b: void 0 };
-    //expect(b).toEqual(2);
+    const { a, b = 2 } = { a: 1, b: void 0 };
+    expect(b).toEqual(2);
   });
 
   it("also a string works with defaults", () => {
-    const [a, b] = "1";
-    //expect(a).toEqual('1');
-    // expect(b).toEqual(2);
+    const [a, b = 2] = "1";
+    expect(a).toEqual("1");
+    expect(b).toEqual(2);
   });
 });
 
@@ -308,14 +308,14 @@ describe("destructuring can also have default values. ", () => {
 describe("arrow functions. ", () => {
   it("are shorter to write", function() {
     let func = () => {
-      /*........*/
+      return "I am func";
     };
-    // expect(func()).toBe('I am func');
+    expect(func()).toBe("I am func");
   });
 
   it("a single expression, without curly braces returns too", function() {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () => "I return too";
+    expect(func()).toBe("I return too");
   });
 
   it("one parameter can be written without parens", () => {
