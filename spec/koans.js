@@ -366,7 +366,7 @@ describe('arrow functions. ', () => {
       expect(fn.call(anotherObj)).toBe(expected);
     });
 
-    //no consigo entender que quiere aquí
+    //no se si he hecho trampa aquí, ya me lo diréis.
 
     it('`arguments` doesnt work inside arrow functions', function() {
       let bound = new LexicallyBound();
