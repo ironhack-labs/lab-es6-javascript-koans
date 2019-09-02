@@ -168,7 +168,7 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   });
 });
 
-describe('The object literal allows for new shorthands. ', () => {
+describe('The object literal allows for new shorthands.', () => {
   const x = 1;
   const y = 2;
 
