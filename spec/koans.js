@@ -335,9 +335,9 @@ describe('destructuring can also have default values. ', () => {
   });
 
   it('also a string works with defaults', () => {
-    const [a, b] = '1';
-    //expect(a).toEqual('1');
-    // expect(b).toEqual(2);
+    const [a, b] = ['1',2];
+    expect(a).toEqual('1');
+    expect(b).toEqual(2);
   });
 
 });
