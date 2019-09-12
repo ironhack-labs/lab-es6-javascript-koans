@@ -124,18 +124,16 @@ describe('`string.includes()` finds string within another string. ', () => {
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        // const findAtPosition = (pos) => 'xyz'.includes(?????);
-        // expect(findAtPosition(void 0)).toBe(true);
-        // Preguntar a kaggy
+        const findAtPosition = (pos) => 'xyz'.includes('x', pos);
+        expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
         const findAtPosition = (pos) => 'xyz'.includes('z', -pos);
         expect(findAtPosition(-2)).toBe(true);
       });
       it('NaN', function() {
-        /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(NaN)).toBe(true);
-        // Preguntar a kaggy
+        const findAtPosition = (pos) => 'xyz'.includes('x', pos);
+        expect(findAtPosition(NaN)).toBe(true);
       });
     });
   });
@@ -201,7 +199,6 @@ describe('The object literal allows for new shorthands. ', () => {
     it('works with multiple variables too', () => {
       short = {x, y}
       expect(short).toEqual({x: x, y: y});
-      // Preguntar a kaggy
     });
   });
 
@@ -231,22 +228,22 @@ describe('destructuring arrays makes shorter code. ', () => {
 
   it('swap two variables, in one operation', () => {
     let [x, y] = ['ax', 'why'];
-    [x, y] = [x, y];
-    // expect([x, y]).toEqual(['why', 'ax']);
+    [x, y] = [y, x];
+    expect([x, y]).toEqual(['why', 'ax']);
   });
 
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
-    const [z] = all;
-    //expect(z).toEqual('zet');
+    const z = all[2];
+    expect(z).toEqual('zet');
   });
 
   it('extract from nested arrays', () => {
     const user = [['Some', 'One'], 23];
-    const [firstName, surname, age] = user;
+    const [[firstName, surname], age] = user;
 
     const expected = 'Some One = 23 years';
-    //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
@@ -265,16 +262,16 @@ describe('destructuring also works on strings. ', () => {
   });
 
   it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    const [a, ,c] = 'ab';
+    expect(c).toEqual(void 0);
   });
 });
 
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    // const x = {x: 1};
-    // expect(x).toEqual(1);
+    const {x} = {x: 1};
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
@@ -285,11 +282,11 @@ describe('destructuring objects. ', () => {
     });
     it('object and array', () => {
       const {z:x} = {z: [23, 42]};
-      //expect(x).toEqual(42);
+      // expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang = [null, [{env: 'browser', lang: 'ES6'}]];
-      //expect(lang).toEqual('ES6');
+      const [, lang] = [null, [{env: 'browser', lang: 'ES6'}]];
+      expect(lang).toEqual('ES6');
     });
   });
 
@@ -382,7 +379,7 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
 
-      //expect(fn()).toBe(bound);
+      // expect(fn()).toBe(bound);
     });
 
     it('can NOT bind a different context', function() {
@@ -409,9 +406,9 @@ describe('destructuring function parameters. ', () => {
 
   describe('destruct parameters', () => {
     it('multiple params from object', () => {
-      const fn = () => {
-        //expect(id).toEqual(42);
-        //expect(name).toEqual('Wolfram');
+      const fn = ({id, name}) => {
+        expect(id).toEqual(42);
+        expect(name).toEqual('Wolfram');
       };
       const user = {name: 'Wolfram', id: 42};
       fn(user);
@@ -428,9 +425,9 @@ describe('destructuring function parameters. ', () => {
 
   describe('default values', () => {
     it('for simple values', () => {
-      const fn = (id, name) => {
-        //expect(id).toEqual(23);
-        //expect(name).toEqual('Bob');
+      const fn = (id, name = 'Bob') => {
+        expect(id).toEqual(23);
+        expect(name).toEqual('Bob');
       };
       fn(23);
     });
