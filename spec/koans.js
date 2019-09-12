@@ -392,8 +392,7 @@ describe("arrow functions. ", () => {
 describe("destructuring function parameters. ", () => {
   describe("destruct parameters", () => {
     it("multiple params from object", () => {
-      const fn = () => {
-        let { name, id } = arguments[0];
+      const fn = ({ id, name }) => {
         expect(id).toEqual(42);
         expect(name).toEqual("Wolfram");
       };
@@ -402,7 +401,7 @@ describe("destructuring function parameters. ", () => {
     });
 
     it("multiple params from array/object", () => {
-      const fn = ([]) => {
+      const fn = ([, { name }]) => {
         expect(name).toEqual("Alice");
       };
       const users = [{ name: "nobody" }, { name: "Alice", id: 42 }];
@@ -506,7 +505,7 @@ describe("spread with arrays. ", () => {
         expect(magicNumbers[0]).toEqual(magicA);
         expect(magicNumbers[1]).toEqual(magicB);
       };
-      fn(magicNumbers);
+      fn(...magicNumbers);
     });
   });
 });
