@@ -281,19 +281,19 @@ describe('destructuring objects. ', () => {
       expect(second).toEqual(42);
     });
     it('object and array', () => {
-      const {z:x} = {z: [23, 42]};
-      // expect(x).toEqual(42);
+      const {z:[, x]} = {z: [23, 42]};
+      expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const [, lang] = [null, [{env: 'browser', lang: 'ES6'}]];
-      // expect(lang).toEqual('ES6');
+      const [, [{lang}]] = [null, [{env: 'browser', lang: 'ES6'}]];
+      expect(lang).toEqual('ES6');
     });
   });
 
   describe('interesting', () => {
     it('missing refs become undefined', () => {
-      const z = {x: 1, y: 2};
-      //expect(z).toEqual(void 0);
+      const {z} = {x: 1, y: 2, z:undefined};
+      expect(z).toEqual(void 0);
     });
   });
 
@@ -434,17 +434,17 @@ describe('destructuring function parameters. ', () => {
 
     it('for a missing array value', () => {
       const defaultUser = {id: 23, name: 'Joe'};
-      const fn = ([user]) => {
-        //expect(user).toEqual(defaultUser);
+      const fn = ([user = defaultUser]) => {
+        expect(user).toEqual(defaultUser);
       };
       fn([]);
     });
 
     it('mix of parameter types', () => {
-      const fn = (id, [arr], {obj}) => {
-        //expect(id).toEqual(1);
-        //expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+      const fn = (id = 1, [arr = 2], {obj = 3}) => {
+        expect(id).toEqual(1);
+        expect(arr).toEqual(2);
+        expect(obj).toEqual(3);
       };
       fn(void 0, [], {});
     });
@@ -461,8 +461,8 @@ describe('assign object property values to new variables while destructuring. ',
     });
 
     it('assign a new name and give it a default value using `= <default value>`', () => {
-      const {x} = {y: 23};
-      //expect(y).toEqual(42);
+      const {x:y = 42, } = {y: 23};
+      expect(y).toEqual(42);
     });
   });
 
@@ -513,16 +513,16 @@ describe('spread with arrays. ', () => {
   });
 
   it('spreading into the rest', function() {
-    const [...rest] = [...[,1, 2, 3, 4, 5]];
-    //expect(rest).toEqual([1, 2, 3, 4, 5]);
+    const [...rest] = [...[1, 2, 3, 4, 5]];
+    expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
 
   describe('used as function parameter', () => {
     it('prefix with `...` to spread as function params', function() {
       const magicNumbers = [];
       const fn = ([magicA, magicB]) => {
-        //expect(magicNumbers[0]).toEqual(magicA);
-        //expect(magicNumbers[1]).toEqual(magicB);
+        expect(magicNumbers[0]).toEqual(magicA);
+        expect(magicNumbers[1]).toEqual(magicB);
       };
       fn(magicNumbers);
     });
@@ -532,14 +532,14 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [b, a] = ['ba'];
-    //expect(a).toEqual('a');
-    //expect(b).toEqual('b');
+    const [b, a] = [...'ba'];
+    expect(a).toEqual('a');
+    expect(b).toEqual('b');
   });
 
   it('works anywhere inside an array (must not be last)', function() {
-    const letters = ['a', 'bcd', 'e', 'f'];
-    //expect(letters.length).toEqual(6);
+    const letters = ['a', ...'bcd', 'e', 'f'];
+    expect(letters.length).toEqual(6);
   });
 
 });
