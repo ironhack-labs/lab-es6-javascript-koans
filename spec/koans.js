@@ -69,15 +69,15 @@ describe('`const` is like `let` plus read-only. ', () => {
   describe('complex types are NOT fully read-only', () => {
 
     it('arrays is not fully read-only', () => {
-      const arr = [42, 23];
+      const arr = [0, 42, 23];
 
-      //expect(arr[0]).toBe(0);
+      expect(arr[0]).toBe(0);
     });
 
     it('objects are not fully read-only', () => {
-      const obj = {x: 1};
+      const obj = {x: 2};
 
-      //expect(obj.x).toBe(2);
+      expect(obj.x).toBe(2);
     });
 
   });
@@ -88,30 +88,30 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a single character', function() {
     it('in a three char string', function() {
-      /* const searchString = ???? */
-      //expect('xyz'.includes(searchString)).toBe(true);
+      const searchString = 'xyz';
+      expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
-      /* const expected = ????*/;
-      //expect('xyz'.includes('abc')).toBe(expected);
+      const expected = 'abc';
+      expect('xyz'.includes('abc')).toBe(false);
     });
   });
 
   describe('find a string', function() {
     it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+      const findSome = () => 'xyz'.includes('xyz');
+      expect(findSome('xyz')).toBe(true);
     });
   });
 
   describe('search for an empty string, is always true', function() {
     it('in an empty string', function() {
-      /* .... */
-      //expect(''.includes(x)).toBe(true);
+      let x = '';
+      expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      /* .... */
-      //expect('abc'.includes(x)).toBe(true);
+      let x = 'abc';
+      expect('abc'.includes(x)).toBe(true);
     });
   });
 
