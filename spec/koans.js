@@ -117,8 +117,8 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('takes a position from where to start searching', function() {
     it('does not find `a` after position 1 in `abc`', function() {
-      /*....*/
-      //expect('abc'.includes('a', position)).toBe(false);
+      let position = 1;  
+      expect('abc'.includes('a', position)).toBe(false);
     });
     it('even the position gets coerced', function() {
       /*const findAtPosition = (pos) => 'xyz'.includes(?????);*/
