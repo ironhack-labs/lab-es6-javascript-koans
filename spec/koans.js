@@ -344,6 +344,7 @@ describe('arrow functions. ', () => {
     expect(func()).toBe('I am func');
   });
 
+  ///////////////////// VOY POR AQUÍ ///////////////////////////////////////////////
   it('a single expression, without curly braces returns too', function() {
     /*let func = () => .........;*/
     //expect(func()).toBe('I return too');
