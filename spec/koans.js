@@ -116,8 +116,8 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('takes a position from where to start searching', function () {
     it('does not find `a` after position 1 in `abc`', function () {
-      const x = "abc"
-      expect('abc'.includes('a', 1)).toBe(false);
+      const position = 1
+      expect('abc'.includes('a', position)).toBe(false);
     });
     it('even the position gets coerced', function () {
       const findAtPosition = (pos) => 'x2yz'.includes(pos);
@@ -156,13 +156,13 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   describe('can evaluate variables, which are wrapped in "${" and "}"', function () {
 
     it('e.g. a simple variable "${x}" just gets evaluated', function () {
-      let evaluated = `x=9`
-      expect(evaluated).toBe('x=' + "9");
+      let evaluated = `x=` + `${x}`
+      expect(evaluated).toBe('x=' + x);
     });
 
     it('multiple variables get evaluated too', function () {
-      var evaluated = `x+y`;
-      expect(evaluated).toBe("x" + '+' + "y");
+      var evaluated = `${x}` + `+` + `${y}`;
+      expect(evaluated).toBe(x + "+" + y);
     });
 
   });
@@ -240,10 +240,10 @@ describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract from nested arrays', () => {
     const user = [['Some', 'One'], 23];
-    const [firstName, surname, age] = user;
+    const [[firstName, surname], age] = user;
 
     const expected = 'Some One = 23 years';
-    expect(`${firstName[0]} ${firstName[1]} = ${surname} years`).toEqual(expected);
+    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
@@ -270,8 +270,8 @@ describe('destructuring also works on strings. ', () => {
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const x = { x: 1 };
-    expect(x.x).toEqual(1);
+    const { x } = { x: 1 };
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
@@ -281,20 +281,21 @@ describe('destructuring objects. ', () => {
       expect(second).toEqual(42);
     });
     it('object and array', () => {
-      const { z: x } = { z: [23, 42] };
-      expect(x[1]).toEqual(42);
+      const { z: [, x] } = { z: [23, 42] };
+      expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang = [null, [{ env: 'browser', lang: 'ES6' }]];
+      const [, [{ lang }]] = [null, [{ env: 'browser', lang: 'ES6' }]];
 
-      expect(lang[1][0].lang).toEqual('ES6');
+
+      expect(lang).toEqual('ES6');
     });
   });
 
   describe('interesting', () => {
     it('missing refs become undefined', () => {
-      const z = { x: 1, y: 2 };
-      expect(z[1]).toEqual(void 0);
+      const { z } = { x: 1, y: 2 };
+      expect(z).toEqual(void 0);
     });
   });
 
