@@ -292,13 +292,13 @@ describe('destructuring objects. ', () => {
       expect(second).toEqual(42);
     });
     it('object and array', () => {
-      const {z:x} = {z: [23, 42]};
+      const {z:[,x]} = {z: [23, 42]};
 
-      expect(x[1]).toEqual(42);
+      expect(x).toEqual(42); //no estamos 100%
     });
     it('array and object', () => {
-      const lang = [null, [{env: 'browser', lang: 'ES6'}]];
-      expect(lang[1][0].lang).toEqual('ES6');
+      const [,[{lang}]] = [null, [{env: 'browser', lang: 'ES6'}]];
+      expect(lang).toEqual('ES6'); //no estamos 100%
     });
   });
 
