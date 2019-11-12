@@ -45,14 +45,11 @@ describe('`const` is like `let` plus read-only. ', () => {
   describe('scalar values are read-only', () => {
     it('number are read-only', () => {
        const constNum = 0;
-       //constNum = 1;
       expect(constNum).toBe(0);
     });
 
     it('string are read-only', () => {
       const constString = "I am a const";
-      // constString = "Cant change you?";
-
       expect(constString).toBe("I am a const");
     });
 
@@ -68,13 +65,11 @@ describe('`const` is like `let` plus read-only. ', () => {
 
     it('arrays is not fully read-only', () => {
       const arr = [0,42, 23];
-
       expect(arr[0]).toBe(0);
     });
 
     it('objects are not fully read-only', () => {
       const obj = {x: 1 + 1};
-
       expect(obj.x).toBe(2);
     });
 
@@ -147,19 +142,16 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
       let str = 'like a string';
       expect(str).toEqual('like a string');
     });
-
   });
 
   let x = 42;
   let y = 23;
 
   describe('can evaluate variables, which are wrapped in "${" and "}"', function() {
-
     it('e.g. a simple variable "${x}" just gets evaluated', function() {
       let evaluated = `x=` + x;
       expect(evaluated).toBe('x=' + x);
     });
-
     it('multiple variables get evaluated too', function() {
       var evaluated = `${x}+${y}`;
       expect(evaluated).toBe(x + '+' + y);
@@ -203,9 +195,7 @@ describe('The object literal allows for new shorthands. ', () => {
   });
 
   describe('with methods', () => {
-
     const func = () => func;
-
     it('using the name only uses it as key', () => {
       var short = {func};
       expect(short).toEqual({func: func});
