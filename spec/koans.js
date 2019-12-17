@@ -449,7 +449,8 @@ describe('arrow functions. ', () => {
 
     getFunction() {
       return () => {
-          return new LexicallyBound(); /*changes might go here*/
+          return this 
+          // new LexicallyBound(); /*changes might go here*/ // ao inves de instanciar um outro, 
       };
     }
 
@@ -464,16 +465,18 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction(); // fn() = new LexicallyBound()
 
-      // expect(fn()).toBe(bound);
+      // TODO no both return an object with the same this. is that it?
+      expect(fn()).toBe(bound);
     });
 
     it('can NOT bind a different context', function() {
       let bound = new LexicallyBound();
-      let fn = bound.getFunction();
+      let fn = bound.getFunction(); 
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected = bound; //change this
+      // since arrow functions don't have dynamic this, .call() to bind to anotherObj' this just don't work
 
-      // expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
 
     /*
@@ -528,7 +531,7 @@ describe('destructuring function parameters. ', () => {
       const defaultUser = {id: 23, name: 'Joe'};
       const fn = ([user]) => {
 
-        // expect(user).toEqual (defaultUser);
+        expect(user).toEqual(defaultUser);
       };
       fn([]);
     });
