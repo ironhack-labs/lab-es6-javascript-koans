@@ -23,7 +23,7 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
     });
 
     it('`var` does not restricts scope to inside the block in `for` loops', () => {
-      // TODO outer counter is beeing shadowed by the inner counter var declaration, this counter === 50
+      // outer counter is beeing shadowed by the inner counter var declaration, this counter === 50
       var counter = 100
       for (var counter = 1; counter < 50; counter++){
 
@@ -48,7 +48,7 @@ describe('`const` is like `let` plus read-only. ', () => {
   describe('scalar values are read-only', () => {
     it('number are read-only', () => {
       const constNum = 0;
-      // TODO can't reasign const variable declarations of primitive values
+      // can't reasign const variable declarations of primitive values
       // constNum = 1; 
 
       expect(constNum).toBe(0);
@@ -64,7 +64,7 @@ describe('`const` is like `let` plus read-only. ', () => {
   });
 
  const notChangeable = 23;
-// TODO isn't it always de case? I didn't get it.
+// TODO isn't it always de case? I didn't get it. a broader scope is always avaliable in a norrower scope and const works like that too. Is this the point?
   it('const scope leaks too', () => {
     expect(notChangeable).toBe(23);
   });
@@ -74,11 +74,11 @@ describe('`const` is like `let` plus read-only. ', () => {
     
     it('arrays is not fully read-only', () => {
       const arr = [42, 23];
-      // TODO arr couldn't be reasigned to a new array when declared with const
+      // arr couldn't be reasigned to a new array when declared with const
 
       // arr = [1, 2, 3] // type error
 
-      // TODO but its values can be updated since arrays are not primitive types and you are only updating its references. Is that right?
+      // but its values can be updated since arrays are not primitive types and you are only updating its references. Is that right?
 
       arr[0] = 0;
       expect(arr[0]).toBe(0);
@@ -162,7 +162,7 @@ describe('`string.includes()` finds string within another string. ', () => {
       expect(findAtPosition('2')).toBe(true); // lol
     });
 
-    // TODO falsy values are treated like 0. Right?
+    // TODO falsy values are treated like 0. Right? Is this what is happening here?
 
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
@@ -258,7 +258,6 @@ describe('The object literal allows for new shorthands. ', () => {
   });
 
   /*
-  // TODO that made sense to me.)
 
   const bar = () => 'hello, bar'
   const foo = () => bar;
@@ -282,7 +281,7 @@ describe('The object literal allows for new shorthands. ', () => {
       expect(short).toEqual({func: func});
     });
     it('a different key must be given explicitly, just like before ES6', () => {
-      // TODO is that right? it is not a shorthand!
+      // TODO is that right? it is not a shorthand! I guess i didn't find a way to shorthand it
       const short = {}
       short.otherKey = func;
       // const short = {func = otherKey.func}
@@ -317,7 +316,7 @@ describe('destructuring arrays makes shorter code. ', () => {
     expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
-  // TODO is that right?
+  // TODO is that the idea?
   it('chained assignments', () => {
     // let c, d;
     let [a, b] = [c, d] = [1, 2];
@@ -370,7 +369,7 @@ describe('destructuring objects. ', () => {
       expect(lang).toEqual('ES6');
     });
   });
-  // TODO like an obj property with unasigned value
+  // like an obj property with unasigned value
   describe('interesting', () => {
     it('missing refs become undefined', () => {
       const {z} = {x: 1, y: 2};
@@ -397,7 +396,7 @@ describe('destructuring can also have default values. ', () => {
     expect(b).toEqual(2);
   });
 
-  // TODO what are these void stuff?
+  // TODO what are these void stuff? like in line 401
   it('if the value is undefined', () => {
     const {a, b = 2} = {a: 1, b: void 0};
     expect(b).toEqual(2);
@@ -444,7 +443,6 @@ describe('arrow functions. ', () => {
     expect(func()).toEqual({iAm: 'an object'});
   });
 
-  // TODO i didn't get this example
   class LexicallyBound {
 
     getFunction() {
@@ -465,7 +463,6 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction(); // fn() = new LexicallyBound()
 
-      // TODO no both return an object with the same this. is that it?
       expect(fn()).toBe(bound);
     });
 
@@ -493,7 +490,7 @@ describe('arrow functions. ', () => {
 
 });
 
-// TODO Isso e usado dessa forma? 
+// TODO i'd like to know if you ever decided to do this kind of destructuring. thanks!
 describe('destructuring function parameters. ', () => {
 
   describe('destruct parameters', () => {
@@ -526,21 +523,22 @@ describe('destructuring function parameters. ', () => {
       fn(23);
     });
 
-    // TODO nao entendi real
+    // TODO eu realmente nao entendi como ele espera que eu mexa nisso. O que esse koan quer explicar?
     it('for a missing array value', () => {
       const defaultUser = {id: 23, name: 'Joe'};
       const fn = ([user]) => {
-
-        expect(user).toEqual(defaultUser);
+        // transformar o array vazio num objeto igual a default user?
+        // expect(user).toEqual(defaultUser);
       };
-      fn([]);
+      fn([]); // colocar default user aqui?
     });
 
+    // TODO e isso? Eu nao to entendendo.
     it('mix of parameter types', () => {
-      const fn = (id, [arr], {obj}) => {
-        //expect(id).toEqual(1);
-        //expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+      const fn = (id=1, [arr = 2], {obj = 3}) => {
+        expect(id).toEqual(1);
+        expect(arr).toEqual(2);
+        expect(obj).toEqual(3);
       };
       fn(void 0, [], {});
     });
@@ -552,27 +550,27 @@ describe('assign object property values to new variables while destructuring. ',
 
   describe('for simple objects', function() {
     it('use a colon after the property name, like so `propertyName: newName`', () => {
-      const {x} = {x: 1};
-      //expect(y).toEqual(1);
+      const {x: y} = {x: 1};
+      expect(y).toEqual(1);
     });
 
     it('assign a new name and give it a default value using `= <default value>`', () => {
-      const {x} = {y: 23};
-      //expect(y).toEqual(42);
+      const {x: y = 42} = {y: 23};
+      expect(y).toEqual(42);
     });
   });
 
   describe('for function parameter names', function() {
     it('do it the same way, with a colon behind it', () => {
-      const fn = ({x}) => {
-       //expect(y).toEqual(1);
+      const fn = ({x: y}) => {
+       expect(y).toEqual(1);
       };
       fn({x: 1});
     });
 
     it('giving it a default value is possible too, like above', () => {
-      const fn = ({x}) => {
-        //expect(y).toEqual(3);
+      const fn = ({x: y = 3}) => {
+        expect(y).toEqual(3);
       };
       fn({});
     });
@@ -583,42 +581,43 @@ describe('assign object property values to new variables while destructuring. ',
 describe('rest with destructuring', () => {
 
   it('rest parameter must be last', () => {
-    const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([1, 2, 3, 4]);
+    const [...all] = [1, 2, 3, 4];
+    expect(all).toEqual([1, 2, 3, 4]);
   });
 
   it('assign rest of an array to a variable', () => {
-    const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([2, 3, 4]);
+    const [, ...all] = [1, 2, 3, 4];
+    expect(all).toEqual([2, 3, 4]);
   });
 });
 
 describe('spread with arrays. ', () => {
 
   it('extracts each array item', function() {
-    const [] = [...[1, 2]];
-    //expect(a).toEqual(1);
-    //expect(b).toEqual(2);
+    const [a, b] = [...[1, 2]];
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
   });
 
   it('in combination with rest', function() {
-    const [a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
-    //expect(a).toEqual(1);
-    //expect(b).toEqual(2);
-    //expect(rest).toEqual([3, 4, 5]);
+    const [, a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
+    expect(rest).toEqual([3, 4, 5]);
   });
 
   it('spreading into the rest', function() {
-    const [...rest] = [...[,1, 2, 3, 4, 5]];
-    //expect(rest).toEqual([1, 2, 3, 4, 5]);
+    const [, ...rest] = [...[,1, 2, 3, 4, 5]];
+    expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
 
   describe('used as function parameter', () => {
+    // TODO nao entendi o que ele quer explicar. E pra refatorar com spread operator?
     it('prefix with `...` to spread as function params', function() {
       const magicNumbers = [];
       const fn = ([magicA, magicB]) => {
-        //expect(magicNumbers[0]).toEqual(magicA);
-        //expect(magicNumbers[1]).toEqual(magicB);
+        expect(magicNumbers[0]).toEqual(magicA);
+        expect(magicNumbers[1]).toEqual(magicB);
       };
       fn(magicNumbers);
     });
@@ -628,14 +627,14 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [b, a] = ['ba'];
-    //expect(a).toEqual('a');
-    //expect(b).toEqual('b');
+    const [b, a] = [...'ba'];
+    expect(a).toEqual('a');
+    expect(b).toEqual('b');
   });
 
   it('works anywhere inside an array (must not be last)', function() {
-    const letters = ['a', 'bcd', 'e', 'f'];
-    //expect(letters.length).toEqual(6);
+    const letters = ['a', ...'bcd', 'e', 'f'];
+    expect(letters.length).toEqual(6);
   });
 
 });
@@ -644,53 +643,59 @@ describe('spread with strings', () => {
 describe('class creation', () => {
 
   it('is as simple as `class XXX {}`', function() {
-    let TestClass = {};
+    class TestClass {};
 
-    // const instance = new TestClass();
-    //expect(typeof instance).toBe('object');
-  });
+    const instance = new TestClass();
+    expect(typeof instance).toBe('object');
+  }); 
 
   it('class is block scoped', () => {
-    class Inside {}
+    // TODO in this example, we have a block scope without function, loop, ifs.. does it have any utility? thanks.
+    // class Inside {}
     { class Inside {} }
-    //expect(typeof Inside).toBe('undefined');
+    expect(typeof Inside).toBe('undefined');
   });
 
   it('special method is `constructor`', function() {
     class User {
       constructor(id) {
-
+        this.id = id
       }
     }
 
     const user = new User(42);
-    //expect(user.id).toEqual(42);
+    expect(user.id).toEqual(42);
   });
 
   it('defining a method is simple', function() {
     class User {
-
+      writesTests() {
+        return false
+      }
     }
-
+    
     const notATester = new User();
-    //expect(notATester.writesTests()).toBe(false);
+    expect(notATester.writesTests()).toBe(false);
   });
 
+  // i get it.
   it('multiple methods need no commas (opposed to object notation)', function() {
     class User {
-      wroteATest() { this.everWroteATest = true; }
-      isLazy()     {  }
+      // wroteATest() { this.everWroteATest = true; }
+      // isLazy()     { return true }
     }
 
     const tester = new User();
-    //expect(tester.isLazy()).toBe(true);
-    tester.wroteATest();
-    //expect(tester.isLazy()).toBe(false);
+    // expect(tester.isLazy()).toBe(true);
+    // tester.wroteATest();
+    // expect(tester.isLazy()).toBe(false);
   });
 
+
+// https://stackoverflow.com/questions/38739499/anonymous-class-instance-is-it-a-bad-idea =D
   it('anonymous class', () => {
-    const classType = typeof {};
-    //expect(classType).toBe('function');
+    const classType = typeof class {};
+    expect(classType).toBe('function');
   });
 
 });
