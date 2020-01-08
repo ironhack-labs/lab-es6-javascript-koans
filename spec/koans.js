@@ -85,8 +85,8 @@ describe("`string.includes()` finds string within another string. ", () => {
 
   describe("find a string", function() {
     it("that matches exactly", function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+      const findSome = string => "xyz".includes(string);
+      expect(findSome("xyz")).toBe(true);
     });
   });
 
