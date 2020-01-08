@@ -50,10 +50,10 @@ describe("`const` is like `let` plus read-only. ", () => {
     });
   });
 
-  /*var, let or const? notChangeable = 23;*/
+  const notChangeable = 23;
 
   it("const scope leaks too", () => {
-    //expect(notChangeable).toBe(23);
+    expect(notChangeable).toBe(23);
   });
 
   describe("complex types are NOT fully read-only", () => {
