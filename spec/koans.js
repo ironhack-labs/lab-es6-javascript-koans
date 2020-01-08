@@ -87,8 +87,8 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a single character', function () {
     it('in a three char string', function () {
-      /* const searchString = ???? */
-      //expect('xyz'.includes(searchString)).toBe(true);
+      const searchString = 'xyz';
+      expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function () {
       /* const expected = ????*/
