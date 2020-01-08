@@ -9,8 +9,9 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
     it('`var` works as usual, it does not restricts scope', () => {
       if (true) {
         /*You should add your code in here*/
+        let varX = true;
       }
-      // expect(varX).toBe(true);
+       expect(varX).toBe(true);
     });
 
     it('`let` restricts scope to inside the block', () => {
