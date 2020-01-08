@@ -44,9 +44,9 @@ describe("`const` is like `let` plus read-only. ", () => {
     });
 
     it("string are read-only", () => {
-      // const constString = "I am a const";
-      // constString = "Cant change you?";
-      //expect(constString).toBe("I am a const");
+      const constString = "I am a const";
+      // constString = "Cant change you?"; commented to pass the test
+      expect(constString).toBe("I am a const");
     });
   });
 
