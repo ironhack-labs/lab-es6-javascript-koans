@@ -198,28 +198,28 @@ describe("The object literal allows for new shorthands. ", () => {
 
 describe("destructuring arrays makes shorter code. ", () => {
   it("extract value from array, e.g. extract 0 into x like so `let [x] = [0];`", () => {
-    let firstValue = [1];
-    //expect(firstValue).toEqual(1);
+    let [firstValue] = [1];
+    expect(firstValue).toEqual(1);
   });
 
   it("swap two variables, in one operation", () => {
     let [x, y] = ["ax", "why"];
-    [x, y] = [x, y];
-    //expect([x, y]).toEqual(['why', 'ax']);
+    [y, x] = [x, y];
+    expect([x, y]).toEqual(["why", "ax"]);
   });
 
   it("leading commas", () => {
     const all = ["ax", "why", "zet"];
-    const [z] = all;
-    //expect(z).toEqual('zet');
+    const [, , z] = all;
+    expect(z).toEqual("zet");
   });
 
   it("extract from nested arrays", () => {
     const user = [["Some", "One"], 23];
-    const [firstName, surname, age] = user;
+    const [[firstName, surname], age] = user;
 
     const expected = "Some One = 23 years";
-    //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it("chained assignments", () => {
