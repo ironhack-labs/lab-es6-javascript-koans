@@ -8,25 +8,22 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
 	describe('`let` vs. `var`.', () => {
 		it('`var` works as usual, it does not restricts scope', () => {
 			if (true) {
-				/*You should add your code in here*/
 				var varX = true;
 			}
+
 			expect(varX).toBe(true);
 		});
 
 		it('`let` restricts scope to inside the block', () => {
-			/*var or const? letX = false*/
 			const letX = false;
 			if (true) {
-				/*var or const? letX = true*/
 				const letX = true;
 			}
+
 			expect(letX).toBe(false);
 		});
 
 		it('`var` does not restricts scope to inside the block in `for` loops', () => {
-			/*var or let? counter = 100*/
-			/*for (var or let? counter = 1; counter < 50; counter++){}*/
 			var counter = 100;
 			for (var counter = 1; counter < 50; counter++) {}
 
@@ -34,8 +31,6 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
 		});
 
 		it('`let` restricts scope to inside the block also in `for` loops', () => {
-			/*var or let? counter = 100*/
-			/*for (var or let? counter = 1; counter < 50; counter++){}*/
 			let counter = 100;
 			for (let counter = 1; counter < 50; counter++) {}
 
@@ -48,21 +43,19 @@ describe('`const` is like `let` plus read-only. ', () => {
 	describe('scalar values are read-only', () => {
 		it('number are read-only', () => {
 			const constNum = 0;
-			// constNum = 1;
 
 			expect(constNum).toBe(0);
 		});
 
 		it('string are read-only', () => {
 			const constString = 'I am a const';
-			// constString = "Cant change you?";
 
 			expect(constString).toBe('I am a const');
 		});
 	});
 
-	/*var, let or const? notChangeable = 23;*/
 	const notChangeable = 23;
+
 	it('const scope leaks too', () => {
 		expect(notChangeable).toBe(23);
 	});
@@ -71,12 +64,14 @@ describe('`const` is like `let` plus read-only. ', () => {
 		it('arrays is not fully read-only', () => {
 			const arr = [ 42, 23 ];
 			arr[0] = 0;
+
 			expect(arr[0]).toBe(0);
 		});
 
 		it('objects are not fully read-only', () => {
 			const obj = { x: 1 };
 			obj.x = 2;
+
 			expect(obj.x).toBe(2);
 		});
 	});
@@ -85,68 +80,69 @@ describe('`const` is like `let` plus read-only. ', () => {
 describe('`string.includes()` finds string within another string. ', () => {
 	describe('find a single character', function() {
 		it('in a three char string', function() {
-			/* const searchString = ???? */
 			const searchString = 'xyz';
+
 			expect('xyz'.includes(searchString)).toBe(true);
 		});
 
 		it('reports false if character was not found', function() {
-			/* const expected = ????*/ const expected = false;
+			const expected = false;
+
 			expect('xyz'.includes('abc')).toBe(expected);
 		});
 	});
 
 	describe('find a string', function() {
 		it('that matches exactly', function() {
-			/* const findSome = .... => 'xyz'.includes();*/
 			const findSome = str => 'xyz'.includes(str);
+
 			expect(findSome('xyz')).toBe(true);
 		});
 	});
 
 	describe('search for an empty string, is always true', function() {
 		it('in an empty string', function() {
-			/* .... */
 			let x = '';
+
 			expect(''.includes(x)).toBe(true);
 		});
 
 		it('in `abc`', function() {
-			/* .... */
 			let x = '';
+
 			expect('abc'.includes(x)).toBe(true);
 		});
 	});
 
 	describe('takes a position from where to start searching', function() {
 		it('does not find `a` after position 1 in `abc`', function() {
-			/*....*/
 			let position = 1;
+
 			expect('abc'.includes('a', position)).toBe(false);
 		});
 
 		it('even the position gets coerced', function() {
-			/*const findAtPosition = (pos) => 'xyz'.includes(?????);*/
 			const findAtPosition = pos => 'xyz'.includes('z', pos);
+
 			expect(findAtPosition('2')).toBe(true);
 		});
 
 		describe('invalid positions get converted to 0', function() {
 			it('e.g. `undefined`', function() {
-				/*const findAtPosition = (pos) => 'xyz'.includes(?????); */
 				const findAtPosition = pos => 'xyz'.includes('x', pos);
+
 				expect(findAtPosition(void 0)).toBe(true);
 			});
 
 			it('negative numbers', function() {
-				/*const findAtPosition = (pos) => 'xyz'.includes(????); */
 				const findAtPosition = pos => 'xyz'.includes('y', pos);
+
 				expect(findAtPosition(-2)).toBe(true);
 			});
 
 			it('NaN', function() {
-				/* const findAtPosition = (pos) => 'xyz'.includes(?????); */
 				const findAtPosition = pos => 'xyz'.includes('x', pos);
+
 				expect(findAtPosition(NaN)).toBe(true);
 			});
 		});
@@ -156,8 +152,8 @@ describe('`string.includes()` finds string within another string. ', () => {
 describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', () => {
 	describe('by default, behaves like a normal string', function() {
 		it('just surrounded by backticks', function() {
-			/*let str = ??????*/
 			let str = `like a string`;
+
 			expect(str).toEqual('like a string');
 		});
 	});
@@ -168,11 +164,13 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 	describe('can evaluate variables, which are wrapped in "${" and "}"', function() {
 		it('e.g. a simple variable "${x}" just gets evaluated', function() {
 			let evaluated = `x=${x}`;
+
 			expect(evaluated).toBe('x=' + x);
 		});
 
 		it('multiple variables get evaluated too', function() {
 			var evaluated = `${x}+${y}`;
+
 			expect(evaluated).toBe(x + '+' + y);
 		});
 	});
@@ -180,6 +178,7 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 	describe('can evaluate any expression, wrapped inside "${...}"', function() {
 		it('all inside "${...}" gets evaluated', function() {
 			var evaluated = Number(`${x + y}`);
+
 			expect(evaluated).toBe(x + y);
 		});
 
@@ -188,6 +187,7 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 				return 'Ironhack';
 			}
 			var evaluated = `${getSchool()}`;
+
 			expect(evaluated).toBe('Ironhack');
 		});
 	});
@@ -199,14 +199,14 @@ describe('The object literal allows for new shorthands. ', () => {
 
 	describe('with variables', () => {
 		it('the short version for `{y: y}` is {y}', () => {
-			/*.....*/
 			let short = { y };
+
 			expect(short).toEqual({ y: y });
 		});
 
 		it('works with multiple variables too', () => {
-			/*.....*/
 			let short = { x, y };
+
 			expect(short).toEqual({ x: x, y: y });
 		});
 	});
@@ -216,11 +216,13 @@ describe('The object literal allows for new shorthands. ', () => {
 
 		it('using the name only uses it as key', () => {
 			let short = { func };
+
 			expect(short).toEqual({ func: func });
 		});
 
 		it('a different key must be given explicitly, just like before ES6', () => {
 			let short = { otherKey: func };
+
 			expect(short).toEqual({ otherKey: func });
 		});
 	});
@@ -229,18 +231,21 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 	it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
 		let [ firstValue ] = [ 1 ];
+
 		expect(firstValue).toEqual(1);
 	});
 
 	it('swap two variables, in one operation', () => {
 		let [ x, y ] = [ 'ax', 'why' ];
 		[ y, x ] = [ x, y ];
+
 		expect([ x, y ]).toEqual([ 'why', 'ax' ]);
 	});
 
 	it('leading commas', () => {
 		const all = [ 'ax', 'why', 'zet' ];
 		const [ , , z ] = all;
+
 		expect(z).toEqual('zet');
 	});
 
@@ -248,11 +253,13 @@ describe('destructuring arrays makes shorter code. ', () => {
 		const user = [ [ 'Some', 'One' ], 23 ];
 		const [ [ firstName, surname ], age ] = user;
 		const expected = 'Some One = 23 years';
+
 		expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
 	});
 
 	it('chained assignments', () => {
 		let [ a, b ] = ([ c, d ] = [ 1, 2 ]);
+
 		expect([ a, b, c, d ]).toEqual([ 1, 2, 1, 2 ]);
 	});
 });
@@ -260,11 +267,13 @@ describe('destructuring arrays makes shorter code. ', () => {
 describe('destructuring also works on strings. ', () => {
 	it('destructure every character', () => {
 		let [ a, b, c ] = 'abc';
+
 		expect([ a, b, c ]).toEqual([ 'a', 'b', 'c' ]);
 	});
 
 	it('missing characters are undefined', () => {
 		const [ a, , c ] = 'ab';
+
 		expect(c).toEqual(void 0);
 	});
 });
@@ -272,6 +281,7 @@ describe('destructuring also works on strings. ', () => {
 describe('destructuring objects. ', () => {
 	it('is simple', () => {
 		const { x } = { x: 1 };
+
 		expect(x).toEqual(1);
 	});
 
@@ -279,16 +289,19 @@ describe('destructuring objects. ', () => {
 		it('multiple objects', () => {
 			const magic = { first: 23, second: 42 };
 			const { first, second } = magic;
+
 			expect(second).toEqual(42);
 		});
 
 		it('object and array', () => {
 			const { z: [ , x ] } = { z: [ 23, 42 ] };
+
 			expect(x).toEqual(42);
 		});
 
 		it('array and object', () => {
 			const [ , [ { lang } ] ] = [ null, [ { env: 'browser', lang: 'ES6' } ] ];
+
 			expect(lang).toEqual('ES6');
 		});
 	});
@@ -296,6 +309,7 @@ describe('destructuring objects. ', () => {
 	describe('interesting', () => {
 		it('missing refs become undefined', () => {
 			const { z } = { x: 1, y: 2 };
+
 			expect(z).toEqual(void 0);
 		});
 	});
@@ -304,26 +318,31 @@ describe('destructuring objects. ', () => {
 describe('destructuring can also have default values. ', () => {
 	it('for an empty array', () => {
 		const [ a = 1 ] = [];
+
 		expect(a).toEqual(1);
 	});
 
 	it('for a missing value', () => {
 		const [ a, b = 2, c ] = [ 1, , 3 ];
+
 		expect(b).toEqual(2);
 	});
 
 	it('in an object', () => {
 		const [ a, b = 2 ] = [ { a: 1 } ];
+
 		expect(b).toEqual(2);
 	});
 
 	it('if the value is undefined', () => {
 		const { a, b = 2 } = { a: 1, b: void 0 };
+
 		expect(b).toEqual(2);
 	});
 
 	it('also a string works with defaults', () => {
 		const [ a, b = 2 ] = '1';
+
 		expect(a).toEqual('1');
 		expect(b).toEqual(2);
 	});
@@ -344,16 +363,19 @@ describe('arrow functions. ', () => {
 
 	it('a single expression, without curly braces returns too', function() {
 		let func = () => 'I return too';
+
 		expect(func()).toBe('I return too');
 	});
 
 	it('one parameter can be written without parens', () => {
 		let func = num => num - 1;
+
 		expect(func(25)).toEqual(24);
 	});
 
 	it('many params require parens', () => {
 		let func = (num1, num2) => num1 + num2;
+
 		expect(func(23, 42)).toEqual(23 + 42);
 	});
 
@@ -361,20 +383,21 @@ describe('arrow functions. ', () => {
 		let func = () => {
 			return { iAm: 'an object' };
 		};
+
 		expect(func()).toEqual({ iAm: 'an object' });
 	});
 
 	class LexicallyBound {
 		getFunction() {
 			return () => {
-				return this; /*changes might go here*/
+				return this;
 			};
 		}
 
 		getArgumentsFunction() {
 			return () => {
 				return arguments;
-			}; /*or here*/
+			};
 		}
 	}
 
@@ -382,6 +405,7 @@ describe('arrow functions. ', () => {
 		it('bound at definition time, use `=>` ', function() {
 			let bound = new LexicallyBound();
 			let fn = bound.getFunction();
+
 			expect(fn()).toBe(bound);
 		});
 
@@ -389,7 +413,7 @@ describe('arrow functions. ', () => {
 			let bound = new LexicallyBound();
 			let fn = bound.getFunction();
 			let anotherObj = {};
-			let expected = bound; //change this
+			let expected = bound;
 
 			expect(fn.call(anotherObj)).toBe(expected);
 		});
@@ -412,6 +436,7 @@ describe('destructuring function parameters. ', () => {
 				expect(id).toEqual(42);
 				expect(name).toEqual('Wolfram');
 			};
+
 			const user = { name: 'Wolfram', id: 42 };
 			fn(user);
 		});
@@ -419,8 +444,10 @@ describe('destructuring function parameters. ', () => {
 		it('multiple params from array/object', () => {
 			const fn = arr => {
 				const [ , { name } ] = arr;
+
 				expect(name).toEqual('Alice');
 			};
+
 			const users = [ { name: 'nobody' }, { name: 'Alice', id: 42 } ];
 			fn(users);
 		});
@@ -432,6 +459,7 @@ describe('destructuring function parameters. ', () => {
 				expect(id).toEqual(23);
 				expect(name).toEqual('Bob');
 			};
+
 			fn(23);
 		});
 
@@ -440,6 +468,7 @@ describe('destructuring function parameters. ', () => {
 			const fn = ([ user = defaultUser ]) => {
 				expect(user).toEqual(defaultUser);
 			};
+
 			fn([]);
 		});
 
@@ -449,6 +478,7 @@ describe('destructuring function parameters. ', () => {
 				expect(arr).toEqual(2);
 				expect(obj).toEqual(3);
 			};
+
 			fn(void 0, [], {});
 		});
 	});
@@ -458,11 +488,13 @@ describe('assign object property values to new variables while destructuring. ',
 	describe('for simple objects', function() {
 		it('use a colon after the property name, like so `propertyName: newName`', () => {
 			const { x, y } = { x: 1, y: 1 };
+
 			expect(y).toEqual(1);
 		});
 
 		it('assign a new name and give it a default value using `= <default value>`', () => {
 			const { x: y = 42 } = { y: 23 };
+
 			expect(y).toEqual(42);
 		});
 	});
@@ -472,6 +504,7 @@ describe('assign object property values to new variables while destructuring. ',
 			const fn = ({ x: y }) => {
 				expect(y).toEqual(1);
 			};
+
 			fn({ x: 1 });
 		});
 
@@ -479,6 +512,7 @@ describe('assign object property values to new variables while destructuring. ',
 			const fn = ({ x: y = 3 }) => {
 				expect(y).toEqual(3);
 			};
+
 			fn({});
 		});
 	});
@@ -487,11 +521,13 @@ describe('assign object property values to new variables while destructuring. ',
 describe('rest with destructuring', () => {
 	it('rest parameter must be last', () => {
 		const [ ...all ] = [ 1, 2, 3, 4 ];
+
 		expect(all).toEqual([ 1, 2, 3, 4 ]);
 	});
 
 	it('assign rest of an array to a variable', () => {
 		const [ , ...all ] = [ 1, 2, 3, 4 ];
+
 		expect(all).toEqual([ 2, 3, 4 ]);
 	});
 });
@@ -499,12 +535,14 @@ describe('rest with destructuring', () => {
 describe('spread with arrays. ', () => {
 	it('extracts each array item', function() {
 		const [ a, b ] = [ ...[ 1, 2 ] ];
+
 		expect(a).toEqual(1);
 		expect(b).toEqual(2);
 	});
 
 	it('in combination with rest', function() {
 		const [ , a, b, ...rest ] = [ ...[ 0, 1, 2, 3, 4, 5 ] ];
+
 		expect(a).toEqual(1);
 		expect(b).toEqual(2);
 		expect(rest).toEqual([ 3, 4, 5 ]);
@@ -512,16 +550,19 @@ describe('spread with arrays. ', () => {
 
 	it('spreading into the rest', function() {
 		const [ , ...rest ] = [ ...[ , 1, 2, 3, 4, 5 ] ];
+
 		expect(rest).toEqual([ 1, 2, 3, 4, 5 ]);
 	});
 
 	describe('used as function parameter', () => {
 		it('prefix with `...` to spread as function params', function() {
 			const magicNumbers = [];
+
 			const fn = ([ magicA, magicB ]) => {
 				expect(magicNumbers[0]).toEqual(magicA);
 				expect(magicNumbers[1]).toEqual(magicB);
 			};
+
 			fn(magicNumbers);
 		});
 	});
@@ -530,12 +571,14 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 	it('simply spread each char of a string', function() {
 		const [ b, a ] = [ ...'ba' ];
+
 		expect(a).toEqual('a');
 		expect(b).toEqual('b');
 	});
 
 	it('works anywhere inside an array (must not be last)', function() {
 		const letters = [ ...'a', ...'bcd', 'e', 'f' ];
+
 		expect(letters.length).toEqual(6);
 	});
 });
@@ -544,6 +587,7 @@ describe('class creation', () => {
 	it('is as simple as `class XXX {}`', function() {
 		let TestClass = function() {};
 		const instance = new TestClass();
+
 		expect(typeof instance).toBe('object');
 	});
 
@@ -552,6 +596,7 @@ describe('class creation', () => {
 		{
 			class Inside {}
 		}
+
 		expect(typeof Inside).toBe('undefined');
 	});
 
@@ -582,13 +627,16 @@ describe('class creation', () => {
 			constructor() {
 				this.everWroteATest = false;
 			}
+
 			wroteATest() {
 				this.everWroteATest = true;
 			}
+
 			isLazy() {
 				return !this.everWroteATest;
 			}
 		}
+
 		const tester = new User();
 		expect(tester.isLazy()).toBe(true);
 		tester.wroteATest();
@@ -597,6 +645,7 @@ describe('class creation', () => {
 
 	it('anonymous class', () => {
 		const classType = typeof class {};
+
 		expect(classType).toBe('function');
 	});
 });
