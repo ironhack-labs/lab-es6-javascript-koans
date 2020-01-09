@@ -349,23 +349,23 @@ describe('arrow functions. ', () => {
   });
 
   it('a single expression, without curly braces returns too', function() {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () => 'I return too';
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
-   /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+   let func = a => a - 1;
+    expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
-    /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    let func = (a, b)=> a + b;
+    expect(func(23,42)).toEqual(23+42)
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => {iAm: 'an object'}
-    // expect(func()).toEqual({iAm: 'an object'});
+    let func = () => ({iAm: 'an object'}); /*Envolver a los objetos entre paréntesis*/
+    expect(func()).toEqual({iAm: 'an object'});
   });
 
   class LexicallyBound {
@@ -465,6 +465,7 @@ describe('assign object property values to new variables while destructuring. ',
   describe('for simple objects', function() {
     it('use a colon after the property name, like so `propertyName: newName`', () => {
       const {x} = {x: 1};
+
       //expect(y).toEqual(1);
     });
 
