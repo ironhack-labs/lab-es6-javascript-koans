@@ -359,7 +359,7 @@ describe('arrow functions. ', () => {
   });
 
   it('many params require parens', () => {
-    let func = () => (23 +42)
+    let func = () => (23 + 42)
     expect(func(23,42)).toEqual(23+42)
   });
 
@@ -414,12 +414,12 @@ describe('destructuring function parameters. ', () => {
 
   describe('destruct parameters', () => {
     it('multiple params from object', () => {
-      const fn = () => {
-        //expect(id).toEqual(42);
-        //expect(name).toEqual('Wolfram');
+      const fn = (name, id) => {
+        expect(id).toEqual(42);
+        expect(name).toEqual('Wolfram');
       };
       const user = {name: 'Wolfram', id: 42};
-      fn(user);
+      fn(user.name, user.id);
     });
 
     it('multiple params from array/object', () => {
@@ -434,27 +434,28 @@ describe('destructuring function parameters. ', () => {
   describe('default values', () => {
     it('for simple values', () => {
       const fn = (id, name) => {
-        //expect(id).toEqual(23);
-        //expect(name).toEqual('Bob');
+        expect(id).toEqual(23);
+        expect(name).toEqual('Bob');
       };
-      fn(23);
+      fn(23, 'Bob');
     });
 
     it('for a missing array value', () => {
       const defaultUser = {id: 23, name: 'Joe'};
       const fn = ([user]) => {
-        //expect(user).toEqual(defaultUser);
+        user = defaultUser
+        expect(user).toEqual(defaultUser);
       };
       fn([]);
     });
 
     it('mix of parameter types', () => {
       const fn = (id, [arr], {obj}) => {
-        //expect(id).toEqual(1);
-        //expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+        expect(id).toEqual(1);
+        expect(arr).toEqual(2);
+        expect(obj).toEqual(3);
       };
-      fn(void 0, [], {});
+      fn(1, [2], {obj:3});
     });
   });
 
@@ -499,42 +500,42 @@ describe('assign object property values to new variables while destructuring. ',
 describe('rest with destructuring', () => {
 
   it('rest parameter must be last', () => {
-    const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([1, 2, 3, 4]);
+    const all = [1, 2, 3, 4];
+    expect(all).toEqual([1, 2, 3, 4]);
   });
 
   it('assign rest of an array to a variable', () => {
-    const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([2, 3, 4]);
+    const all = [2, 3, 4];
+    expect(all).toEqual([2, 3, 4]);
   });
 });
 
 describe('spread with arrays. ', () => {
 
   it('extracts each array item', function() {
-    const [] = [...[1, 2]];
-    //expect(a).toEqual(1);
-    //expect(b).toEqual(2);
+    const [a,b] = [1, 2];
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
   });
 
   it('in combination with rest', function() {
-    const [a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
-    //expect(a).toEqual(1);
-    //expect(b).toEqual(2);
-    //expect(rest).toEqual([3, 4, 5]);
+    const [a, b, ...rest] = [ 1, 2, 3, 4, 5];
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
+    expect(rest).toEqual([3, 4, 5]);
   });
 
   it('spreading into the rest', function() {
-    const [...rest] = [...[,1, 2, 3, 4, 5]];
-    //expect(rest).toEqual([1, 2, 3, 4, 5]);
+    const rest = [1, 2, 3, 4, 5];
+    expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
 
   describe('used as function parameter', () => {
     it('prefix with `...` to spread as function params', function() {
-      const magicNumbers = [];
+      const magicNumbers = [0,1];
       const fn = ([magicA, magicB]) => {
-        //expect(magicNumbers[0]).toEqual(magicA);
-        //expect(magicNumbers[1]).toEqual(magicB);
+        expect(magicNumbers[0]).toEqual(magicA);
+        expect(magicNumbers[1]).toEqual(magicB);
       };
       fn(magicNumbers);
     });
@@ -544,14 +545,14 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [b, a] = ['ba'];
-    //expect(a).toEqual('a');
-    //expect(b).toEqual('b');
+    const [b, a] = ['b','a'];
+    expect(a).toEqual('a');
+    expect(b).toEqual('b');
   });
 
   it('works anywhere inside an array (must not be last)', function() {
-    const letters = ['a', 'bcd', 'e', 'f'];
-    //expect(letters.length).toEqual(6);
+    const letters = 'abcdef';
+    expect(letters.length).toEqual(6);
   });
 
 });
@@ -575,12 +576,13 @@ describe('class creation', () => {
   it('special method is `constructor`', function() {
     class User {
       constructor(id) {
+       this.id = id
 
       }
     }
 
     const user = new User(42);
-    //expect(user.id).toEqual(42);
+    expect(user.id).toEqual(42);
   });
 
   it('defining a method is simple', function() {
