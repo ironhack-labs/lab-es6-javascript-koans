@@ -293,7 +293,8 @@ describe('destructuring objects. ', () => {
     
     it('array and object', () => {
       const lang = [null, [{env: 'browser', lang: 'ES6'}]];
-      //expect(lang).toEqual('ES6');
+      const
+      expect(lang).toEqual('ES6');
     });
   });
 
