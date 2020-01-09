@@ -269,8 +269,8 @@ describe('destructuring also works on strings. ', () => {
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const y = {x: 1};
-    const {x}  = y;
+    //const y = {x: 1};
+    const {x}  = {x:1};
     expect(x).toEqual(1);
   });
 
@@ -281,21 +281,24 @@ describe('destructuring objects. ', () => {
       expect(second).toEqual(42);
     });
     it('object and array', () => {
-      const {z:y} = {z: [23, 42]};
-      const [a, x]  = y;
+      //const {z:y} = {z: [23, 42]};
+      //const [a, x]  = y;
+      const {z:[,x]} = {z: [23, 42]};
       expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang2 = [null, [{env: 'browser', lang: 'ES6'}]];
-      const [a, [{env, lang}]]  = lang2;
+      //const lang2 = [null, [{env: 'browser', lang: 'ES6'}]];
+      //const [a, [{env, lang}]]  = lang2;
+      const [,[{lang}]] = [null, [{env: 'browser', lang: 'ES6'}]];
       expect(lang).toEqual('ES6');
     });
   });
 
   describe('interesting', () => {
     it('missing refs become undefined', () => {
-      const z2 = {x: 1, y: 2};
-      const {z}  = z2;
+      //const z2 = {x: 1, y: 2};
+      //const {z}  = z2;
+      const {z} = {x: 1, y: 2};
       expect(z).toEqual(void 0);
     });
   });
