@@ -15,18 +15,14 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
     });
 
     it('`let` restricts scope to inside the block', () => {
-      /*var or const? letX = false*/
       const letX = false;
       if (true) {
-        /*var or const? letX = true*/
         const letX = true;
       }
       expect(letX).toBe(false);
     });
 
     it('`var` does not restricts scope to inside the block in `for` loops', () => {
-      /*var or let? counter = 100*/
-      /*for (var or let? counter = 1; counter < 50; counter++){}*/
       var counter = 100;
       for (var counter = 1; counter<50; counter++){
 
@@ -36,8 +32,6 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
     });
 
     it('`let` restricts scope to inside the block also in `for` loops', () => {
-      /*var or let? counter = 100*/
-      /*for (var or let? counter = 1; counter < 50; counter++){}*/
       let counter = 100;
       for (let counter = 1; counter<50; counter++){
 
@@ -54,21 +48,18 @@ describe('`const` is like `let` plus read-only. ', () => {
   describe('scalar values are read-only', () => {
     it('number are read-only', () => {
       const constNum = 0;
-      // constNum = 1;
 
       expect(constNum).toBe(0);
     });
 
     it('string are read-only', () => {
       const constString = "I am a const";
-      // constString = "Cant change you?";
 
       expect(constString).toBe("I am a const");
     });
 
   });
 
-  /*var, let or const? notChangeable = 23;*/
   const notChangeable = 23
   it('const scope leaks too', () => {
     expect(notChangeable).toBe(23);
@@ -96,12 +87,10 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a single character', function() {
     it('in a three char string', function() {
-      /* const searchString = ???? */
       const searchString = 'xyz'
       expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
-      /* const expected = ????*/;
       const expected = false; 
       expect('xyz'.includes('abc')).toBe(expected);
     });
@@ -109,7 +98,6 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a string', function() {
     it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
       const findSome = str => 'xyz'.includes(str)
       expect(findSome('xyz')).toBe(true);
     });
@@ -117,12 +105,10 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('search for an empty string, is always true', function() {
     it('in an empty string', function() {
-      /* .... */
       let x = ''
       expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      /* .... */
       let x = ''
       expect('abc'.includes(x)).toBe(true);
     });
@@ -130,28 +116,23 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('takes a position from where to start searching', function() {
     it('does not find `a` after position 1 in `abc`', function() {
-      /*....*/
       let position = 1;
       expect('abc'.includes('a', position)).toBe(false);
     });
     it('even the position gets coerced', function() {
-      /*const findAtPosition = (pos) => 'xyz'.includes(?????);*/
       const findAtPosition = pos => 'xyz'.includes('z', pos)
       expect(findAtPosition('2')).toBe(true);
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
         const findAtPosition = (pos) => 'xyz'.includes('x', pos);
         expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(????); */
         const findAtPosition = pos => 'xyz'.includes('y', pos)
         expect(findAtPosition(-2)).toBe(true);
       });
       it('NaN', function() {
-        /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
         const findAtPosition = (pos) => 'xyz'.includes('x', pos)
         expect(findAtPosition(NaN)).toBe(true);
       });
@@ -164,7 +145,6 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 
   describe('by default, behaves like a normal string', function() {
     it('just surrounded by backticks', function() {
-      /*let str = ??????*/
       let str = `like a string`
       expect(str).toEqual('like a string');
     });
@@ -361,43 +341,39 @@ describe('destructuring can also have default values. ', () => {
 describe('arrow functions. ', () => {
 
   it('are shorter to write', function() {
-    let func = () => {
-      /*........*/
-    };
-    // expect(func()).toBe('I am func');
+    let func = () => 'I am func';
+    expect(func()).toBe('I am func');
   });
 
   it('a single expression, without curly braces returns too', function() {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () => 'I return too';
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
-   /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+    let func = x => x - 1;
+    expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
-    /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    let func = (x,y) => x + y;
+    expect(func(23,42)).toEqual(23+42)
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => {iAm: 'an object'}
-    // expect(func()).toEqual({iAm: 'an object'});
+    let func = () => {
+      return {iAm: 'an object'}
+    };
+    expect(func()).toEqual({iAm: 'an object'});
   });
 
   class LexicallyBound {
-
     getFunction() {
-      return () => {
-        return new LexicallyBound(); /*changes might go here*/
+      return () => this;
       };
-    }
 
     getArgumentsFunction() {
-      return function() { return arguments; }; /*or here*/
-    }
+      return () => arguments;
   }
 
   describe('arrow functions have lexical `this`, no dynamic `this`', () => {
@@ -406,7 +382,7 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
 
-      //expect(fn()).toBe(bound);
+      // expect(fn()).toBe(bound);
     });
 
     it('can NOT bind a different context', function() {
