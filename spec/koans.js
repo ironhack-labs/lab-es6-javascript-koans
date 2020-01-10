@@ -309,28 +309,28 @@ describe('destructuring objects. ', () => {
 describe('destructuring can also have default values. ', () => {
 
   it('for an empty array', () => {
-    const [a] = [1];
+    const [a=1] = [];
 
     expect(a).toEqual(1)
   });
 
   it('for a missing value', () => {
-    const [a,b,c] = [1,2,3];
+    const [a,b=2,c] = [1,,3];
     expect(b).toEqual(2);
   });
 
   it('in an object', () => {
-    const [a, b] = [{a: 1},2];
+    const [a, b=2] = [{a: 1}];
     expect(b).toEqual(2);
   });
 
   it('if the value is undefined', () => {
-    const {a, b} = {a: 1, b: 2};
+    const {a, b=2} = {a: 1};
     expect(b).toEqual(2);
   });
 
   it('also a string works with defaults', () => {
-    const [a, b] = ['1', 2];
+    const [a, b =2] = ['1', 2];
     expect(a).toEqual('1');
      expect(b).toEqual(2);
   });
@@ -354,12 +354,12 @@ describe('arrow functions. ', () => {
   });
 
   it('one parameter can be written without parens', () => {
-   let func = () => 25 -1
+   let func = (a) => a -1
     expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
-    let func = () => (23 + 42)
+    let func = (a,b) => (a + b)
     expect(func(23,42)).toEqual(23+42)
   });
 
@@ -372,12 +372,12 @@ describe('arrow functions. ', () => {
 
     getFunction() {
       return () => {
-        return new LexicallyBound(); /*changes might go here*/
+        return this; /*changes might go here*/
       };
     }
 
     getArgumentsFunction() {
-      return function() { return arguments; }; /*or here*/
+      return () =>  arguments; /*or here*/
     }
   }
 
@@ -387,23 +387,23 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
 
-      //expect(fn()).toBe(bound);
+      expect(fn()).toBe(bound);
     });
 
     it('can NOT bind a different context', function() {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected =  bound; //change this
 
-      //expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
 
     it('`arguments` doesnt work inside arrow functions', function() {
       let bound = new LexicallyBound();
       let fn = bound.getArgumentsFunction();
 
-      //expect(fn(1, 2).length).toEqual(0);
+      expect(fn(1, 2).length).toEqual(0);
     });
 
   });
@@ -423,8 +423,8 @@ describe('destructuring function parameters. ', () => {
     });
 
     it('multiple params from array/object', () => {
-      const fn = ([]) => {
-        //expect(name).toEqual('Alice');
+      const fn = ([,{name}]) => {
+        expect(name).toEqual('Alice');
       };
       const users = [{name: 'nobody'}, {name: 'Alice', id: 42}];
       fn(users);
@@ -561,54 +561,67 @@ describe('spread with strings', () => {
 describe('class creation', () => {
 
   it('is as simple as `class XXX {}`', function() {
-    let TestClass = {};
+    class TestClass {
 
-    // const instance = new TestClass();
-    //expect(typeof instance).toBe('object');
+    };
+
+    const instance = new TestClass();
+    expect(typeof instance).toBe('object');
   });
 
   it('class is block scoped', () => {
-    class Inside {}
+    let Inside
     { class Inside {} }
-    //expect(typeof Inside).toBe('undefined');
+    
+
+    expect(typeof Inside).toBe('undefined');
   });
 
   it('special method is `constructor`', function() {
     class User {
       constructor(id) {
        this.id = id
-
       }
     }
-
+    
     const user = new User(42);
     expect(user.id).toEqual(42);
   });
-
+  
   it('defining a method is simple', function() {
     class User {
+      writesTests() {return false}
 
     }
 
     const notATester = new User();
-    //expect(notATester.writesTests()).toBe(false);
+    notATester.writesTests() 
+    expect(notATester.writesTests()).toBe(false);
   });
 
   it('multiple methods need no commas (opposed to object notation)', function() {
     class User {
-      wroteATest() { this.everWroteATest = true; }
-      isLazy()     {  }
+      constructor() {
+        this.everWroteATest = false;
+      }
+      wroteATest() {
+        this.everWroteATest = true;
+      }
+      isLazy() {
+        return this.everWroteATest == false;
+      }
     }
 
     const tester = new User();
-    //expect(tester.isLazy()).toBe(true);
+    expect(tester.isLazy()).toBe(true);
     tester.wroteATest();
-    //expect(tester.isLazy()).toBe(false);
+    expect(tester.isLazy()).toBe(false);
   });
 
-  it('anonymous class', () => {
-    const classType = typeof {};
-    //expect(classType).toBe('function');
-  });
+  it("anonymous class", () => {
+    const classType = typeof class {};
+     expect(classType).toBe("function");
+  });	 
+ });
 
-});
+
