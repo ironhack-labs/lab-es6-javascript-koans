@@ -349,8 +349,8 @@ describe('arrow functions. ', () => {
   });
 
   it('a single expression, without curly braces returns too', function() {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () => 'I return too'
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
