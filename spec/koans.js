@@ -248,10 +248,7 @@ describe('destructuring arrays makes shorter code. ', () => {
   });
 
   it('chained assignments', () => {
-<<<<<<< HEAD
-=======
     let c, d;
->>>>>>> master
     let [a, b] = [c, d] = [1, 2];
     expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
@@ -341,19 +338,19 @@ describe('arrow functions. ', () => {
 
   it('are shorter to write', function() {
     let func = () => {
-      /*........*/
+return "I am func"
     };
-    // expect(func()).toBe('I am func');
+    expect(func()).toBe('I am func');
   });
 
   it('a single expression, without curly braces returns too', function() {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    let func = () =>  'I return too'
+    expect(func()).toBe('I return too');
   });
 
   it('one parameter can be written without parens', () => {
-   /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+    let func = () => 
+    expect(func(25)).toEqual(24)
   });
 
   it('many params require parens', () => {
