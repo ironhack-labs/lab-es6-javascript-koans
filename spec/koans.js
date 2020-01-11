@@ -248,6 +248,10 @@ describe('destructuring arrays makes shorter code. ', () => {
   });
 
   it('chained assignments', () => {
+<<<<<<< HEAD
+=======
+    let c, d;
+>>>>>>> master
     let [a, b] = [c, d] = [1, 2];
     expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
