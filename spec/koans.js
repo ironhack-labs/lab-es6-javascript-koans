@@ -394,7 +394,7 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getArgumentsFunction();
 
-      expect(fn(1, 2).length).toEqual(0);
+      expect(fn(1, 2).length).toEqual(2);
     });
 
   });
@@ -605,7 +605,7 @@ describe('class creation', () => {
   });
 
   it('anonymous class', () => {
-    const classType = class {};
+    const classType = typeof class {};
     expect(classType).toBe('function');
   });
 
