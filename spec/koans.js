@@ -529,16 +529,18 @@ describe("spread with strings", () => {
 
 describe("class creation", () => {
   it("is as simple as `class XXX {}`", function() {
-    let TestClass = {};
+    let TestClass = class {};
 
     const instance = new TestClass();
     expect(typeof instance).toBe("object");
   });
 
   it("class is block scoped", () => {
-    class Inside {}
     {
       class Inside {}
+      {
+        class Inside {}
+      }
     }
     expect(typeof Inside).toBe("undefined");
   });
@@ -587,5 +589,6 @@ describe("class creation", () => {
   it("anonymous class", () => {
     const classType = typeof (func => "hola");
     expect(classType).toBe("function");
+    1;
   });
 });
