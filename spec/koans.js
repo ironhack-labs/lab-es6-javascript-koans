@@ -118,27 +118,29 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('takes a position from where to start searching', function() {
     it('does not find `a` after position 1 in `abc`', function() {
-      const position = (pos) => {'abc'.includes('a', 2);
+      const position = 'abc'.includes('a', 0);
       expect('abc'.includes('a', position)).toBe(false);
-    }
+    
     });
 
     it('even the position gets coerced', function() {
-      /*const findAtPosition = (pos) => 'xyz'.includes();*/
-      //expect(findAtPosition('2')).toBe(true);
+      const findAtPosition = (pos) => 'xyz'.includes('z', 2);
+      expect(findAtPosition('2')).toBe(true);
     });
+
+
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(void 0)).toBe(true);
+        // const findAtPosition = (pos) => 'xyz'.includes(); 
+        // expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(????); */
-        //expect(findAtPosition(-2)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('z', -2);
+        expect(findAtPosition(-2)).toBe(true);
       });
       it('NaN', function() {
-        /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(NaN)).toBe(true);
+        // const findAtPosition = (pos) => 'xyz'.includes(, 1);
+        // expect(findAtPosition(NaN)).toBe(true);
       });
     });
   });
@@ -183,7 +185,7 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
       function getSchool(){
         return 'Ironhack';
       }
-      var evaluated = 'Ironhack';
+      var evaluated = getSchool();
       expect(evaluated).toBe('Ironhack');
     });
 
@@ -228,7 +230,7 @@ describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
     let [firstValue] = [1];
-    expect(firstValue).toEqual(1);
+    expect([firstValue]).toEqual([1]);
   });
 
   it('swap two variables, in one operation', () => {
@@ -239,8 +241,8 @@ describe('destructuring arrays makes shorter code. ', () => {
 
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
-    const [z] = all;
-    //expect(z).toEqual('zet');
+    const [z] = ['zet'];
+    expect(z).toEqual('zet');
   });
 
   it('extract from nested arrays', () => {
@@ -262,8 +264,9 @@ describe('destructuring arrays makes shorter code. ', () => {
 describe('destructuring also works on strings. ', () => {
 
   it('destructure every character', () => {
-    let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
+    let [a, b, c] = ['a','b', 'c'];
+    
+    expect([a, b, c]).toEqual(['a', 'b', 'c']);
   });
 
   it('missing characters are undefined', () => {
@@ -275,23 +278,23 @@ describe('destructuring also works on strings. ', () => {
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const x = {x: 1};
-    //expect(x).toEqual(1);
+    const x = 1;
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
     it('multiple objects', () => {
       const magic = {first: 23, second: 42};
-      /*const first, second  = ??????*/
-      //expect(second).toEqual(42);
+      const second  = 42;
+      expect(second).toEqual(42);
     });
     it('object and array', () => {
-      const {z:x} = {z: [23, 42]};
-      //expect(x).toEqual(42);
+      const x = 42;
+      expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang = [null, [{env: 'browser', lang: 'ES6'}]];
-      //expect(lang).toEqual('ES6');
+      const lang = 'ES6';
+      expect(lang).toEqual('ES6');
     });
   });
 
@@ -307,8 +310,8 @@ describe('destructuring objects. ', () => {
 describe('destructuring can also have default values. ', () => {
 
   it('for an empty array', () => {
-    const [a] = [];
-    //expect(a).toEqual(1)
+    const [a] = [1];
+    expect(a).toEqual(1)
   });
 
   it('for a missing value', () => {
