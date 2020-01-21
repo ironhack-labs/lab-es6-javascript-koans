@@ -182,8 +182,8 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
       function getSchool(){
         return 'Ironhack';
       }
-      var evaluated = `getSchool()`;
-      //expect(evaluated).toBe('Ironhack');
+      var evaluated = `${getSchool()}`;
+      expect(evaluated).toBe('Ironhack');
     });
 
   });
