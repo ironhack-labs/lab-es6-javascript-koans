@@ -108,12 +108,12 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('search for an empty string, is always true', function() {
     it('in an empty string', function() {
-      /* .... */
-      //expect(''.includes(x)).toBe(true);
+      const x = '';
+      expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      /* .... */
-      //expect('abc'.includes(x)).toBe(true);
+      const x = '';
+      expect('abc'.includes(x)).toBe(true);
     });
   });
 
