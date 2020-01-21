@@ -119,25 +119,25 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('takes a position from where to start searching', function() {
     it('does not find `a` after position 1 in `abc`', function() {
-      /*....*/
-      //expect('abc'.includes('a', position)).toBe(false);
+      const position = 1;
+      expect('abc'.includes('a', position)).toBe(false);
     });
     it('even the position gets coerced', function() {
-      /*const findAtPosition = (pos) => 'xyz'.includes(?????);*/
-      //expect(findAtPosition('2')).toBe(true);
+      const findAtPosition = (pos) => 'xyz'.includes('z', pos);
+      expect(findAtPosition('2')).toBe(true);
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(void 0)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('x', pos);
+        expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(????); */
-        //expect(findAtPosition(-2)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('x', pos);
+        expect(findAtPosition(-2)).toBe(true);
       });
       it('NaN', function() {
-        /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(NaN)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('x', pos);
+        expect(findAtPosition(NaN)).toBe(true);
       });
     });
   });
