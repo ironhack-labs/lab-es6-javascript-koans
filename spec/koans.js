@@ -440,8 +440,8 @@ describe('destructuring function parameters. ', () => {
 
     it('for a missing array value', () => {
       const defaultUser = {id: 23, name: 'Joe'};
-      const fn = ([user]) => {
-        //expect(user).toEqual(defaultUser);
+      const fn = ([user = {id: 23, name: 'Joe'}]) => {
+        expect(user).toEqual(defaultUser);
       };
       fn([]);
     });
