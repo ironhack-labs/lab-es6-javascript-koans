@@ -474,15 +474,15 @@ describe('assign object property values to new variables while destructuring. ',
 
   describe('for function parameter names', function() {
     it('do it the same way, with a colon behind it', () => {
-      const fn = ({x}) => {
-       //expect(y).toEqual(1);
+      const fn = ({x: y = 1}) => {
+       expect(y).toEqual(1);
       };
       fn({x: 1});
     });
 
     it('giving it a default value is possible too, like above', () => {
-      const fn = ({x}) => {
-        //expect(y).toEqual(3);
+      const fn = ({x: y = 3}) => {
+        expect(y).toEqual(3);
       };
       fn({});
     });
