@@ -265,10 +265,6 @@ describe("destructuring can also have default values. ", () => {
   });
 });
 
-/*********************************
- ********* DAILY EXERCISE *********
- **********************************/
-
 describe("arrow functions. ", () => {
   it("are shorter to write", function() {
     let func = () => {
