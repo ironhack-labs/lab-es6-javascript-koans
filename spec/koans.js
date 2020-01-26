@@ -339,17 +339,17 @@ describe("arrow functions. ", () => {
 describe("destructuring function parameters. ", () => {
   describe("destruct parameters", () => {
     it("multiple params from object", () => {
-      const fn = () => {
+      const fn = (/* { ???? } */) => {
         // expect(id).toEqual(42);
-        // expect(name).toEqual('Wolfram');
+        // expect(name).toEqual("Wolfram");
       };
       const user = { name: "Wolfram", id: 42 };
       fn(user);
     });
 
     it("multiple params from array/object", () => {
-      const fn = ([]) => {
-        // expect(name).toEqual('Alice');
+      const fn = (/* [????] */) => {
+        // expect(name).toBe("Alice");
       };
       const users = [{ name: "nobody" }, { name: "Alice", id: 42 }];
       fn(users);
@@ -384,49 +384,17 @@ describe("destructuring function parameters. ", () => {
   });
 });
 
-describe("assign object property values to new variables while destructuring. ", () => {
-  describe("for simple objects", function() {
-    it("use a colon after the property name, like so `propertyName: newName`", () => {
-      const { x } = { x: 1 };
-      // expect(y).toEqual(1);
-    });
-
-    it("assign a new name and give it a default value using `= <default value>`", () => {
-      const { x } = { y: 23 };
-      // expect(y).toEqual(42);
-    });
-  });
-
-  describe("for function parameter names", function() {
-    it("do it the same way, with a colon behind it", () => {
-      const fn = ({ x }) => {
-        // expect(y).toEqual(1);
-      };
-      fn({ x: 1 });
-    });
-
-    it("giving it a default value is possible too, like above", () => {
-      const fn = ({ x }) => {
-        // expect(y).toEqual(3);
-      };
-      fn({});
-    });
-  });
-});
-
-describe("rest with destructuring", () => {
-  it("rest parameter must be last", () => {
+describe("spread with arrays. ", () => {
+  it("spread every element of an array", () => {
     const [all] = [1, 2, 3, 4];
     // expect(all).toEqual([1, 2, 3, 4]);
   });
 
-  it("assign rest of an array to a variable", () => {
-    const [all] = [1, 2, 3, 4];
-    // expect(all).toEqual([2, 3, 4]);
+  it("spread rest of an array to a variable", () => {
+    const [butTheFirst] = [1, 2, 3, 4];
+    // expect(butTheFirst).toEqual([2, 3, 4]);
   });
-});
 
-describe("spread with arrays. ", () => {
   it("extracts each array item", function() {
     const [] = [...[1, 2]];
     // expect(a).toEqual(1);
@@ -434,37 +402,26 @@ describe("spread with arrays. ", () => {
   });
 
   it("in combination with rest", function() {
-    const [a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
+    const [a, b, ...theRest] = [...[0, 1, 2, 3, 4, 5]];
     // expect(a).toEqual(1);
     // expect(b).toEqual(2);
-    // expect(rest).toEqual([3, 4, 5]);
+    // expect(theRest).toEqual([3, 4, 5]);
   });
 
   it("spreading into the rest", function() {
     const [...rest] = [...[, 1, 2, 3, 4, 5]];
     // expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
-
-  describe("used as function parameter", () => {
-    it("prefix with `...` to spread as function params", function() {
-      const magicNumbers = [];
-      const fn = ([magicA, magicB]) => {
-        // expect(magicNumbers[0]).toEqual(magicA);
-        // expect(magicNumbers[1]).toEqual(magicB);
-      };
-      fn(magicNumbers);
-    });
-  });
 });
 
 describe("spread with strings", () => {
   it("simply spread each char of a string", function() {
-    const [b, a] = ["ba"];
-    // expect(a).toEqual('a');
-    // expect(b).toEqual('b');
+    const [b, a] = ["xy"];
+    // expect(a).toEqual("y");
+    // expect(b).toEqual("x");
   });
 
-  it("works anywhere inside an array (must not be last)", function() {
+  it("works anywhere inside an array (does not have to be last)", function() {
     const letters = ["a", "bcd", "e", "f"];
     // expect(letters.length).toEqual(6);
   });
@@ -476,14 +433,6 @@ describe("class creation", () => {
 
     // const instance = new TestClass();
     // expect(typeof instance).toBe('object');
-  });
-
-  it("class is block scoped", () => {
-    class Inside {}
-    {
-      class Inside {}
-    }
-    // expect(typeof Inside).toBe('undefined');
   });
 
   it("special method is `constructor`", function() {
@@ -515,9 +464,36 @@ describe("class creation", () => {
     tester.wroteATest();
     // expect(tester.isLazy()).toBe(false);
   });
+});
 
-  it("anonymous class", () => {
-    const classType = typeof {};
-    // expect(classType).toBe('function');
+/* ADVANCED */
+
+describe("assign object property values to new variables while destructuring. ", () => {
+  describe("for simple objects", function() {
+    it("use a colon after the property name, like so `propertyName: newName`", () => {
+      const { x } = { x: 1 };
+      // expect(y).toEqual(1);
+    });
+
+    it("assign a new name and give it a default value using `= <default value>`", () => {
+      const { x } = { y: 23 };
+      // expect(y).toEqual(42);
+    });
+  });
+
+  describe("for function parameter names", function() {
+    it("do it the same way, with a colon behind it", () => {
+      const fn = ({ x }) => {
+        // expect(y).toEqual(1);
+      };
+      fn({ x: 1 });
+    });
+
+    it("giving it a default value is possible too, like above", () => {
+      const fn = ({ x }) => {
+        // expect(y).toEqual(3);
+      };
+      fn({});
+    });
   });
 });
