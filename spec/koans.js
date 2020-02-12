@@ -246,11 +246,11 @@ describe('destructuring arrays makes shorter code. ', () => {
     const expected = 'Some One = 23 years';
     expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
-
+ 
   it('chained assignments', () => {
-    let c, d;
-    // let a, b = c, d = [1, 2];
-    //expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
+    // let c, d = [1, 2];
+    // let a, b = c, d;
+    expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 
 });
@@ -258,43 +258,43 @@ describe('destructuring arrays makes shorter code. ', () => {
 describe('destructuring also works on strings. ', () => {
 
   it('destructure every character', () => {
-    let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
+    let [a, b, c] = 'abc';
+    expect([a, b, c]).toEqual(['a', 'b', 'c']);
   });
 
   it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    const [a, b, c] = 'ab';
+    expect(c).toEqual(void 0);
   });
 });
 
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const x = {x: 1};
-    //expect(x).toEqual(1);
+    const {x} = {x: 1};
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
     it('multiple objects', () => {
       const magic = {first: 23, second: 42};
-      /*const first, second  = ??????*/
-      //expect(second).toEqual(42);
+      const {first, second} = magic;
+      expect(second).toEqual(42);
     });
     it('object and array', () => {
-      const {z:x} = {z: [23, 42]};
-      //expect(x).toEqual(42);
+      const {z:[,x]} = {z: [23, 42]};
+      expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang = [null, [{env: 'browser', lang: 'ES6'}]];
-      //expect(lang).toEqual('ES6');
+      const [, [{env, lang}]] = [null, [{env: 'browser', lang: 'ES6'}]];
+      expect(lang).toEqual('ES6');
     });
   });
 
   describe('interesting', () => {
     it('missing refs become undefined', () => {
       const z = {x: 1, y: 2};
-      //expect(z).toEqual(void 0);
+      expect(z).toEqual(void 0);
     });
   });
 
