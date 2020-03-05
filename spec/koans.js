@@ -561,7 +561,7 @@ describe('class creation', () => {
   });
 
   it('class is block scoped', () => {
-    class Inside1 {}
+    //class Inside {}
     { class Inside {} }
     expect(typeof Inside).toBe('undefined');
   });
