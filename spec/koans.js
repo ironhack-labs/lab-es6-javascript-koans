@@ -389,7 +389,6 @@ describe('arrow functions. ', () => {
     });
 
     it('can NOT bind a different context', function() {
-      //PERGUNTAR
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
