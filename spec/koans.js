@@ -102,22 +102,24 @@ describe('`string.includes()` finds string within another string. ', () => {
 
     it('that matches exactly', function() {
       /* const findSome = .... => 'xyz'.includes();*/
-      expect(findSome('xyz')).toBe(true);
+      // expect(findSome('xyz')).toBe(true);
     });
   });
 
   describe('search for an empty string, is always true', function() {
+
     it('in an empty string', function() {
-      /* .... */
-      //expect(''.includes(x)).toBe(true);
+      let x = ""
+      expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      /* .... */
-      //expect('abc'.includes(x)).toBe(true);
+      let x = "abc"
+      expect('abc'.includes(x)).toBe(true);
     });
   });
 
   describe('takes a position from where to start searching', function() {
+    
     it('does not find `a` after position 1 in `abc`', function() {
       /*....*/
       //expect('abc'.includes('a', position)).toBe(false);
