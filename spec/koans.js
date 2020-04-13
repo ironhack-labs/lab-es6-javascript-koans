@@ -288,8 +288,8 @@ describe('destructuring objects. ', () => {
     });
     it('array and object', () => {
       const lang = [null, [{env: 'browser', lang: 'ES6'}]];
-      const [,x] = lang
-      const lang1 =
+      //const [,x] = lang
+      //const lang1
       expect(lang).toEqual('ES6');
     });
   });
