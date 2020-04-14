@@ -609,3 +609,5 @@ describe('class creation', () => {
     expect(classType).toBe('function')
   })
 })
+
+// holi
