@@ -365,7 +365,7 @@ describe("arrow functions. ", () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected = bound; //change this
 
       expect(fn.call(anotherObj)).toBe(expected);
     });
@@ -508,7 +508,7 @@ describe("spread with strings", () => {
   });
 
   it("works anywhere inside an array (must not be last)", function () {
-    const [...letters] = ["a", "bcd", "e", "f"];
+    const letters = ["a", ..."bcd", "e", "f"];
     expect(letters.length).toEqual(6);
   });
 });
