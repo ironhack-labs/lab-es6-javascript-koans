@@ -529,12 +529,12 @@ describe('destructuring function parameters. ', () => {
     });
 
     it('mix of parameter types', () => {
-      const fn = (id, [arr], {
-        obj
+      const fn = (id = 1, [arr = 2], {
+        obj = 3
       }) => {
-        //expect(id).toEqual(1);
-        //expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+        expect(id).toEqual(1);
+        expect(arr).toEqual(2);
+        expect(obj).toEqual(3);
       };
       fn(void 0, [], {});
     });
@@ -547,29 +547,31 @@ describe('assign object property values to new variables while destructuring. ',
   describe('for simple objects', function () {
     it('use a colon after the property name, like so `propertyName: newName`', () => {
       const {
-        x
+        x,
+        y = 1
       } = {
         x: 1
       };
-      //expect(y).toEqual(1);
+      expect(y).toEqual(1);
     });
 
     it('assign a new name and give it a default value using `= <default value>`', () => {
       const {
-        x
+        x: y = 42
       } = {
         y: 23
       };
-      //expect(y).toEqual(42);
+      expect(y).toEqual(42);
     });
   });
 
   describe('for function parameter names', function () {
     it('do it the same way, with a colon behind it', () => {
       const fn = ({
-        x
+        x,
+        y = 1
       }) => {
-        //expect(y).toEqual(1);
+        expect(y).toEqual(1);
       };
       fn({
         x: 1
@@ -578,9 +580,10 @@ describe('assign object property values to new variables while destructuring. ',
 
     it('giving it a default value is possible too, like above', () => {
       const fn = ({
-        x
+        x,
+        y = 3
       }) => {
-        //expect(y).toEqual(3);
+        expect(y).toEqual(3);
       };
       fn({});
     });
@@ -592,7 +595,7 @@ describe('rest with destructuring', () => {
 
   it('rest parameter must be last', () => {
     const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([1, 2, 3, 4]);
+    expect(all).toEqual([1, 2, 3, 4]);
   });
 
   it('assign rest of an array to a variable', () => {
