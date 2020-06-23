@@ -414,46 +414,46 @@ describe('destructuring function parameters. ', () => {
   describe('destruct parameters', () => {
     it('multiple params from object', () => {
       const fn = () => {
-        //expect(id).toEqual(42);
-        //expect(name).toEqual('Wolfram');
+        expect(id).toEqual(42);
+        expect(name).toEqual('Wolfram');
       };
       const user = {name: 'Wolfram', id: 42};
-      fn(user);
+      fn({name, id} = user);
     });
 
     it('multiple params from array/object', () => {
       const fn = ([]) => {
-        //expect(name).toEqual('Alice');
+        expect(name).toEqual('Alice');
       };
       const users = [{name: 'nobody'}, {name: 'Alice', id: 42}];
-      fn(users);
+      fn([, {name, id}] = users);
     });
   });
 
   describe('default values', () => {
     it('for simple values', () => {
       const fn = (id, name) => {
-        //expect(id).toEqual(23);
-        //expect(name).toEqual('Bob');
+        expect(id).toEqual(23);
+        expect(name).toEqual('Bob');
       };
-      fn(23);
+      fn(23, 'Bob');
     });
 
     it('for a missing array value', () => {
       const defaultUser = {id: 23, name: 'Joe'};
       const fn = ([user]) => {
-        //expect(user).toEqual(defaultUser);
+        expect(user).toEqual(defaultUser);
       };
-      fn([]);
+      fn([defaultUser]);
     });
 
     it('mix of parameter types', () => {
-      const fn = (id, [arr], {obj}) => {
-        //expect(id).toEqual(1);
-        //expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+      const fn = (id = 1, [arr], {obj}) => {
+        expect(id).toEqual(1);
+        expect(arr).toEqual(2);
+        expect(obj).toEqual(3);
       };
-      fn(void 0, [], {});
+      fn(void 0, [2], {obj: 3});
     });
   });
 
@@ -464,28 +464,30 @@ describe('assign object property values to new variables while destructuring. ',
   describe('for simple objects', function() {
     it('use a colon after the property name, like so `propertyName: newName`', () => {
       const {x} = {x: 1};
-      //expect(y).toEqual(1);
+      const y = x;
+      expect(y).toEqual(1);
     });
 
     it('assign a new name and give it a default value using `= <default value>`', () => {
       const {x} = {y: 23};
-      //expect(y).toEqual(42);
+      const y = 42;
+      expect(y).toEqual(42);
     });
   });
 
   describe('for function parameter names', function() {
     it('do it the same way, with a colon behind it', () => {
-      const fn = ({x}) => {
+      const fn = ({y}) => {
        expect(y).toEqual(1);
       };
-      fn({x: 1});
+      fn({y: 1});
     });
 
     it('giving it a default value is possible too, like above', () => {
-      const fn = ({x}) => {
-        //expect(y).toEqual(3);
+      const fn = ({y}) => {
+        expect(y).toEqual(3);
       };
-      fn({});
+      fn({y: 3});
     });
   });
 
