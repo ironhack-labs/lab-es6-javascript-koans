@@ -519,41 +519,24 @@ describe('assign object property values to new variables while destructuring. ',
 
   describe('for simple objects', function () {
     it('use a colon after the property name, like so `propertyName: newName`', () => {
-      const {
-        x
-      } = {
-        x: 1
-      };
-      //expect(y).toEqual(1);
+      const { x: y } = { x: 1 };
+      expect(y).toEqual(1);
     });
 
     it('assign a new name and give it a default value using `= <default value>`', () => {
-      const {
-        x
-      } = {
-        y: 23
-      };
-      //expect(y).toEqual(42);
+      const { x: y = 42 } = { y: 23 };
+      expect(y).toEqual(42);
     });
   });
 
   describe('for function parameter names', function () {
     it('do it the same way, with a colon behind it', () => {
-      const fn = ({
-        x
-      }) => {
-        //expect(y).toEqual(1);
-      };
-      fn({
-        x: 1
-      });
+      const fn = ( { x: y } ) => { expect(y).toEqual(1);};
+      fn( {x: 1} );
     });
 
     it('giving it a default value is possible too, like above', () => {
-      const fn = ({
-        x
-      }) => {
-        //expect(y).toEqual(3);
+      const fn = ({x: y = 3}) => { expect(y).toEqual(3);
       };
       fn({});
     });
