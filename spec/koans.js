@@ -607,37 +607,39 @@ describe('spread with strings', () => {
 describe('class creation', () => {
 
   it('is as simple as `class XXX {}`', function () {
-    let TestClass = {};
+    let TestClass = class TestClass{};
 
-    // const instance = new TestClass();
-    //expect(typeof instance).toBe('object');
+    const instance = new TestClass();
+    expect(typeof instance).toBe('object');
   });
 
   it('class is block scoped', () => {
-    class Inside {} {
+    class Outside {} {
       class Inside {}
     }
-    //expect(typeof Inside).toBe('undefined');
+    expect(typeof Inside).toBe('undefined');
   });
 
   it('special method is `constructor`', function () {
     class User {
       constructor(id) {
-
+        this.id = id;
       }
     }
 
     const user = new User(42);
-    //expect(user.id).toEqual(42);
+    expect(user.id).toEqual(42);
   });
 
   it('defining a method is simple', function () {
     class User {
-
+      writesTests() {
+        return false;
+      }
     }
 
     const notATester = new User();
-    //expect(notATester.writesTests()).toBe(false);
+    expect(notATester.writesTests()).toBe(false);
   });
 
   it('multiple methods need no commas (opposed to object notation)', function () {
@@ -645,18 +647,20 @@ describe('class creation', () => {
       wroteATest() {
         this.everWroteATest = true;
       }
-      isLazy() {}
+      isLazy() {
+        return !this.everWroteATest;
+      }
     }
 
     const tester = new User();
-    //expect(tester.isLazy()).toBe(true);
+    expect(tester.isLazy()).toBe(true);
     tester.wroteATest();
-    //expect(tester.isLazy()).toBe(false);
+    expect(tester.isLazy()).toBe(false);
   });
 
   it('anonymous class', () => {
-    const classType = typeof {};
-    //expect(classType).toBe('function');
+    const classType = typeof class {};
+    expect(classType).toBe('function');
   });
 
 });
