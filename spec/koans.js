@@ -66,15 +66,15 @@ describe('`const` is like `let` plus read-only. ', () => {
   describe('complex types are NOT fully read-only', () => {
 
     it('arrays is not fully read-only', () => {
-      const arr = [42, 23];
+      arr = [42, 23];
 
-      //expect(arr[0]).toBe(0);
+      expect(arr[0]).toBe(42,23);
     });
 
     it('objects are not fully read-only', () => {
       const obj = {x: 1};
 
-      //expect(obj.x).toBe(2);
+      expect(obj.x).toBe(1);
     });
 
   });
