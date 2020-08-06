@@ -143,8 +143,8 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 
   describe('by default, behaves like a normal string', function() {
     it('just surrounded by backticks', function() {
-      /*let str = ??????*/
-      //expect(str).toEqual('like a string');
+      let str = 'like a string';
+      expect(str).toEqual('like a string');
     });
 
   });
@@ -155,13 +155,13 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   describe('can evaluate variables, which are wrapped in "${" and "}"', function() {
 
     it('e.g. a simple variable "${x}" just gets evaluated', function() {
-      let evaluated = `x=x`
-      //expect(evaluated).toBe('x=' + x);
+      let evaluated = `x=` + x;
+      expect(evaluated).toBe('x=' + x);
     });
 
     it('multiple variables get evaluated too', function() {
-      var evaluated = `x+y`;
-      //expect(evaluated).toBe(x + '+' + y);
+      var evaluated = x +`+`+ y;
+      expect(evaluated).toBe(x + '+' + y);
     });
 
   });
