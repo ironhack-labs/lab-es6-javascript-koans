@@ -754,7 +754,9 @@ describe('class creation', function () {
         }
       }, {
         key: "isLazy",
-        value: function isLazy() {}
+        value: function isLazy() {
+          return false;
+        }
       }]);
 
       return User;
