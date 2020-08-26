@@ -438,7 +438,7 @@ describe('destructuring function parameters. ', () => {
   describe('default values', () => {
     it('for simple values', () => {
      const fn = (id, name = "Bob") => {
-         expect(id).toEqual(23);
+        expect(id).toEqual(23);
         expect(name).toEqual("Bob");
       };
       fn(23);
