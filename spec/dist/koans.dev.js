@@ -2,9 +2,13 @@
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest(); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
 function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -399,27 +403,42 @@ describe('destructuring can also have default values. ', function () {
 describe('arrow functions. ', function () {
   it('are shorter to write', function () {
     var func = function func() {
-      /*........*/
-    }; // expect(func()).toBe('I am func');
+      return 'I am func';
+    };
 
+    expect(func()).toBe('I am func');
   });
   it('a single expression, without curly braces returns too', function () {
-    /*let func = () => .........;*/
-    //expect(func()).toBe('I return too');
+    var func = function func() {
+      return 'I return too';
+    };
+
+    expect(func()).toBe('I return too');
   });
   it('one parameter can be written without parens', function () {
-    /* let func = ........;*/
-    //expect(func(25)).toEqual(24)
+    var func = function func(num) {
+      return num - 1;
+    };
+
+    expect(func(25)).toEqual(24);
   });
   it('many params require parens', function () {
-    /* let func = ........;*/
-    //expect(func(23,42)).toEqual(23+42)
+    var func = function func(num1, num2) {
+      return num1 + num2;
+    };
+
+    expect(func(23, 42)).toEqual(23 + 42);
   });
   it('body needs parens to return an object', function () {
     var func = function func() {
-      iAm: 'an object';
-    }; // expect(func()).toEqual({iAm: 'an object'});
+      return {
+        iAm: 'an object'
+      };
+    };
 
+    expect(func()).toEqual({
+      iAm: 'an object'
+    });
   });
 
   var LexicallyBound =
@@ -432,16 +451,21 @@ describe('arrow functions. ', function () {
     _createClass(LexicallyBound, [{
       key: "getFunction",
       value: function getFunction() {
+        var _this = this;
+
         return function () {
-          return new LexicallyBound();
+          return function () {
+            return _this;
+          };
           /*changes might go here*/
         };
       }
     }, {
       key: "getArgumentsFunction",
       value: function getArgumentsFunction() {
+        var _arguments = arguments;
         return function () {
-          return arguments;
+          return _arguments;
         };
         /*or here*/
       }
@@ -453,18 +477,20 @@ describe('arrow functions. ', function () {
   describe('arrow functions have lexical `this`, no dynamic `this`', function () {
     it('bound at definition time, use `=>` ', function () {
       var bound = new LexicallyBound();
-      var fn = bound.getFunction(); //expect(fn()).toBe(bound);
+      var fn = bound.getFunction();
+      expect(fn()).toBe(bound);
     });
     it('can NOT bind a different context', function () {
       var bound = new LexicallyBound();
       var fn = bound.getFunction();
       var anotherObj = {};
-      var expected = anotherObj; //change this
-      //expect(fn.call(anotherObj)).toBe(expected);
+      var expected = bound;
+      expect(fn.call(anotherObj)).toBe(expected);
     });
     it('`arguments` doesnt work inside arrow functions', function () {
       var bound = new LexicallyBound();
-      var fn = bound.getArgumentsFunction(); //expect(fn(1, 2).length).toEqual(0);
+      var fn = bound.getArgumentsFunction();
+      expect(fn(1, 2).length).toEqual(0);
     });
   });
 });
@@ -485,9 +511,11 @@ describe('destructuring function parameters. ', function () {
       fn(user);
     });
     it('multiple params from array/object', function () {
-      var fn = function fn(_ref9) {//expect(name).toEqual('Alice');
+      var fn = function fn(_ref9) {
+        var _ref10 = _slicedToArray(_ref9, 2),
+            name = _ref10[1].name;
 
-        var _ref10 = _toArray(_ref9);
+        expect(name).toEqual('Alice');
       };
 
       var users = [{
@@ -501,8 +529,10 @@ describe('destructuring function parameters. ', function () {
   });
   describe('default values', function () {
     it('for simple values', function () {
-      var fn = function fn(id, name) {//expect(id).toEqual(23);
-        //expect(name).toEqual('Bob');
+      var fn = function fn(id) {
+        var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Bob";
+        expect(id).toEqual(23);
+        expect(name).toEqual("Bob");
       };
 
       fn(23);
@@ -510,26 +540,34 @@ describe('destructuring function parameters. ', function () {
     it('for a missing array value', function () {
       var defaultUser = {
         id: 23,
-        name: 'Joe'
+        name: "Joe"
       };
 
-      var fn = function fn(_ref11) {//expect(user).toEqual(defaultUser);
-
+      var fn = function fn(_ref11) {
         var _ref12 = _slicedToArray(_ref11, 1),
             user = _ref12[0];
+
+        expect(user).toEqual(defaultUser);
       };
 
       fn([]);
     });
     it('mix of parameter types', function () {
-      var fn = function fn(id, _ref13, _ref14) {//expect(id).toEqual(1);
-        //expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+      var fn = function fn() {
+        var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-        var _ref15 = _slicedToArray(_ref13, 1),
-            arr = _ref15[0];
+        var _ref13 = arguments.length > 1 ? arguments[1] : undefined,
+            _ref14 = _slicedToArray(_ref13, 1),
+            _ref14$ = _ref14[0],
+            arr = _ref14$ === void 0 ? 2 : _ref14$;
 
-        var obj = _ref14.obj;
+        var _ref15 = arguments.length > 2 ? arguments[2] : undefined,
+            _ref15$obj = _ref15.obj,
+            obj = _ref15$obj === void 0 ? 3 : _ref15$obj;
+
+        expect(id).toEqual(1);
+        expect(arr).toEqual(2);
+        expect(obj).toEqual(3);
       };
 
       fn(void 0, [], {});
@@ -542,20 +580,25 @@ describe('assign object property values to new variables while destructuring. ',
       var _x = {
         x: 1
       },
-          x = _x.x; //expect(y).toEqual(1);
+          y = _x.x;
+      expect(y).toEqual(1);
     });
     it('assign a new name and give it a default value using `= <default value>`', function () {
-      var _y = {
-        y: 23
+      var _x2 = {
+        x: 23
       },
-          x = _y.x; //expect(y).toEqual(42);
+          _x2$y = _x2.y,
+          y = _x2$y === void 0 ? 42 : _x2$y;
+      expect(y).toEqual(42);
     });
   });
   describe('for function parameter names', function () {
     it('do it the same way, with a colon behind it', function () {
-      var fn = function fn(_ref16) {//expect(y).toEqual(1);
-
-        var x = _ref16.x;
+      var fn = function fn(_ref16) {
+        var x = _ref16.x,
+            _ref16$y = _ref16.y,
+            y = _ref16$y === void 0 ? 1 : _ref16$y;
+        expect(y).toEqual(1);
       };
 
       fn({
@@ -563,9 +606,11 @@ describe('assign object property values to new variables while destructuring. ',
       });
     });
     it('giving it a default value is possible too, like above', function () {
-      var fn = function fn(_ref17) {//expect(y).toEqual(3);
-
-        var x = _ref17.x;
+      var fn = function fn(_ref17) {
+        var x = _ref17.x,
+            _ref17$y = _ref17.y,
+            y = _ref17$y === void 0 ? 3 : _ref17$y;
+        expect(y).toEqual(3);
       };
 
       fn({});
@@ -574,44 +619,53 @@ describe('assign object property values to new variables while destructuring. ',
 });
 describe('rest with destructuring', function () {
   it('rest parameter must be last', function () {
-    var _ref18 = [1, 2, 3, 4],
-        all = _ref18[0]; //expect(all).toEqual([1, 2, 3, 4]);
+    var all = [1, 2, 3, 4];
+    expect(all).toEqual([1, 2, 3, 4]);
   });
   it('assign rest of an array to a variable', function () {
-    var _ref19 = [1, 2, 3, 4],
-        all = _ref19[0]; //expect(all).toEqual([2, 3, 4]);
+    var _ref18 = [1, 2, 3, 4],
+        all = _ref18.slice(1);
+
+    expect(all).toEqual([2, 3, 4]);
   });
 });
 describe('spread with arrays. ', function () {
   it('extracts each array item', function () {
-    var _ref20 = [1, 2].concat(); //expect(a).toEqual(1);
-    //expect(b).toEqual(2);
+    var _ref19 = [1, 2].concat(),
+        _ref19$slice = _slicedToArray(_ref19.slice(0), 2),
+        a = _ref19$slice[0],
+        b = _ref19$slice[1];
 
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
   });
   it('in combination with rest', function () {
-    var _ref21 = [0, 1, 2, 3, 4, 5].concat(),
-        a = _ref21[0],
-        b = _ref21[1],
-        rest = _ref21.slice(2); //expect(a).toEqual(1);
-    //expect(b).toEqual(2);
-    //expect(rest).toEqual([3, 4, 5]);
+    var _ref20 = [0, 1, 2, 3, 4, 5].concat(),
+        a = _ref20[1],
+        b = _ref20[2],
+        rest = _ref20.slice(3);
 
+    expect(a).toEqual(1);
+    expect(b).toEqual(2);
+    expect(rest).toEqual([3, 4, 5]);
   });
   it('spreading into the rest', function () {
-    var _ref22 = [, 1, 2, 3, 4, 5].concat(),
-        rest = _ref22.slice(0); //expect(rest).toEqual([1, 2, 3, 4, 5]);
+    var _ref21 = [, 1, 2, 3, 4, 5].concat(),
+        rest = _ref21.slice(0);
 
+    expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
   describe('used as function parameter', function () {
     it('prefix with `...` to spread as function params', function () {
       var magicNumbers = [];
 
-      var fn = function fn(_ref23) {//expect(magicNumbers[0]).toEqual(magicA);
-        //expect(magicNumbers[1]).toEqual(magicB);
+      var fn = function fn(_ref22) {
+        var _ref23 = _slicedToArray(_ref22, 2),
+            magicA = _ref23[0],
+            magicB = _ref23[1];
 
-        var _ref24 = _slicedToArray(_ref23, 2),
-            magicA = _ref24[0],
-            magicB = _ref24[1];
+        expect(magicNumbers[0]).toEqual(magicA);
+        expect(magicNumbers[1]).toEqual(magicB);
       };
 
       fn(magicNumbers);
@@ -620,44 +674,70 @@ describe('spread with arrays. ', function () {
 });
 describe('spread with strings', function () {
   it('simply spread each char of a string', function () {
-    var _ref25 = ['ba'],
-        b = _ref25[0],
-        a = _ref25[1]; //expect(a).toEqual('a');
-    //expect(b).toEqual('b');
+    var _ref24 = _toConsumableArray("ba"),
+        b = _ref24[0],
+        a = _ref24[1];
+
+    expect(a).toEqual('a');
+    expect(b).toEqual('b');
   });
   it('works anywhere inside an array (must not be last)', function () {
-    var letters = ['a', 'bcd', 'e', 'f']; //expect(letters.length).toEqual(6);
+    var letters = ['a'].concat(_toConsumableArray('bcd'), ['e', 'f']);
+    expect(letters.length).toEqual(6);
   });
 });
 describe('class creation', function () {
   it('is as simple as `class XXX {}`', function () {
-    var TestClass = {}; // const instance = new TestClass();
-    //expect(typeof instance).toBe('object');
+    var TestClass = function TestClass() {
+      _classCallCheck(this, TestClass);
+    };
+
+    ;
+    var instance = new TestClass();
+    expect(_typeof(instance)).toBe('object');
   });
   it('class is block scoped', function () {
-    var Inside = function Inside() {
-      _classCallCheck(this, Inside);
+    var User = function User() {
+      _classCallCheck(this, User);
     };
 
     {
       var _Inside = function _Inside() {
         _classCallCheck(this, _Inside);
       };
-    } //expect(typeof Inside).toBe('undefined');
+    }
+    expect(typeof Inside === "undefined" ? "undefined" : _typeof(Inside)).toBe('undefined');
   });
   it('special method is `constructor`', function () {
     var User = function User(id) {
       _classCallCheck(this, User);
+
+      this.id = id;
     };
 
-    var user = new User(42); //expect(user.id).toEqual(42);
+    var user = new User(42);
+    expect(user.id).toEqual(42);
   });
   it('defining a method is simple', function () {
-    var User = function User() {
-      _classCallCheck(this, User);
-    };
+    var User =
+    /*#__PURE__*/
+    function () {
+      function User() {
+        _classCallCheck(this, User);
+      }
 
-    var notATester = new User(); //expect(notATester.writesTests()).toBe(false);
+      _createClass(User, [{
+        key: "writesTests",
+        value: function writesTests() {
+          return false;
+        }
+      }]);
+
+      return User;
+    }();
+
+    var notATester = new User();
+    expect(notATester.writesTests()).toBe(false);
   });
   it('multiple methods need no commas (opposed to object notation)', function () {
     var User =
@@ -680,12 +760,14 @@ describe('class creation', function () {
       return User;
     }();
 
-    var tester = new User(); //expect(tester.isLazy()).toBe(true);
-
-    tester.wroteATest(); //expect(tester.isLazy()).toBe(false);
+    var tester = new User();
+    expect(tester.isLazy()).toBe(true);
+    tester.wroteATest();
+    expect(tester.isLazy()).toBe(false);
   });
   it('anonymous class', function () {
-    var classType = _typeof({}); //expect(classType).toBe('function');
+    var classType = _typeof(function () {});
 
+    expect(classType).toBe("function");
   });
 });
