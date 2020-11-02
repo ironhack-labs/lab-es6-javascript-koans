@@ -137,8 +137,8 @@ describe('`string.includes()` finds string within another string. ', () => {
         expect(findAtPosition(-2)).toBe(true);
       });
       it('NaN', function() {
-        /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
-        //expect(findAtPosition(NaN)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('x');
+        expect(findAtPosition(NaN)).toBe(true);
       });
     });
   });
