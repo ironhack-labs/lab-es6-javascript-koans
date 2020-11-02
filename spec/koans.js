@@ -78,9 +78,9 @@ describe('`const` is like `let` plus read-only. ', () => {
     });
 
     it('objects are not fully read-only', () => {
-      const obj = {x: 1};
+      const obj = {x: 2};
 
-      //expect(obj.x).toBe(2);
+      expect(obj.x).toBe(2);
     });
 
   });
