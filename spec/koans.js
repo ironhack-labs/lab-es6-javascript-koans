@@ -113,8 +113,8 @@ describe('`string.includes()` finds string within another string. ', () => {
       expect(''.includes(x)).toBe(true);
     });
     it('in `abc`', function() {
-      /* .... */
-      //expect('abc'.includes(x)).toBe(true);
+      const x = 'abc'
+      expect('abc'.includes(x)).toBe(true);
     });
   });
 
