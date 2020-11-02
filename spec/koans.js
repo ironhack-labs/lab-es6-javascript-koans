@@ -217,8 +217,8 @@ describe('The object literal allows for new shorthands. ', () => {
     });
 
     it('a different key must be given explicitly, just like before ES6', () => {
-      /*.......*/
-      //expect(short).toEqual({otherKey: func});
+      short = {otherKey:func}
+      expect(short).toEqual({otherKey: func});
     });
   });
 
