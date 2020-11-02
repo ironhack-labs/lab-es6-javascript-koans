@@ -175,7 +175,7 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   describe('can evaluate any expression, wrapped inside "${...}"', function() {
 
     it('all inside "${...}" gets evaluated', function() {
-      var evaluated = Number(`x+y`);
+      var evaluated = Number(`${x + y}`);
       expect(evaluated).toBe(x+y);
     });
 
