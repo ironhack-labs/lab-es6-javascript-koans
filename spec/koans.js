@@ -48,17 +48,17 @@ describe('`const` is like `let` plus read-only. ', () => {
 
   describe('scalar values are read-only', () => {
     it('number are read-only', () => {
-      // const constNum = 0;
+      const constNum = 0;
       // constNum = 1;
 
-      //expect(constNum).toBe(0);
+      expect(constNum).toBe(0);
     });
 
     it('string are read-only', () => {
-      // const constString = "I am a const";
+      const constString = "I am a const";
       // constString = "Cant change you?";
 
-      //expect(constString).toBe("I am a const");
+      expect(constString).toBe("I am a const");
     });
 
   });
