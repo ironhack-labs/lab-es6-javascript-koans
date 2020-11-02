@@ -91,12 +91,12 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a single character', function() {
     it('in a three char string', function() {
-      const searchString = 'xyz' 
+      const searchString = 'xyz'
       expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
-      /* const expected = ????*/;
-      //expect('xyz'.includes('abc')).toBe(expected);
+      const expected = false
+      expect('xyz'.includes('abc')).toBe(expected);
     });
   });
 
