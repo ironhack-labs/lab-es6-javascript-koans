@@ -235,8 +235,8 @@ describe('destructuring arrays makes shorter code. ', () => {
 
   it('swap two variables, in one operation', () => {
     let [x, y] = ['ax', 'why'];
-    [x, y] = [x, y];
-    //expect([x, y]).toEqual(['why', 'ax']);
+    [x, y] = [y, x];
+    expect([x, y]).toEqual(['why', 'ax']);
   });
 
   it('leading commas', () => {
