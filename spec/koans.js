@@ -228,7 +228,9 @@ describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
     let firstValue = [1];
-    //expect(firstValue).toEqual(1);
+     firstValue = firstValue[0];
+
+    expect(firstValue).toEqual(1);
   });
 
   it('swap two variables, in one operation', () => {
