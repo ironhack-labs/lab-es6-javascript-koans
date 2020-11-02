@@ -129,12 +129,12 @@ describe('`string.includes()` finds string within another string. ', () => {
     });
     describe('invalid positions get converted to 0', function() {
       it('e.g. `undefined`', function() {
-        const findAtPosition = (pos) => 'xyz'.includes('x'); 
+        const findAtPosition = (pos) => 'xyz'.includes('x');
         expect(findAtPosition(void 0)).toBe(true);
       });
       it('negative numbers', function() {
-        /*const findAtPosition = (pos) => 'xyz'.includes(????); */
-        //expect(findAtPosition(-2)).toBe(true);
+        const findAtPosition = (pos) => 'xyz'.includes('x');
+        expect(findAtPosition(-2)).toBe(true);
       });
       it('NaN', function() {
         /* const findAtPosition = (pos) => 'xyz'.includes(?????); */
