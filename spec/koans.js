@@ -161,12 +161,12 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   describe('can evaluate variables, which are wrapped in "${" and "}"', function() {
 
     it('e.g. a simple variable "${x}" just gets evaluated', function() {
-      let evaluated = `x=42`
+      let evaluated = `x=${x}`
       expect(evaluated).toBe('x=' + x);
     });
 
     it('multiple variables get evaluated too', function() {
-      var evaluated = `42+23`;
+      var evaluated = `${x}+${y}`;
       expect(evaluated).toBe(x + '+' + y);
     });
 
@@ -176,7 +176,7 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 
     it('all inside "${...}" gets evaluated', function() {
       var evaluated = Number(`x+y`);
-      //expect(evaluated).toBe(x+y);
+      expect(evaluated).toBe(x+y);
     });
 
     it('inside "${...}" can also be a function call', function() {
