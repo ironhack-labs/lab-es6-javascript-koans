@@ -166,8 +166,8 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
     });
 
     it('multiple variables get evaluated too', function() {
-      var evaluated = `x+y`;
-      //expect(evaluated).toBe(x + '+' + y);
+      var evaluated = `42+23`;
+      expect(evaluated).toBe(x + '+' + y);
     });
 
   });
