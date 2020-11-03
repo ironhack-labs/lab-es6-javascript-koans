@@ -241,7 +241,7 @@ describe('destructuring arrays makes shorter code. ', () => {
 
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
-    const [z] = all;
+    const [,,z] = all;
     expect(z).toEqual('zet');
   });
 
