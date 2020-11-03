@@ -227,8 +227,8 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
-    let firstValue = [1];
-     firstValue = firstValue[0];
+    let [firstValue] = [1];
+     // firstValue = firstValue[0];//not sure
 
     expect(firstValue).toEqual(1);
   });
@@ -242,7 +242,7 @@ describe('destructuring arrays makes shorter code. ', () => {
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
     const [z] = all;
-    //expect(z).toEqual('zet');
+    expect(z).toEqual('zet');
   });
 
   it('extract from nested arrays', () => {
