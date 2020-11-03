@@ -441,7 +441,7 @@ describe('destructuring function parameters. ', () => {
       const fn = ([user]) => {
         expect(user).toEqual(defaultUser);
       };
-      fn([user]);
+      fn([defaultUser]);
     });
 
     it('mix of parameter types', () => {
