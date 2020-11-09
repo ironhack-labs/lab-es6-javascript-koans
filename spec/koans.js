@@ -345,7 +345,7 @@ describe("arrow functions. ", () => {
     }
 
     getArgumentsFunction() {
-      return function () {
+      return () => {
         return arguments;
       }; /*or here*/
     }
@@ -488,7 +488,7 @@ describe("spread with arrays. ", () => {
 
   describe("used as function parameter", () => {
     it("prefix with `...` to spread as function params", function () {
-      const magicNumbers = [...[]]; //unsure about this one
+      const magicNumbers = [...[]];
       const fn = ([magicA, magicB]) => {
         expect(magicNumbers[0]).toEqual(magicA);
         expect(magicNumbers[1]).toEqual(magicB);
