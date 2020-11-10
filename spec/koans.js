@@ -267,7 +267,7 @@ describe('destructuring objects. ', () => {
 
   it('is simple', () => {
     const x = {x: 1};
-    // expect(x).toEqual(1);
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
@@ -278,7 +278,7 @@ describe('destructuring objects. ', () => {
     });
     it('object and array', () => {
       const {z:x} = {z: [23, 42]};
-      //expect(x).toEqual(42);
+      expect(x).toEqual(42);
     });
     it('array and object', () => {
       const lang = [null, [{env: 'browser', lang: 'ES6'}]];
