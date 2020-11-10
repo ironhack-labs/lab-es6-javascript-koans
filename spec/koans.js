@@ -227,7 +227,7 @@ describe("destructuring arrays makes shorter code. ", () => {
 
   it("chained assignments", () => {
     let c, d;
-    // let a, b = c, d = [1, 2];
+    let [a, b] = ([c, d] = [1, 2]);
     expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 });
@@ -284,29 +284,29 @@ describe("destructuring objects. ", () => {
 
 describe("destructuring can also have default values. ", () => {
   it("for an empty array", () => {
-    const [a] = [];
+    const [a = 1] = [];
     expect(a).toEqual(1);
   });
 
   it("for a missing value", () => {
-    const [a, b, c] = [1, , 3];
+    const [a, b = 2, c] = [1, , 3];
     expect(b).toEqual(2);
   });
 
   it("in an object", () => {
-    const [a, b] = [{ a: 1 }];
-    //expect(b).toEqual(2);
+    const [a, b = 2] = [{ a: 1 }];
+    expect(b).toEqual(2);
   });
 
   it("if the value is undefined", () => {
-    const { a, b } = { a: 1, b: void 0 };
-    //expect(b).toEqual(2);
+    const { a, b = 2 } = { a: 1, b: void 0 };
+    expect(b).toEqual(2);
   });
 
   it("also a string works with defaults", () => {
-    const [a, b] = "1";
-    //expect(a).toEqual('1');
-    // expect(b).toEqual(2);
+    const [a, b = 2] = "1";
+    expect(a).toEqual("1");
+    expect(b).toEqual(2);
   });
 });
 
@@ -346,12 +346,12 @@ describe("arrow functions. ", () => {
   class LexicallyBound {
     getFunction() {
       return () => {
-        return new LexicallyBound(); /*changes might go here*/
+        return this;
       };
     }
 
     getArgumentsFunction() {
-      return function () {
+      return () => {
         return arguments;
       }; /*or here*/
     }
@@ -369,16 +369,16 @@ describe("arrow functions. ", () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected = bound; //change this
 
-      //expect(fn.call(anotherObj)).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected);
     });
 
     it("`arguments` doesnt work inside arrow functions", function () {
       let bound = new LexicallyBound();
       let fn = bound.getArgumentsFunction();
 
-      //expect(fn(1, 2).length).toEqual(0);
+      expect(fn(1, 2).length).toEqual(0);
     });
   });
 });
@@ -405,26 +405,26 @@ describe("destructuring function parameters. ", () => {
 
   describe("default values", () => {
     it("for simple values", () => {
-      const fn = (id, name) => {
-        //expect(id).toEqual(23);
-        //expect(name).toEqual('Bob');
+      const fn = (id = 23, name = "Bob") => {
+        expect(id).toEqual(23);
+        expect(name).toEqual("Bob");
       };
       fn(23);
     });
 
     it("for a missing array value", () => {
       const defaultUser = { id: 23, name: "Joe" };
-      const fn = ([user]) => {
+      const fn = ([user = defaultUser]) => {
         expect(user).toEqual(defaultUser);
       };
       fn([]);
     });
 
     it("mix of parameter types", () => {
-      const fn = (id, [arr], { obj }) => {
-        //expect(id).toEqual(1);
-        //expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+      const fn = (id = 1, [arr = 2], { obj = 3 }) => {
+        expect(id).toEqual(1);
+        expect(arr).toEqual(2);
+        expect(obj).toEqual(3);
       };
       fn(void 0, [], {});
     });
@@ -482,14 +482,14 @@ describe("spread with arrays. ", () => {
   });
 
   it("in combination with rest", function () {
-    const [...[, a, b, ...rest]] = [...[0, 1, 2, 3, 4, 5]];
+    const [, a, b, ...rest] = [...[0, 1, 2, 3, 4, 5]];
     expect(a).toEqual(1);
     expect(b).toEqual(2);
     expect(rest).toEqual([3, 4, 5]);
   });
 
   it("spreading into the rest", function () {
-    const [...[, ...rest]] = [...[, 1, 2, 3, 4, 5]];
+    const [, ...rest] = [...[, 1, 2, 3, 4, 5]];
     expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
 
@@ -513,7 +513,7 @@ describe("spread with strings", () => {
   });
 
   it("works anywhere inside an array (must not be last)", function () {
-    const [[...letters]] = ["a", "bcd", "e", "f"];
+    const letters = ["a", "bcd", "e", "f"];
     expect(letters.length).toEqual(6);
   });
 });
@@ -559,7 +559,7 @@ describe("class creation", () => {
       wroteATest() {
         this.everWroteATest = true;
       }
-      isLazy = () => this.everWroteATest;
+      isLazy = () => !this.everWroteATest;
     }
 
     const tester = new User();
@@ -569,7 +569,7 @@ describe("class creation", () => {
   });
 
   it("anonymous class", () => {
-    const classType = typeof {};
-    //expect(classType).toBe('function');
+    const classType = typeof class {};
+    expect(classType).toBe("function");
   });
 });
