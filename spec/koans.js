@@ -580,25 +580,24 @@ describe('class creation', () => {
       }
     }
 
-    const notATester = new User();
-    expect(notATester.writesTests()).toBe(false);
-  });
+    const notATester = new User()
+    expect(notATester.writesTests()).toBe(false)
+  })
 
   it('multiple methods need no commas (opposed to object notation)', function() {
     class User {
-      wroteATest() { this.everWroteATest = true; }
+      wroteATest() { this.everWroteATest = true }
       isLazy()     { return !this.everWroteATest }
     }
 
     const tester = new User();
-    expect(tester.isLazy()).toBe(true);
-    tester.wroteATest();
-    expect(tester.isLazy()).toBe(false);
-  });
+    expect(tester.isLazy()).toBe(true)
+    tester.wroteATest()
+    expect(tester.isLazy()).toBe(false)
+  })
 
   it('anonymous class', () => {
-    const classType = typeof class {};
-    expect(classType).toBe('function');
-  });
-
-});
+    const classType = typeof class {}
+    expect(classType).toBe('function')
+  })
+})
