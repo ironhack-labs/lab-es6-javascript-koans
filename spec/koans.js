@@ -161,8 +161,8 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
     });
 
     it('multiple variables get evaluated too', function() {
-      var evaluated = `x+y`;
-      //expect(evaluated).toBe(x + '+' + y);
+      var evaluated = `${x}+${y}`;
+      expect(evaluated).toBe(x + '+' + y);
     });
 
   });
@@ -170,16 +170,16 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   describe('can evaluate any expression, wrapped inside "${...}"', function() {
 
     it('all inside "${...}" gets evaluated', function() {
-      var evaluated = Number(`x+y`);
-      //expect(evaluated).toBe(x+y);
+      var evaluated = Number(`${x+y}`);
+      expect(evaluated).toBe(x+y);
     });
 
     it('inside "${...}" can also be a function call', function() {
       function getSchool(){
         return 'Ironhack';
       }
-      var evaluated = `getSchool()`;
-      //expect(evaluated).toBe('Ironhack');
+      var evaluated = `${getSchool()}`;
+      expect(evaluated).toBe('Ironhack');
     });
 
   });
@@ -193,12 +193,12 @@ describe('The object literal allows for new shorthands. ', () => {
 
   describe('with variables', () => {
     it('the short version for `{y: y}` is {y}', () => {
-      /*.....*/
-      //expect(short).toEqual({y: y});
+      let short = {y: y};
+      expect(short).toEqual({y: y});
     });
     it('works with multiple variables too', () => {
-      /*.....*/
-      //expect(short).toEqual({x: x, y: y});
+      short = {x: x, y: y};
+      expect(short).toEqual({x: x, y: y});
     });
   });
 
@@ -207,13 +207,13 @@ describe('The object literal allows for new shorthands. ', () => {
     const func = () => func;
 
     it('using the name only uses it as key', () => {
-      /*.......*/
-      //expect(short).toEqual({func: func});
+      let short = {func: func};
+      expect(short).toEqual({func: func});
     });
 
     it('a different key must be given explicitly, just like before ES6', () => {
-      /*.......*/
-      //expect(short).toEqual({otherKey: func});
+      let short = {otherKey: func};
+      expect(short).toEqual({otherKey: func});
     });
   });
 
@@ -222,34 +222,33 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
-    let firstValue = [1];
-    //expect(firstValue).toEqual(1);
+    let [firstValue] = [1];
+    expect(firstValue).toEqual(1);
   });
 
   it('swap two variables, in one operation', () => {
     let [x, y] = ['ax', 'why'];
-    [x, y] = [x, y];
-    //expect([x, y]).toEqual(['why', 'ax']);
+    [x, y] = [y, x];
+    expect([x, y]).toEqual(['why', 'ax']);
   });
 
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
-    const [z] = all;
-    //expect(z).toEqual('zet');
+    const [, , z] = all;
+    expect(z).toEqual('zet');
   });
 
   it('extract from nested arrays', () => {
     const user = [['Some', 'One'], 23];
-    const [firstName, surname, age] = user;
-
+    const [[firstName, surname], age] = user;
     const expected = 'Some One = 23 years';
-    //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
     let c, d;
     // let a, b = c, d = [1, 2];
-    //expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
+    expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 
 });
@@ -257,13 +256,13 @@ describe('destructuring arrays makes shorter code. ', () => {
 describe('destructuring also works on strings. ', () => {
 
   it('destructure every character', () => {
-    let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
+    let [a, b, c] = 'abc';
+    expect([a, b, c]).toEqual(['a', 'b', 'c']);
   });
 
   it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    const [a, , c] = 'ab';
+    expect(c).toEqual(void 0);
   });
 });
 
@@ -271,7 +270,7 @@ describe('destructuring objects. ', () => {
 
   it('is simple', () => {
     const x = {x: 1};
-    //expect(x).toEqual(1);
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
