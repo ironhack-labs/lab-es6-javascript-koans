@@ -349,7 +349,9 @@ describe('destructuring can also have default values. ', () => {
 describe('arrow functions. ', () => {
 
   it('are shorter to write', function() {
-    let func = () => 'I am func'
+    let func = () => { 
+      return 'I am func'
+    }
      expect(func()).toBe('I am func');
   });
 
@@ -359,7 +361,7 @@ describe('arrow functions. ', () => {
   });
 
   it('one parameter can be written without parens', () => {
-   let func = () => 24
+    let func = num => num - 1
   expect(func(25)).toEqual(24)
   });
 
@@ -369,9 +371,7 @@ describe('arrow functions. ', () => {
   });
 
   it('body needs parens to return an object', () => {
-    let func = () => {
-      return {iAm: 'an object'}
-    }
+    let func = () => ({iAm: 'an object'})
     expect(func()).toEqual({iAm: 'an object'});
   });
 
@@ -379,7 +379,7 @@ describe('arrow functions. ', () => {
 
     getFunction() {
       return () => {
-        return new LexicallyBound(); /*changes might go here*/
+        return this
       };
     }
 
@@ -392,7 +392,7 @@ describe('arrow functions. ', () => {
 
     it('bound at definition time, use `=>` ', function() {
       let bound = new LexicallyBound();
-      let fn = () => bound
+      let fn = bound.getFunction()
 
       expect(fn()).toBe(bound);
     });
@@ -401,14 +401,14 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = fn
+      let expected = bound;
 
-      expect(fn.call(anotherObj)).toBe(expected)
+      expect(fn.call(anotherObj)).toBe(expected);
     });
 
     it('`arguments` doesnt work inside arrow functions', function() {
       let bound = new LexicallyBound();
-      let fn = () => ""
+      let fn = () => bound.getArgumentsFunction();
 
       expect(fn(1, 2).length).toEqual(0);
     });
