@@ -246,10 +246,8 @@ describe('destructuring arrays makes shorter code. ', () => {
   });
 
   it('chained assignments', () => { // I dont really undersand the Q
-    let a = 1
-    let b = 2
-    let c = a
-    let d = b
+    let c, d;
+    let [a, b] = [c, d] = [1, 2];
     expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 
@@ -619,19 +617,20 @@ describe('class creation', () => {
   it('multiple methods need no commas (opposed to object notation)', function() {
     class User {
       isLazy() {
-        return true
+        return this.test ? false : true
       }
       wroteATest() { 
-        return !this.isLazy()
+        return this.test = true
       }
     }
     const tester = new User();
     expect(tester.isLazy()).toBe(true);
-    expect(tester.wroteATest()).toBe(false);
+    tester.wroteATest();
+    expect(tester.isLazy()).toBe(false);
   });
 
   it('anonymous class', () => {
-    const classType = 'function';
+    const classType = typeof class {};
     
     expect(classType).toBe('function');
   });
