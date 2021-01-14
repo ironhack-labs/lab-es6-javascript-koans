@@ -403,7 +403,7 @@ describe('arrow functions. ', () => {
       let anotherObj = {};
       let expected = fn
 
-      expect(fn).toBe(expected);
+      expect(fn.call(anotherObj)).toBe(expected)
     });
 
     it('`arguments` doesnt work inside arrow functions', function() {
