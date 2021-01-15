@@ -364,7 +364,8 @@ describe('arrow functions. ', () => {
   class LexicallyBound {
     getFunction() {
       return () => {
-        return new LexicallyBound(); /*changes might go here*/
+        //return new LexicallyBound(); /*changes might go here*/£f
+        return this;
       };
     }
 
@@ -385,15 +386,11 @@ describe('arrow functions. ', () => {
     });
 
     it('can NOT bind a different context', function() {
-      // let bound = new LexicallyBound();
-      // let fn = bound.getFunction();
-      // let anotherObj = {};
-      // let expected = anotherObj; //change this
 
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
+      let expected = fn.call(anotherObj); //change this
 
       expect(fn.call(anotherObj)).toBe(expected);
     });
