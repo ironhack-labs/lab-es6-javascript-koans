@@ -491,15 +491,15 @@ describe('assign object property values to new variables while destructuring. ',
 //-----------------------------------------------------------------------------------------------
   describe('for function parameter names', function() {
     it('do it the same way, with a colon behind it', () => {
-      const fn = ({x}) => {
-       //expect(y).toEqual(1);
+      const fn = ({x: y =3}) => {
+       expect(y).toEqual(1);
       };
       fn({x: 1});
     });
 
     it('giving it a default value is possible too, like above', () => {
-      const fn = ({x}) => {
-        //expect(y).toEqual(3);
+      const fn = ({x, y=3}) => {
+        expect(y).toEqual(3);
       };
       fn({});
     });
@@ -536,16 +536,16 @@ describe('spread with arrays. ', () => {
   });
 
   it('spreading into the rest', function() {
-    const [...rest] = [...[,1, 2, 3, 4, 5]];
-    //expect(rest).toEqual([1, 2, 3, 4, 5]);
+    const [...rest] = [...[1, 2, 3, 4, 5]];
+    expect(rest).toEqual([1, 2, 3, 4, 5]);
   });
 
   describe('used as function parameter', () => {
     it('prefix with `...` to spread as function params', function() {
-      const magicNumbers = [];
+      const magicNumbers = [0,1];
       const fn = ([magicA, magicB]) => {
-        //expect(magicNumbers[0]).toEqual(magicA);
-        //expect(magicNumbers[1]).toEqual(magicB);
+        expect(magicNumbers[0]).toEqual(magicA);
+        expect(magicNumbers[1]).toEqual(magicB);
       };
       fn(magicNumbers);
     });
@@ -555,14 +555,14 @@ describe('spread with arrays. ', () => {
 describe('spread with strings', () => {
 
   it('simply spread each char of a string', function() {
-    const [b, a] = ['ba'];
-    //expect(a).toEqual('a');
-    //expect(b).toEqual('b');
+    const [b, a] = [...'ba'];
+    expect(a).toEqual('a');
+    expect(b).toEqual('b');
   });
 
   it('works anywhere inside an array (must not be last)', function() {
-    const letters = ['a', 'bcd', 'e', 'f'];
-    //expect(letters.length).toEqual(6);
+    const letters = ['a',... 'bcd', 'e', 'f'];
+    expect(letters.length).toEqual(6);
   });
 
 });
