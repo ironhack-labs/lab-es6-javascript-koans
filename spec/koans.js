@@ -8,31 +8,34 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
   describe('`let` vs. `var`.', () => {
     it('`var` works as usual, it does not restricts scope', () => {
       if (true) {
-        /*You should add your code in here*/
+        var varX = true/*You should add your code in here*/
       }
-      // expect(varX).toBe(true);
+       expect(varX).toBe(true);
     });
 
     it('`let` restricts scope to inside the block', () => {
       /*var or const? letX = false*/
+      let letX = false
       if (true) {
         /*var or const? letX = true*/
+        let letX = true
       }
-      //expect(letX).toBe(false);
+      expect(letX).toBe(false);
     });
 
     it('`var` does not restricts scope to inside the block in `for` loops', () => {
       /*var or let? counter = 100*/
-      /*for (var or let? counter = 1; counter < 50; counter++){}*/
+      var counter = 100;
+      for (var counter = 1; counter < 50; counter++){}
 
-      //expect(counter).toBe(50);
+      expect(counter).toBe(50);
     });
 
     it('`let` restricts scope to inside the block also in `for` loops', () => {
-      /*var or let? counter = 100*/
-      /*for (var or let? counter = 1; counter < 50; counter++){}*/
+      let counter = 100
+      for (let counter = 1; counter < 50; counter++){}
 
-      //expect(counter).toBe(100);
+      expect(counter).toBe(100);
     });
   });
 
@@ -42,39 +45,40 @@ describe('`const` is like `let` plus read-only. ', () => {
 
   describe('scalar values are read-only', () => {
     it('number are read-only', () => {
-      // const constNum = 0;
-      // constNum = 1;
+       const constNum = 0;
+       //constNum = 1;
 
-      //expect(constNum).toBe(0);
+      expect(constNum).toBe(0);
     });
 
     it('string are read-only', () => {
-      // const constString = "I am a const";
+      const constString = "I am a const";
       // constString = "Cant change you?";
 
-      //expect(constString).toBe("I am a const");
+      expect(constString).toBe("I am a const");
     });
 
   });
 
   /*var, let or const? notChangeable = 23;*/
+  const notChangeable = 23;
 
   it('const scope leaks too', () => {
-    //expect(notChangeable).toBe(23);
+    expect(notChangeable).toBe(23);
   });
 
   describe('complex types are NOT fully read-only', () => {
 
     it('arrays is not fully read-only', () => {
       const arr = [42, 23];
-
-      //expect(arr[0]).toBe(0);
+      arr[0] = 0
+      expect(arr[0]).toBe(0);
     });
 
     it('objects are not fully read-only', () => {
       const obj = {x: 1};
-
-      //expect(obj.x).toBe(2);
+      obj.x = 2
+      expect(obj.x).toBe(2);
     });
 
   });
@@ -85,19 +89,19 @@ describe('`string.includes()` finds string within another string. ', () => {
 
   describe('find a single character', function() {
     it('in a three char string', function() {
-      /* const searchString = ???? */
-      //expect('xyz'.includes(searchString)).toBe(true);
+       const searchString = 'y'
+      expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
-      /* const expected = ????*/;
-      //expect('xyz'.includes('abc')).toBe(expected);
+      const expected = false;
+      expect('xyz'.includes('abc')).toBe(expected);
     });
   });
 
   describe('find a string', function() {
     it('that matches exactly', function() {
-      /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+      const findSome = () => 'xyz'.includes('xyz');
+      expect(findSome('xyz')).toBe(true);
     });
   });
 
