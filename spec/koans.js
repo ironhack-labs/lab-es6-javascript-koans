@@ -405,7 +405,7 @@ describe('arrow functions. ', () => {
     }
 
     getArgumentsFunction() {
-      return function() { return arguments; }; /*or here*/
+      return function() { return (()=>{}); }; /*or here*/
     }
   }
 
@@ -422,16 +422,16 @@ describe('arrow functions. ', () => {
       let bound = new LexicallyBound();
       let fn = bound.getFunction();
       let anotherObj = {};
-      let expected = anotherObj; //change this
-
-   //   expect(fn.call(anotherObj)).toBe(expected);
+      //let expected = anotherObj; //change this
+      let expected = bound;
+      expect(fn.call(anotherObj)).toBe(expected);
     });
 
     it('`arguments` doesnt work inside arrow functions', function() {
       let bound = new LexicallyBound();
       let fn = bound.getArgumentsFunction();
 
-     // expect(fn(1, 2).length).toEqual(0);
+      expect(fn(1, 2).length).toEqual(0);
     });
 
   });
@@ -591,10 +591,10 @@ describe('class creation', () => {
   });
 
   it('class is block scoped', () => {
-    class Inside {}
+ //   class Inside {}
     { class Inside {} }
 
-   // expect(typeof Inside).toBe('undefined');
+   expect(typeof Inside).toBe('undefined');
   });
 
   it('special method is `constructor`', function() {
