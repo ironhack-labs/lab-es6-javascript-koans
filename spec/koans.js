@@ -686,7 +686,7 @@ describe('class creation', () => {
       wroteATest() {
         this.everWroteATest = true;
       }
-      isLazy() {}
+      isLazy() {return this.everWroteATest ? false : true;}
     }
 
     const tester = new User();
