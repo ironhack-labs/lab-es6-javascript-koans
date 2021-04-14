@@ -24,7 +24,7 @@ We are going to test the code assertions through Jasmine. Here we have introduce
 
 ## Testing
 
-When we are coding, we have to be sure that our code is working as we expect. More than that, when we update our existing code, we have to be 100% sure that the old one is still working. As our website becomes larger, it becomes more difficult to check that all our features are working as we expect. How can we automatize this process? The answer is with **testing**.
+When we are coding, w e have to be sure that our code is working as we expect. More than that, when we update our existing code, we have to be 100% sure that the old oneis still working. As our website becomes larger, it becomes more difficult to check that all our features are working as we expect. How can we automatize this process? The answer is with **testing**.
 
 
 ## Requirements
