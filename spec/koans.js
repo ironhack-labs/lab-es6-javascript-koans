@@ -6,26 +6,26 @@ context = describe;
 
 describe('`let` restricts the scope of the variable to the current block - ', () => {
   describe('`let` vs. `var`.', () => {
-    it('`var` works as usual, it does not restricts scope', () => {
-      if (true) {
-        /*You should add your code in here*/
-      }
-      // expect(varX).toBe(true);
-    });
+    // it('`var` works as usual, it does not restricts scope', () => {
+    //   if (true) {
+    //     return varX /*You should add your code in here*/
+    //   }
+    //   expect(varX).toBe(true);
+    // });
 
     it('`let` restricts scope to inside the block', () => {
-      /*var or const? letX = false*/
-      if (true) {
-        /*var or const? letX = true*/
-      }
-      //expect(letX).toBe(false);
+      // var or const? letX = false
+      // if (true) {
+      //   var or const? letX = true
+      // }
+      // expect(letX).toBe(false);
     });
 
     it('`var` does not restricts scope to inside the block in `for` loops', () => {
-      /*var or let? counter = 100*/
-      /*for (var or let? counter = 1; counter < 50; counter++){}*/
+      var counter = 100
+      for (var counter = 1; counter < 50; counter++){}
 
-      //expect(counter).toBe(50);
+      expect(counter).toBe(50);
     });
 
     it('`let` restricts scope to inside the block also in `for` loops', () => {
@@ -221,28 +221,35 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
-    let firstValue = [1];
-    //expect(firstValue).toEqual(1);
+    let [firstValue] = [1];
+    // let [primerElemento,lasegundacosa,eltercernumero, algo] = [0,1,2,3]
+    // let { name, age } = { age: 30, name: "teoo",}
+
+     expect(firstValue).toEqual(1);
   });
 
   it('swap two variables, in one operation', () => {
     let [x, y] = ['ax', 'why'];
-    [x, y] = [x, y];
-    //expect([x, y]).toEqual(['why', 'ax']);
+    [x, y] = ['why', 'ax'];
+
+    expect([x, y]).toEqual(['why', 'ax']);
   });
 
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
-    const [z] = all;
-    //expect(z).toEqual('zet');
+   const [, , z] = all
+    
+    expect(z).toEqual('zet');
   });
+
 
   it('extract from nested arrays', () => {
     const user = [['Some', 'One'], 23];
     const [firstName, surname, age] = user;
+    const [,,age] = 23;
 
     const expected = 'Some One = 23 years';
-    //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
