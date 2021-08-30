@@ -145,8 +145,8 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
 
   describe('by default, behaves like a normal string', function() {
     it('just surrounded by backticks', function() {
-      /*let str = ??????*/
-      //expect(str).toEqual('like a string');
+      let str = `like a string`;
+      expect(str).toEqual('like a string');
     });
 
   });
@@ -157,13 +157,13 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   describe('can evaluate variables, which are wrapped in "${" and "}"', function() {
 
     it('e.g. a simple variable "${x}" just gets evaluated', function() {
-      let evaluated = `x=x`
-      //expect(evaluated).toBe('x=' + x);
+      let evaluated = `x=${x}`
+      expect(evaluated).toBe('x=' + x);
     });
 
     it('multiple variables get evaluated too', function() {
-      var evaluated = `x+y`;
-      //expect(evaluated).toBe(x + '+' + y);
+      var evaluated = `${x}+${y}`;
+      expect(evaluated).toBe(x + '+' + y);
     });
 
   });
@@ -171,16 +171,16 @@ describe('a template string, is wrapped in ` (backticks) instead of \' or ". ', 
   describe('can evaluate any expression, wrapped inside "${...}"', function() {
 
     it('all inside "${...}" gets evaluated', function() {
-      var evaluated = Number(`x+y`);
-      //expect(evaluated).toBe(x+y);
+      var evaluated = Number(`${x+y}`);
+      expect(evaluated).toBe(x+y);
     });
 
     it('inside "${...}" can also be a function call', function() {
       function getSchool(){
         return 'Ironhack';
       }
-      var evaluated = `getSchool()`;
-      //expect(evaluated).toBe('Ironhack');
+      var evaluated = `${getSchool()}`;
+      expect(evaluated).toBe('Ironhack');
     });
 
   });
@@ -194,12 +194,12 @@ describe('The object literal allows for new shorthands. ', () => {
 
   describe('with variables', () => {
     it('the short version for `{y: y}` is {y}', () => {
-      /*.....*/
-      //expect(short).toEqual({y: y});
+      const short = {y};
+      expect(short).toEqual({y: y});
     });
     it('works with multiple variables too', () => {
-      /*.....*/
-      //expect(short).toEqual({x: x, y: y});
+      const short = {x, y};
+      expect(short).toEqual({x: x, y: y});
     });
   });
 
@@ -208,13 +208,13 @@ describe('The object literal allows for new shorthands. ', () => {
     const func = () => func;
 
     it('using the name only uses it as key', () => {
-      /*.......*/
-      //expect(short).toEqual({func: func});
+      const short = {func};
+      expect(short).toEqual({func: func});
     });
 
     it('a different key must be given explicitly, just like before ES6', () => {
-      /*.......*/
-      //expect(short).toEqual({otherKey: func});
+      const short = {otherKey: func};
+      expect(short).toEqual({otherKey: func});
     });
   });
 
@@ -223,34 +223,34 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
-    let firstValue = [1];
-    //expect(firstValue).toEqual(1);
+    let [firstValue] = [1];
+    expect(firstValue).toEqual(1);
   });
 
   it('swap two variables, in one operation', () => {
     let [x, y] = ['ax', 'why'];
-    [x, y] = [x, y];
-    //expect([x, y]).toEqual(['why', 'ax']);
+    [x, y] = [y, x];
+    expect([x, y]).toEqual(['why', 'ax']);
   });
 
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
-    const [z] = all;
-    //expect(z).toEqual('zet');
+    const [, , z] = all;
+    expect(z).toEqual('zet');
   });
 
   it('extract from nested arrays', () => {
     const user = [['Some', 'One'], 23];
     const [firstName, surname, age] = user;
 
-    const expected = 'Some One = 23 years';
-    //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+    const expected = `${firstName} ${surname} = ${age} years`;
+    expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
     let c, d;
-    // let a, b = c, d = [1, 2];
-    //expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
+     let [a, b] = [c, d] = [1, 2];
+    expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 
 });
@@ -258,43 +258,44 @@ describe('destructuring arrays makes shorter code. ', () => {
 describe('destructuring also works on strings. ', () => {
 
   it('destructure every character', () => {
-    let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
+    let [a, b, c] = 'abc';
+    //a, b, c = [...a, b, c]
+    expect([a, b, c]).toEqual(['a', 'b', 'c']);
   });
 
   it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    const [a, b, c] = 'ab';
+    expect(c).toEqual(void 0);
   });
 });
 
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const x = {x: 1};
-    //expect(x).toEqual(1);
+    const {x} = {x: 1};
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {
     it('multiple objects', () => {
       const magic = {first: 23, second: 42};
-      /*const first, second  = ??????*/
-      //expect(second).toEqual(42);
+      const {first, second} = magic;
+      expect(second).toEqual(42);
     });
     it('object and array', () => {
       const {z:x} = {z: [23, 42]};
       //expect(x).toEqual(42);
     });
     it('array and object', () => {
-      const lang = [null, [{env: 'browser', lang: 'ES6'}]];
-      //expect(lang).toEqual('ES6');
+      const [,[{lang}]] = [null, [{env: 'browser', lang: 'ES6'}]];
+      expect(lang).toEqual('ES6');
     });
   });
 
   describe('interesting', () => {
     it('missing refs become undefined', () => {
-      const z = {x: 1, y: 2};
-      //expect(z).toEqual(void 0);
+      const {z} = {x: 1, y: 2};
+      expect(z).toEqual(void 0);
     });
   });
 
@@ -303,29 +304,29 @@ describe('destructuring objects. ', () => {
 describe('destructuring can also have default values. ', () => {
 
   it('for an empty array', () => {
-    const [a] = [];
-    //expect(a).toEqual(1)
+    const [a = 1] = [];
+    expect(a).toEqual(1)
   });
 
   it('for a missing value', () => {
-    const [a,b,c] = [1,,3];
-    //expect(b).toEqual(2);
+    const [a,b = 2,c] = [1,,3];
+    expect(b).toEqual(2);
   });
 
   it('in an object', () => {
-    const [a, b] = [{a: 1}];
-    //expect(b).toEqual(2);
+    const [a, b = 2] = [{a: 1}];
+    expect(b).toEqual(2);
   });
 
   it('if the value is undefined', () => {
-    const {a, b} = {a: 1, b: void 0};
-    //expect(b).toEqual(2);
+    const {a, b = 2} = {a: 1, b: void 0};
+    expect(b).toEqual(2);
   });
 
   it('also a string works with defaults', () => {
-    const [a, b] = '1';
-    //expect(a).toEqual('1');
-    // expect(b).toEqual(2);
+    const [a, b = 2] = '1';
+    expect(a).toEqual('1');
+     expect(b).toEqual(2);
   });
 
 });
