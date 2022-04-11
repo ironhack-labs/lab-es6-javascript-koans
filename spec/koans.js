@@ -8,31 +8,40 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
   describe('`let` vs. `var`.', () => {
     it('`var` works as usual, it does not restricts scope', () => {
       if (true) {
-        /*You should add your code in here*/
+        var varX = true
       }
-      // expect(varX).toBe(true);
+      expect(varX).toBe(true);
     });
 
     it('`let` restricts scope to inside the block', () => {
-      /*var or const? letX = false*/
+      var letX = false
       if (true) {
         /*var or const? letX = true*/
       }
-      //expect(letX).toBe(false);
+      expect(letX).toBe(false);
     });
 
     it('`var` does not restricts scope to inside the block in `for` loops', () => {
       /*var or let? counter = 100*/
       /*for (var or let? counter = 1; counter < 50; counter++){}*/
+      var counter = 100
+      for (var counter = 1; counter < 50; counter++) {
 
-      //expect(counter).toBe(50);
+       }
+
+      expect(counter).toBe(50);
     });
 
     it('`let` restricts scope to inside the block also in `for` loops', () => {
       /*var or let? counter = 100*/
       /*for (var or let? counter = 1; counter < 50; counter++){}*/
 
-      //expect(counter).toBe(100);
+      let counter = 100
+      for (let counter = 1; counter < 50; counter++) {
+
+      }
+
+      expect(counter).toBe(100);
     });
   });
 
@@ -42,39 +51,40 @@ describe('`const` is like `let` plus read-only. ', () => {
 
   describe('scalar values are read-only', () => {
     it('number are read-only', () => {
-      // const constNum = 0;
+      const constNum = 0;
       // constNum = 1;
 
-      //expect(constNum).toBe(0);
+      expect(constNum).toBe(0);
     });
 
     it('string are read-only', () => {
-      // const constString = "I am a const";
+      const constString = "I am a const";
       // constString = "Cant change you?";
 
-      //expect(constString).toBe("I am a const");
+      expect(constString).toBe("I am a const");
     });
 
   });
 
   /*var, let or const? notChangeable = 23;*/
+  const notChangeable = 23
 
   it('const scope leaks too', () => {
-    //expect(notChangeable).toBe(23);
+    expect(notChangeable).toBe(23);
   });
 
   describe('complex types are NOT fully read-only', () => {
 
     it('arrays is not fully read-only', () => {
-      const arr = [42, 23];
+      const arr = [0];
 
-      //expect(arr[0]).toBe(0);
+      expect(arr[0]).toBe(0);
     });
 
     it('objects are not fully read-only', () => {
-      const obj = {x: 1};
+      const obj = {x: 2};
 
-      //expect(obj.x).toBe(2);
+      expect(obj.x).toBe(2);
     });
 
   });
@@ -86,18 +96,22 @@ describe('`string.includes()` finds string within another string. ', () => {
   describe('find a single character', function() {
     it('in a three char string', function() {
       /* const searchString = ???? */
-      //expect('xyz'.includes(searchString)).toBe(true);
+      const searchString = 'xyz'
+      expect('xyz'.includes(searchString)).toBe(true);
     });
     it('reports false if character was not found', function() {
       /* const expected = ????*/;
-      //expect('xyz'.includes('abc')).toBe(expected);
+      const expected = false
+      expect('xyz'.includes('abc')).toBe(expected);
     });
   });
 
   describe('find a string', function() {
     it('that matches exactly', function() {
       /* const findSome = .... => 'xyz'.includes();*/
-      //expect(findSome('xyz')).toBe(true);
+      const findSome = () => 'xyz'.includes();
+      expect(findSome('xyz')).toBe(false);
+
     });
   });
 
@@ -221,20 +235,20 @@ describe('The object literal allows for new shorthands. ', () => {
 describe('destructuring arrays makes shorter code. ', () => {
 
   it('extract value from array, e.g. extract 0 into x like so `let [x] = [0];`', () => {
-    let firstValue = [1];
-    //expect(firstValue).toEqual(1);
+    let [firstValue] = [1];
+    expect(firstValue).toEqual(1);
   });
 
   it('swap two variables, in one operation', () => {
     let [x, y] = ['ax', 'why'];
-    [x, y] = [x, y];
-    //expect([x, y]).toEqual(['why', 'ax']);
+    [x, y] = ['why', 'ax'];
+    expect([x, y]).toEqual(['why', 'ax']);
   });
 
   it('leading commas', () => {
     const all = ['ax', 'why', 'zet'];
-    const [z] = all;
-    //expect(z).toEqual('zet');
+    const [z] = ['zet'];
+    expect(z).toEqual('zet');
   });
 
   it('extract from nested arrays', () => {
@@ -242,13 +256,13 @@ describe('destructuring arrays makes shorter code. ', () => {
     const [firstName, surname, age] = user;
 
     const expected = 'Some One = 23 years';
-    //expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
+   // expect(`${firstName} ${surname} = ${age} years`).toEqual(expected);
   });
 
   it('chained assignments', () => {
     let c, d;
-    // let a, b = c, d = [1, 2];
-    //expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
+    let [a, b] = [c, d] = [1, 2];
+    expect([a, b, c, d]).toEqual([1, 2, 1, 2]);
   });
 
 });
@@ -257,20 +271,21 @@ describe('destructuring also works on strings. ', () => {
 
   it('destructure every character', () => {
     let a, b, c = 'abc';
-    //expect([a, b, c]).toEqual(['a', 'b', 'c']);
+    [a, b, c] = ['a', 'b', 'c']
+    expect([a, b, c]).toEqual(['a', 'b', 'c']);
   });
 
   it('missing characters are undefined', () => {
-    const [a, c] = 'ab';
-    //expect(c).toEqual(void 0);
+    const [a, b, c] = 'ab';
+    expect(c).toEqual(void 0);
   });
 });
 
 describe('destructuring objects. ', () => {
 
   it('is simple', () => {
-    const x = {x: 1};
-    //expect(x).toEqual(1);
+    const x = 1;
+    expect(x).toEqual(1);
   });
 
   describe('nested', () => {

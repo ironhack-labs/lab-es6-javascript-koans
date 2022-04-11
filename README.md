@@ -55,6 +55,7 @@ All the tests are located inside the `spec` folder. Open the `koans.js` file and
 it('`var` works as usual, it does not restricts scope', () => {
   if (true) {
     /*You should add your code in here*/
+    var varX = true
   }
   expect(varX).toBe(true);
 });
