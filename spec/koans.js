@@ -85,12 +85,12 @@ describe("`string.includes()` finds string within another string. ", () => {
   describe("find a single character", function () {
     it("in a three char string", function () {
       /* const searchString = ???? */
-      const searchString = "y";
+      const searchString = "y"; // THAT SIMPLE??
       expect("xyz".includes(searchString)).toBe(true);
     });
     it("reports false if character was not found", function () {
       /* const expected = ????*/
-      const expected = false;
+      const expected = false; // NOT SURE IF THAT'S THE EXPECTED SOLUTION
       expect("xyz".includes("abc")).toBe(expected);
     });
   });
@@ -104,14 +104,16 @@ describe("`string.includes()` finds string within another string. ", () => {
   });
 
   describe("search for an empty string, is always true", function () {
-    it("in an empty string", function () {
+    it("in an empty string", function (x = "") {
+      // IS THIS THE EXPECTED SOLUTION?
       /* .... */
-      const x = ""; // NOT SURE IF THATS THE EXPECTED SOLUTION
+      // const x = ""; // ANOTHER WAY THAT'LL MAKE THE TEST PASS AS WELL
       expect("".includes(x)).toBe(true);
     });
-    it("in `abc`", function () {
+    it("in `abc`", function (x = "") {
+      // IS THIS THE EXPECTED SOLUTION?
       /* .... */
-      const x = ""; // NOT SURE IF THATS THE EXPECTED SOLUTION
+      // const x = ""; // ANOTHER WAY THAT'LL MAKE THE TEST PASS AS WELL
       expect("abc".includes(x)).toBe(true);
     });
   });
@@ -216,7 +218,7 @@ describe("The object literal allows for new shorthands. ", () => {
 
     it("a different key must be given explicitly, just like before ES6", () => {
       /*.......*/
-      const short = { otherKey: func }; // CORRECT SOLUTION??
+      const short = { otherKey: func };
       expect(short).toEqual({ otherKey: func });
     });
   });
@@ -230,7 +232,7 @@ describe("destructuring arrays makes shorter code. ", () => {
 
   it("swap two variables, in one operation", () => {
     let [x, y] = ["ax", "why"];
-    [y, x] = [x, y]; // JUST SWAPPING?
+    [y, x] = [x, y];
     expect([x, y]).toEqual(["why", "ax"]);
   });
 
@@ -263,7 +265,7 @@ describe("destructuring also works on strings. ", () => {
   });
 
   it("missing characters are undefined", () => {
-    const [a, b, c] = "ab"; // EXPECTED b TO EQUAL UNDEFINED??
+    const [a, b, c] = "ab";
     expect(c).toEqual(void 0);
   });
 });
@@ -435,7 +437,7 @@ describe("destructuring function parameters. ", () => {
 
   describe("default values", () => {
     it("for simple values", () => {
-      const fn = (id, name = "Bob") => {
+      const fn = (id = 23, name = "Bob") => {
         expect(id).toEqual(23);
         expect(name).toEqual("Bob");
       };
@@ -543,7 +545,7 @@ describe("spread with strings", () => {
   });
 
   it("works anywhere inside an array (must not be last)", function () {
-    const letters = ["a", "bcd", "e", "f"]; // HAD SOME TROUBLE WITH THIS ONE
+    const letters = ["a", ..."bcd", "e", "f"]; // HAD SOME TROUBLE WITH THIS ONE, because wasn't sure if we were supposed to do the spread in this position
     expect(letters.length).toEqual(6);
   });
 });
