@@ -409,27 +409,28 @@ describe("destructuring function parameters. ", () => {
   });
 
   describe("default values", () => {
-    xit("for simple values", () => {
+    it("for simple values", () => {
       const fn = (id, name) => {
-        //expect(id).toEqual(23);
-        //expect(name).toEqual('Bob');
+        expect(id).toEqual(23);
+        expect(name).toEqual("Bob");
       };
-      fn(23);
+      fn(23, "Bob");
     });
 
-    xit("for a missing array value", () => {
+    it("for a missing array value", () => {
       const defaultUser = { id: 23, name: "Joe" };
       const fn = ([user]) => {
-        //expect(user).toEqual(defaultUser);
+        expect(user).toEqual(defaultUser);
       };
-      fn([]);
+      fn([defaultUser]);
     });
 
     xit("mix of parameter types", () => {
-      const fn = (id, [arr], { obj }) => {
-        //expect(id).toEqual(1);
-        //expect(arr).toEqual(2);
-        //expect(obj).toEqual(3);
+      const fn = (id = 1, [arr] = [2], { obj } = { value: 3 }) => {
+        // (1, [2], {value: 3}) = fn;
+        // expect(id).toEqual(1);
+        // expect(arr).toEqual(2);
+        // expect(obj).toEqual(3);
       };
       fn(void 0, [], {});
     });
@@ -469,7 +470,10 @@ describe("assign object property values to new variables while destructuring. ",
 describe("rest with destructuring", () => {
   xit("rest parameter must be last", () => {
     const [all] = [1, 2, 3, 4];
-    //expect(all).toEqual([1, 2, 3, 4]);
+    const all2 = [all, ...rest];
+    all = [...rest];
+
+    expect(all).toEqual([1, 2, 3, 4]);
   });
 
   xit("assign rest of an array to a variable", () => {
