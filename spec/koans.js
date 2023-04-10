@@ -27,6 +27,7 @@ describe('`let` restricts the scope of the variable to the current block - ', ()
 
       //expect(counter).toBe(50);
     });
+    
 
     it('`let` restricts scope to inside the block also in `for` loops', () => {
       /*var or let? counter = 100*/
